@@ -1,47 +1,145 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import NavBar from '../components/NavBar'
-import IconButton from '../components/IconButton'
 import TypingAnimation from '../components/TypingAnimation'
 import ContactModal from '../components/ContactModal'
 import { projects } from '../data/projects'
+import { workExperience } from '../data/experience'
 import './Home.css'
+
+// Images from Figma export - place these in /public/assets/
+const image1 = '/assets/image-1.png'
+const image2 = '/assets/image-2.png'
+const stethoscopeImg = '/assets/chatgpt-image-jan-16-2026-at-10-42-50-PM-1.png'
+const resumeImg = '/assets/chatgpt-image-jan-16-2026-at-10-38-42-PM-1.png'
+const soccerImg = '/assets/chatgpt-image-jan-16-2026-at-10-52-26-PM-1.png'
+const envelopeImg = '/assets/chatgpt-image-jan-16-2026-at-10-46-44-PM-1.png'
+const vector4 = '/assets/vector-4.svg'
+const vector5 = '/assets/vector-5.svg'
+const vector6 = '/assets/vector-6.svg'
 
 const Home = () => {
   const [isContactOpen, setIsContactOpen] = useState(false)
   const [isNavExpanded, setIsNavExpanded] = useState(false)
+  const [hoveredIcon, setHoveredIcon] = useState(null)
+  const navigate = useNavigate()
 
-  const iconButtons = [
-    { icon: '🩺', label: 'About Me', path: '/about', delay: 0.2 },
-    { icon: '💻', label: 'Projects', path: '/projects', delay: 0.3 },
-    { icon: '✉️', label: 'Contact', onClick: () => setIsContactOpen(true), delay: 0.4 },
-    { icon: '📄', label: 'Resume', path: '/resume', delay: 0.5 },
-    { icon: '⚽', label: 'Charities', path: '/charity', delay: 0.6 }
+  const iconConfigs = [
+    { 
+      id: 'stethoscope',
+      label: 'About Me', 
+      path: '/about',
+      position: { top: '132px', left: '0px' },
+      size: { width: '517px', height: '359px' },
+      image: stethoscopeImg
+    },
+    { 
+      id: 'resume',
+      label: 'Resume', 
+      path: '/resume',
+      position: { top: '0px', left: '1052px' },
+      size: { width: '460px', height: '385px' },
+      image: resumeImg
+    },
+    { 
+      id: 'envelope',
+      label: 'Contact', 
+      onClick: () => setIsContactOpen(true),
+      position: { top: '560px', left: '440px' },
+      size: { width: '632px', height: '422px' },
+      image: envelopeImg
+    },
+    { 
+      id: 'soccer',
+      label: 'Charities', 
+      path: '/charity',
+      position: { top: '454px', left: '967px' },
+      size: { width: '545px', height: '528px' },
+      image: soccerImg
+    },
+    { 
+      id: 'laptop',
+      label: 'Projects', 
+      path: '/projects',
+      position: { top: '432px', left: '0px' },
+      size: { width: '568px', height: '550px' },
+      image: image1
+    }
   ]
 
-  const featuredProjects = projects.featured.slice(0, 3)
+  // Get featured projects (2 from projects + 1 from work experience = 3 total)
+  const featuredProjectsData = [
+    ...projects.featured.slice(0, 2),
+    ...(workExperience.length > 0 ? [{
+      id: 'exp-1',
+      title: workExperience[0].title + ' at ' + workExperience[0].company,
+      description: workExperience[0].description,
+      tech: [],
+      linkTo: '/resume'
+    }] : projects.featured.slice(2, 3))
+  ].slice(0, 3)
+
+  const handleIconClick = (config) => {
+    if (config.onClick) {
+      config.onClick()
+    } else if (config.path) {
+      navigate(config.path)
+    }
+  }
+
+  const handleFeaturedClick = (project) => {
+    if (project.linkTo) {
+      navigate(project.linkTo)
+    }
+  }
 
   return (
     <div className="home-page">
       <NavBar />
       
-      {/* Top Section - Notebook Background */}
-      <section className="home-hero">
-        <div className="notebook-background" />
-        
-        {/* Animated Name */}
-        <motion.h1 
-          className="home-title"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+      {/* Hero Section - Exact Figma Layout */}
+      <section className="home-hero-figma">
+        {/* Main background image */}
+        <img
+          className="hero-background"
+          alt="Background"
+          src={image2}
+        />
+
+        {/* Arabic text - top-left with exact Figma positioning */}
+        <motion.div
+          className="arabic-text-figma"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <AnimatedName text="Hala Alzureiqi" />
+          هلا
+        </motion.div>
+
+        {/* Main Title "Hala" - exact Figma positioning */}
+        <motion.h1 
+          className="home-title-hala"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          <AnimatedName text="Hala" />
         </motion.h1>
 
-        {/* Click on Object Text */}
+        {/* Last Name "Alzureiqi" - exact Figma positioning */}
+        <motion.h1 
+          className="home-title-alzureiqi"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.6 }}
+        >
+          <AnimatedName text="Alzureiqi" />
+        </motion.h1>
+
+        {/* Click on Object Text - exact Figma positioning */}
         <motion.div
-          className="click-prompt"
+          className="click-prompt-figma"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.8 }}
@@ -59,57 +157,79 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
             >
-              {iconButtons.map((btn) => (
+              {iconConfigs.map((config) => (
                 <button
-                  key={btn.label}
+                  key={config.id}
                   onClick={() => {
                     setIsNavExpanded(false)
-                    if (btn.onClick) btn.onClick()
+                    handleIconClick(config)
                   }}
                   className="mini-nav-item"
                 >
-                  {btn.icon} {btn.label}
+                  {config.label}
                 </button>
               ))}
             </motion.div>
           )}
         </motion.div>
 
-        {/* Icon Buttons Grid */}
-        <div className="icon-buttons-grid">
-          {iconButtons.map((btn, index) => (
-            <IconButton
-              key={btn.label}
-              icon={btn.icon}
-              label={btn.label}
-              path={btn.path}
-              onClick={btn.onClick}
-              delay={btn.delay}
+        {/* Icon Stickers - Exact Figma positioning with absolute placement */}
+        {iconConfigs.map((config, index) => (
+          <motion.div
+            key={config.id}
+            className={`icon-sticker-figma ${config.id} ${hoveredIcon === config.id ? 'hovered' : ''}`}
+            style={{
+              position: 'absolute',
+              ...config.position,
+              ...config.size,
+              zIndex: 10,
+              cursor: 'pointer'
+            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1,
+            }}
+            transition={{ 
+              delay: 1.2 + (index * 0.1), 
+              duration: 0.5 
+            }}
+            onHoverStart={() => setHoveredIcon(config.id)}
+            onHoverEnd={() => setHoveredIcon(null)}
+            onClick={() => handleIconClick(config)}
+            whileHover={{ scale: 1.05 }}
+          >
+            <img 
+              src={config.image} 
+              alt={config.label}
+              className="sticker-image-figma"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
-          ))}
-        </div>
-
-        {/* Decorative Elements */}
-        <div className="decorative-elements">
-          <div className="decor-element decor-1">🧪</div>
-          <div className="decor-element decor-2">📊</div>
-          <div className="decor-element decor-3">🔬</div>
-        </div>
+            {hoveredIcon === config.id && (
+              <motion.div
+                className="icon-label-pill"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+              >
+                {config.label}
+              </motion.div>
+            )}
+          </motion.div>
+        ))}
       </section>
 
-      {/* Purple Divider */}
-      <div className="purple-divider">
-        <svg viewBox="0 0 1200 100" preserveAspectRatio="none">
-          <path
-            d="M0,0 C300,80 600,20 900,50 C1000,60 1100,40 1200,60 L1200,100 L0,100 Z"
-            fill="#9B7EDE"
-          />
-        </svg>
-      </div>
+      {/* Purple Section - Starting at 982px from top */}
+      <section className="home-bottom-figma">
+        {/* Decorative Vectors */}
+        <div className="purple-decorative-vectors">
+          <img src={vector6} alt="Vector" className="vector vector-6" />
+          <img src={vector5} alt="Vector" className="vector vector-5" />
+          <img src={vector4} alt="Vector" className="vector vector-4" />
+        </div>
 
-      {/* Bottom Section - Purple Background */}
-      <section className="home-bottom">
-        <div className="bottom-content">
+
+        <div className="bottom-content-figma">
           <motion.h2
             className="greeting"
             initial={{ opacity: 0, x: -50 }}
@@ -122,44 +242,60 @@ const Home = () => {
 
           <TypingAnimation />
 
-          <div className="flower-decorations">
-            <div className="flower flower-1">🌸</div>
-            <div className="flower flower-2">🌸</div>
-            <div className="flower flower-3">🌸</div>
-          </div>
-        </div>
+          {/* Blurb Section - Normal writing style */}
+          <motion.div
+            className="blurb-section"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <p className="blurb-text">
+              I'm a biomedical designer and researcher passionate about creating innovative healthcare solutions. 
+              Through my work, I bridge the gap between technology and medicine to improve patient outcomes and 
+              make healthcare more accessible to underserved communities.
+            </p>
+          </motion.div>
 
-        {/* Featured Work Section */}
-        <motion.div
-          className="featured-section"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <h3 className="featured-title">Featured Work</h3>
-          <div className="featured-grid">
-            {featuredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="featured-card"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2, duration: 0.5 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-              >
-                <h4 className="featured-card-title">{project.title}</h4>
-                <p className="featured-card-desc">{project.description}</p>
-                <div className="featured-tech-tags">
-                  {project.tech.map((tech, i) => (
-                    <span key={i} className="tech-tag">{tech}</span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+          {/* Space for external flowers */}
+          <div className="flower-space">
+            {/* Add your flower images here */}
           </div>
-        </motion.div>
+
+          {/* Featured Work Section */}
+          <motion.div
+            className="featured-section"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <h3 className="featured-title">Featured</h3>
+            <div className="featured-grid">
+              {featuredProjectsData.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  className="featured-card"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2, duration: 0.5 }}
+                  whileHover={{ scale: 1.02, y: -3 }}
+                  onClick={() => handleFeaturedClick(project)}
+                  style={{ cursor: project.linkTo ? 'pointer' : 'default' }}
+                >
+                  <h4 className="featured-card-title">{project.title}</h4>
+                  <p className="featured-card-desc">{project.description}</p>
+                  <div className="featured-tech-tags">
+                    {project.tech.map((tech, i) => (
+                      <span key={i} className="tech-tag">{tech}</span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
@@ -167,7 +303,7 @@ const Home = () => {
   )
 }
 
-// Animated Name Component (like tul8te.com)
+// Animated Name Component (continuous writing animation - less shaky)
 const AnimatedName = ({ text }) => {
   return (
     <span className="animated-name">
@@ -175,12 +311,12 @@ const AnimatedName = ({ text }) => {
         <motion.span
           key={index}
           className="name-char"
-          initial={{ opacity: 0, pathLength: 0 }}
-          animate={{ opacity: 1, pathLength: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{
-            duration: 0.5,
-            delay: index * 0.1,
-            ease: 'easeInOut'
+            duration: 0.2,
+            delay: index * 0.03,
+            ease: 'easeOut'
           }}
           style={{ display: 'inline-block' }}
         >

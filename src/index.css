@@ -5,9 +5,9 @@
 }
 
 :root {
-  --purple-primary: #9B7EDE;
-  --purple-dark: #7B5FBE;
-  --purple-light: #C4B5E8;
+  --purple-primary: #8F6E9D;
+  --purple-dark: #7B528B;
+  --purple-light: #f5e6ff;
   --cream: #F5F1E8;
   --notebook-blue: #E3F2FD;
   --white: #FFFFFF;
@@ -16,7 +16,7 @@
 }
 
 body {
-  font-family: 'Kalam', cursive;
+  font-family: 'ADLaM Display', cursive;
   background: var(--cream);
   color: var(--text-dark);
   overflow-x: hidden;

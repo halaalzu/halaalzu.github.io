@@ -25,7 +25,7 @@ const Charity = () => {
           delay: 0.5
         }}
       >
-        ⚽
+        <img src="/assets/soccer-ball.png" alt="Soccer Ball" className="soccer-ball-img" />
       </motion.div>
 
       <motion.div

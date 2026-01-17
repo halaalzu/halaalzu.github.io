@@ -12,8 +12,8 @@
   right: 0;
   bottom: 0;
   background-image: 
-    linear-gradient(rgba(227, 242, 253, 0.3) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(227, 242, 253, 0.3) 1px, transparent 1px);
+    linear-gradient(rgba(227, 242, 253, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(227, 242, 253, 0.2) 1px, transparent 1px);
   background-size: 30px 30px;
   background-color: var(--notebook-blue);
   z-index: 0;
@@ -41,7 +41,7 @@
   font-weight: 700;
   color: var(--purple-dark);
   margin: 0;
-  font-family: 'Kalam', cursive;
+  font-family: 'Chewy', cursive;
 }
 
 .download-btn {
@@ -53,7 +53,7 @@
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
-  font-family: 'Kalam', cursive;
+  font-family: 'Chewy', cursive;
   box-shadow: 0 8px 20px rgba(155, 126, 222, 0.3);
   transition: all 0.3s ease;
   border: 3px solid var(--purple-dark);

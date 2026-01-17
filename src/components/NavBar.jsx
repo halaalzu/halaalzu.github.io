@@ -18,10 +18,10 @@ const NavBar = () => {
   }, [])
 
   const navItems = [
-    { path: '/about', label: 'About Me', icon: '🩺' },
-    { path: '/projects', label: 'Projects', icon: '💻' },
-    { path: '/resume', label: 'Resume', icon: '📄' },
-    { path: '/charity', label: 'Charities', icon: '⚽' }
+    { path: '/about', label: 'About Me' },
+    { path: '/projects', label: 'Projects' },
+    { path: '/resume', label: 'Experience' },
+    { path: '/charity', label: 'Charities' }
   ]
 
   return (
@@ -33,8 +33,8 @@ const NavBar = () => {
       onMouseEnter={() => !isHome && setIsExpanded(true)}
       onMouseLeave={() => !isHome && setIsExpanded(false)}
     >
-      <Link to="/" className="nav-home-link">
-        <span className="nav-arabic">هلا</span>
+      <Link to="/" className="nav-home-link-hala">
+        <span className="nav-hala-purple">Hala</span>
       </Link>
       
       {!isHome && (
@@ -53,7 +53,6 @@ const NavBar = () => {
                     to={item.path}
                     className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
                   >
-                    <span className="nav-icon">{item.icon}</span>
                     {item.label}
                   </Link>
                 </li>

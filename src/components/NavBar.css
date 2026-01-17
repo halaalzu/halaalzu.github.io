@@ -2,35 +2,32 @@
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 1000;
+  z-index: 2000;
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.nav-home-link {
+.nav-home-link-hala {
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: var(--purple-primary);
-  border-radius: 50%;
-  box-shadow: 0 4px 15px var(--shadow);
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.nav-home-link:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(155, 126, 222, 0.4);
+.nav-home-link-hala:hover {
+  transform: scale(1.05);
 }
 
-.nav-arabic {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--white);
-  font-family: 'Kalam', cursive;
+.nav-hala-purple {
+  font-size: 36px;
+  font-weight: normal;
+  color: #7B528B;
+  font-family: 'Chewy', cursive;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 .nav-items {
@@ -55,6 +52,7 @@
   font-size: 14px;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px var(--shadow);
+  font-family: 'ADLaM Display', cursive;
 }
 
 .nav-link:hover {

@@ -13,8 +13,8 @@
   right: 0;
   bottom: 0;
   background-image: 
-    linear-gradient(rgba(227, 242, 253, 0.3) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(227, 242, 253, 0.3) 1px, transparent 1px);
+    linear-gradient(rgba(227, 242, 253, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(227, 242, 253, 0.2) 1px, transparent 1px);
   background-size: 30px 30px;
   background-color: var(--notebook-blue);
   z-index: 0;
@@ -24,10 +24,15 @@
 .rolling-soccer-ball {
   position: fixed;
   top: 120px;
-  font-size: 80px;
   z-index: 10;
   filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.3));
   animation: bounce 0.5s ease-in-out infinite;
+}
+
+.soccer-ball-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
 @keyframes bounce {
@@ -53,7 +58,7 @@
   color: var(--purple-dark);
   text-align: center;
   margin-bottom: 30px;
-  font-family: 'Kalam', cursive;
+  font-family: 'Chewy', cursive;
 }
 
 .charity-intro {

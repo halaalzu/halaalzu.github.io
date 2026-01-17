@@ -6,7 +6,10 @@
   min-height: 50px;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
+  font-family: 'ADLaM Display', cursive;
+  text-align: center;
 }
 
 .typing-prefix {

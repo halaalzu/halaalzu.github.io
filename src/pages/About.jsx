@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import NavBar from '../components/NavBar'
+import { education, technicalSkills, certifications } from '../data/experience'
 import './About.css'
 
 const About = () => {
@@ -24,19 +25,16 @@ const About = () => {
         </motion.h1>
 
         <div className="about-content">
-          {/* Personal Blurb */}
+          {/* Personal Blurb - Less boxy, more open */}
           <motion.section
-            className="about-section"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="about-section-open"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="section-header">
-              <span className="section-icon">👋</span>
-              <h2 className="section-title">Hey, I'm Hala!</h2>
-            </div>
-            <div className="section-content">
+            <h2 className="section-title-open">Hey, I'm Hala!</h2>
+            <div className="section-content-open">
               <p>
                 I'm passionate about biomedical design, healthcare innovation, and making a positive impact in underprivileged communities. 
                 Through my work and research, I strive to bridge the gap between technology and healthcare to improve patient outcomes.
@@ -48,84 +46,121 @@ const About = () => {
             </div>
           </motion.section>
 
-          {/* Core Competencies */}
-          <motion.section
-            className="about-section"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="section-header">
-              <span className="section-icon">🔬</span>
-              <h2 className="section-title">Core Competencies</h2>
-            </div>
-            <div className="section-content">
-              <div className="competencies-grid">
-                <div className="competency-card">
-                  <h3>Biomedical Design</h3>
-                  <p>Innovative medical device design and development</p>
-                </div>
-                <div className="competency-card">
-                  <h3>Research</h3>
-                  <p>Medical research and data analysis</p>
-                </div>
-                <div className="competency-card">
-                  <h3>Healthcare Innovation</h3>
-                  <p>Developing accessible healthcare solutions</p>
-                </div>
-                <div className="competency-card">
-                  <h3>Community Impact</h3>
-                  <p>Supporting underserved communities</p>
-                </div>
+          {/* Education Section - Moved from Resume */}
+          {education && education.length > 0 && (
+            <motion.section
+              className="about-section-open"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h2 className="section-title-open">Education</h2>
+              <div className="education-list">
+                {education.map((edu, index) => (
+                  <motion.div
+                    key={edu.id}
+                    className="education-item"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <h3 className="education-degree">{edu.degree}</h3>
+                    <div className="education-institution">{edu.institution}</div>
+                    <div className="education-location">{edu.location}</div>
+                    <div className="education-date">{edu.date}</div>
+                    {edu.details && (
+                      <div className="education-details">{edu.details}</div>
+                    )}
+                  </motion.div>
+                ))}
               </div>
-            </div>
-          </motion.section>
+            </motion.section>
+          )}
 
-          {/* Skills */}
+          {/* Core Competencies - Less boxy */}
           <motion.section
-            className="about-section"
-            initial={{ opacity: 0, y: 50 }}
+            className="about-section-open"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="section-header">
-              <span className="section-icon">⚡</span>
-              <h2 className="section-title">Skills</h2>
-            </div>
-            <div className="section-content">
-              <div className="skills-list">
-                <div className="skill-category">
-                  <h4>Technical</h4>
-                  <div className="skill-tags">
-                    <span className="skill-tag">Python</span>
-                    <span className="skill-tag">JavaScript</span>
-                    <span className="skill-tag">3D Modeling</span>
-                    <span className="skill-tag">Medical Research</span>
-                  </div>
-                </div>
-                <div className="skill-category">
-                  <h4>Tools</h4>
-                  <div className="skill-tags">
-                    <span className="skill-tag">Git</span>
-                    <span className="skill-tag">Figma</span>
-                    <span className="skill-tag">Data Analysis</span>
-                    <span className="skill-tag">Project Management</span>
-                  </div>
-                </div>
+            <h2 className="section-title-open">Core Competencies</h2>
+            <div className="competencies-list-open">
+              <div className="competency-item-open">
+                <h3>Biomedical Design</h3>
+                <p>Innovative medical device design and development</p>
+              </div>
+              <div className="competency-item-open">
+                <h3>Research</h3>
+                <p>Medical research and data analysis</p>
+              </div>
+              <div className="competency-item-open">
+                <h3>Healthcare Innovation</h3>
+                <p>Developing accessible healthcare solutions</p>
+              </div>
+              <div className="competency-item-open">
+                <h3>Community Impact</h3>
+                <p>Supporting underserved communities</p>
               </div>
             </div>
           </motion.section>
+
+          {/* Technical Skills - Moved from Resume */}
+          {technicalSkills && technicalSkills.length > 0 && (
+            <motion.section
+              className="about-section-open"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <h2 className="section-title-open">Technical Skills</h2>
+              <div className="skills-list-open">
+                {technicalSkills.map((category, index) => (
+                  <div key={index} className="skill-category-open">
+                    <h4 className="skill-category-title">{category.category}</h4>
+                    <div className="skill-tags-open">
+                      {category.skills.map((skill, i) => (
+                        <span key={i} className="skill-tag-open">{skill}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.section>
+          )}
+
+          {/* Certifications - Moved from Resume */}
+          {certifications && certifications.length > 0 && (
+            <motion.section
+              className="about-section-open"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <h2 className="section-title-open">Certifications</h2>
+              <ul className="certifications-list-open">
+                {certifications.map((cert, index) => (
+                  <motion.li
+                    key={index}
+                    className="certification-item-open"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    {cert}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.section>
+          )}
         </div>
       </motion.div>
-
-      {/* Decorative Elements */}
-      <div className="decorative-elements">
-        <div className="decor decor-1">🧪</div>
-        <div className="decor decor-2">📊</div>
-        <div className="decor decor-3">💊</div>
-      </div>
     </div>
   )
 }

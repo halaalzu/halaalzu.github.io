@@ -32,6 +32,22 @@ export const volunteerExperience = [
   // Add more volunteer experience by copying the object above
 ];
 
+export const extracurricularExperience = [
+  {
+    id: 1,
+    title: "Extracurricular Role",
+    organization: "Organization Name",
+    location: "Location",
+    date: "2022 - Present",
+    description: "Description of extracurricular activities and impact",
+    achievements: [
+      "Key contribution",
+      "Another contribution"
+    ]
+  }
+  // Add more extracurricular experience by copying the object above
+];
+
 export const education = [
   {
     id: 1,
