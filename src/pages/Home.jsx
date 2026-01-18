@@ -42,12 +42,12 @@ const Home = () => {
       image: '/assets/ChatGPT Image Jan 16, 2026 at 10_51_38 PM.png'
     },
     { 
-      id: 'envelope',
-      label: 'Contact', 
-      onClick: () => setIsContactOpen(true),
+      id: 'laptop',
+      label: 'Projects', 
+      path: '/projects',
       position: { top: '500px', left: '440px' },
       size: { width: '632px', height: '422px' },
-      image: envelopeImg
+      image: '/assets/ChatGPT Image Jan 16, 2026 at 10_51_36 PM.png'
     },
     { 
       id: 'soccer',
@@ -58,12 +58,12 @@ const Home = () => {
       image: soccerImg
     },
     { 
-      id: 'laptop',
-      label: 'Projects', 
-      path: '/projects',
+      id: 'envelope',
+      label: 'Contact', 
+      onClick: () => setIsContactOpen(true),
       position: { top: '432px', left: '-60px' },
       size: { width: '568px', height: '550px' },
-      image: '/assets/ChatGPT Image Jan 16, 2026 at 10_51_36 PM.png'
+      image: envelopeImg
     }
   ]
 

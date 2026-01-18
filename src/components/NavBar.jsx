@@ -35,7 +35,7 @@ const NavBar = () => {
       onMouseLeave={() => setIsExpanded(false)}
     >
       <Link to="/" className="nav-home-link-hala" aria-label="Home">
-        <span className="nav-hala-purple nav-hala-ar">هلا</span>
+        <img src="/assets/ChatGPT Image Jan 18, 2026 at 01_07_29 PM.png" alt="Home" className="nav-home-image" />
       </Link>
 
       <AnimatePresence>

@@ -54,7 +54,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 2px solid var(--purple-light);
   transition: all 0.3s ease;
-  max-height: 500px;
+  max-height: 350px;
   overflow-y: auto;
   overflow-x: hidden;
 }

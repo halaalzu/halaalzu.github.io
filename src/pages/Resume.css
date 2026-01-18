@@ -120,7 +120,7 @@
   transition: all 0.3s ease;
   grid-column: span 1;
   min-height: auto;
-  max-height: 400px;
+  max-height: 280px;
   overflow-y: auto;
   overflow-x: hidden;
 }

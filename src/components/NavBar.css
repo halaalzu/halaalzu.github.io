@@ -1,11 +1,24 @@
 .nav-bar {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 25px;
+  left: 25px;
   z-index: 2000;
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.nav-home-link-hala {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.nav-home-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
 .nav-hala-ar{
@@ -77,30 +90,44 @@
     top: 10px;
     left: 10px;
     right: 10px;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-wrap: nowrap;
+    gap: 5px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .nav-home-image {
+    width: 45px;
+    height: 45px;
   }
 
   .nav-hala-purple {
-    font-size: 28px;
+    font-size: 20px;
   }
 
   .nav-hala-ar {
-    font-size: 22px;
+    font-size: 18px;
   }
 
   .nav-items {
-    gap: 6px;
-    flex-wrap: wrap;
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .nav-items::-webkit-scrollbar {
+    display: none;
   }
 
   .nav-link {
-    padding: 8px 12px;
-    font-size: 12px;
+    padding: 6px 10px;
+    font-size: 10px;
     border-width: 2px;
+    white-space: nowrap;
   }
 
   .nav-icon {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
