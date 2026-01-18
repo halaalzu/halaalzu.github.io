@@ -220,9 +220,48 @@
 
   .section-title-open {
     font-size: 28px;
+    margin-bottom: 20px;
   }
 
   .section-content-open {
     font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .section-content-open p {
+    margin-bottom: 18px;
+  }
+
+  .education-item {
+    padding: 15px 0;
+  }
+
+  .education-degree {
+    font-size: 20px;
+  }
+
+  .education-institution {
+    font-size: 18px;
+  }
+
+  .skill-tags-open {
+    gap: 10px;
+  }
+
+  .skill-tag-open {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .competency-item-open {
+    padding: 12px 0 12px 15px;
+  }
+
+  .competency-item-open h3 {
+    font-size: 20px;
+  }
+
+  .competency-item-open p {
+    font-size: 15px;
   }
 }

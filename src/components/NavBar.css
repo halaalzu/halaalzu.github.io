@@ -9,11 +9,11 @@
 }
 
 .nav-hala-ar{
-  font-family: inherit;
+  font-family: 'ADLaM Display', cursive;
   direction: rtl;
   letter-spacing: 0;
-  font-weight: 900;
-  font-size: 26px; /* adjust if you want bigger */
+  font-weight: 800;
+  font-size: 32px;
   line-height: 1;
 }
 
@@ -76,23 +76,31 @@
   .nav-bar {
     top: 10px;
     left: 10px;
+    right: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
-  .nav-home-link {
-    width: 50px;
-    height: 50px;
+  .nav-hala-purple {
+    font-size: 28px;
   }
 
-  .nav-arabic {
-    font-size: 24px;
-  }
-
-  .nav-link {
-    padding: 8px 14px;
-    font-size: 12px;
+  .nav-hala-ar {
+    font-size: 22px;
   }
 
   .nav-items {
-    gap: 5px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 12px;
+    border-width: 2px;
+  }
+
+  .nav-icon {
+    font-size: 14px;
   }
 }

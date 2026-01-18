@@ -114,49 +114,51 @@ const Home = () => {
           (Click on an Object)
         </div>
 
-        {/* Icon Stickers - Exact Figma positioning with absolute placement */}
-        {iconConfigs.map((config, index) => (
-          <motion.div
-            key={config.id}
-            className={`icon-sticker-figma ${config.id} ${hoveredIcon === config.id ? 'hovered' : ''}`}
-            style={{
-              position: 'absolute',
-              ...config.position,
-              ...config.size,
-              zIndex: 10,
-              cursor: 'pointer'
-            }}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1,
-            }}
-            transition={{ 
-              delay: 1.1 + (index * 0.08), 
-              duration: 0.4 }}
-            onHoverStart={() => setHoveredIcon(config.id)}
-            onHoverEnd={() => setHoveredIcon(null)}
-            onClick={() => handleIconClick(config)}
-            whileHover={{ scale: 1.03 }}
-          >
-            <img 
-              src={config.image} 
-              alt={config.label}
-              className="sticker-image-figma"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-            {hoveredIcon === config.id && (
-              <motion.div
-                className="icon-label-pill"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-              >
-                {config.label}
-              </motion.div>
-            )}
-          </motion.div>
-        ))}
+        {/* Icon Stickers - Responsive grid on mobile, absolute on desktop */}
+        <div className="icons-container">
+          {iconConfigs.map((config, index) => (
+            <motion.div
+              key={config.id}
+              className={`icon-sticker-figma ${config.id} ${hoveredIcon === config.id ? 'hovered' : ''}`}
+              style={{
+                position: 'absolute',
+                ...config.position,
+                ...config.size,
+                zIndex: 10,
+                cursor: 'pointer'
+              }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ 
+                opacity: 1, 
+                scale: 1,
+              }}
+              transition={{ 
+                delay: 1.1 + (index * 0.08), 
+                duration: 0.4 }}
+              onHoverStart={() => setHoveredIcon(config.id)}
+              onHoverEnd={() => setHoveredIcon(null)}
+              onClick={() => handleIconClick(config)}
+              whileHover={{ scale: 1.03 }}
+            >
+              <img 
+                src={config.image} 
+                alt={config.label}
+                className="sticker-image-figma"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              {hoveredIcon === config.id && (
+                <motion.div
+                  className="icon-label-pill"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                >
+                  {config.label}
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Purple Section - Starting at 982px from top */}
