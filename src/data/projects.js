@@ -4,6 +4,28 @@
 export const projects = {
   completed: [
     {
+      id: 6,
+      title: "SineWave",
+      description: "SineWave is a rhythm-based hand gesture game designed for motor rehabilitation. Using real-time computer vision and PyTorch-based gesture classification, it provides musical feedback while tracking movement metrics to support rehabilitation progress.",
+      tech: ["Python", "MediaPipe", "OpenCV", "PyTorch"],
+      type: "AI/Computer Vision Application",
+      status: "completed",
+      date: "Feb. 2026",
+      keyAchievements: [
+        "Developed a rhythm-based hand gesture game for motor rehabilitation using real-time computer vision and PyTorch-based gesture classification",
+        "Built a low-latency pipeline from webcam input to musical feedback while recording movement metrics to support rehabilitation progress tracking"
+      ],
+      details: [
+        "Real-time hand gesture recognition",
+        "PyTorch-based gesture classification",
+        "Musical feedback system",
+        "Movement metrics tracking for rehabilitation"
+      ],
+      github: "https://github.com/halaalzu/SineWave",
+      liveDemo: "https://devpost.com/software/flowstate-zhvg0m",
+      images: ['https://youtu.be/N-tTWb4yO_M']
+    },
+    {
       id: 1,
       title: "BookTok",
       description: "BookTok turns book summaries into short, engaging videos and shows them in a scrollable feed so users can quickly discover new reads. It makes finding your next book feel like scrolling TikTok, but for books.",

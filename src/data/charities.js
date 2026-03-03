@@ -6,7 +6,7 @@ export const charities = [
     name: "Help an Orphan Thrive",
     description: "Donate today to help sponsor and support Syrian, Uyghur, and Turkish orphans in Türkiye by providing essential care, psychosocial programming, education, and food and hygiene kits.",
     image: "/assets/IMG_6426.JPG",
-    link: "https://charity-website.org"
+    link: "https://fundraise.islamicreliefcanada.org/en_US/campaign/support-syrian-and-uygur-orphans-and-refugees-in-turkiye-with-hala-alzureiqi-3771?_gl=1*18nkgao*_ga*MTg1MzE3MTQyLjE3NzE0NDY4NDU.*_ga_BD7GBSTWZZ*czE3NzI1NjI0NjMkbzI5JGcxJHQxNzcyNTYyNDc2JGo1OSRsMCRoMA..*_gcl_au*MTYwODM3MDUzNi4xNzcxMzQ5MjY2LjY5MjAzMTc2OS4xNzcyNTYyNDY1LjE3NzI1NjI0NjU.#attr="
   },
   {
     id: 2,
