@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import NavBar from '../components/NavBar'
+import EntityLink from '../components/EntityLink'
 import { workExperience, volunteerExperience, extracurricularExperience } from '../data/experience'
 import { contactInfo } from '../data/contact'
 import './Resume.css'
@@ -73,7 +74,9 @@ const renderSkillTags = (skills) => {
                   <h3 className="item-title">{exp.title}</h3>
                   <span className="item-date">{exp.date}</span>
                 </div>
-                <div className="item-subtitle">{exp.company}</div>
+                <div className="item-subtitle">
+                  <EntityLink name={exp.company} />
+                </div>
                 <div className="item-location">{exp.location}</div>
                 {renderSkillTags(exp.skills)}
                 {exp.achievements && exp.achievements.length > 0 && (
@@ -114,7 +117,9 @@ const renderSkillTags = (skills) => {
                     <h3 className="item-title">{exp.title}</h3>
                     <span className="item-date">{exp.date}</span>
                   </div>
-                  <div className="item-subtitle">{exp.organization}</div>
+                  <div className="item-subtitle">
+                    <EntityLink name={exp.organization} />
+                  </div>
                   <div className="item-location">{exp.location}</div>
                   {renderSkillTags(exp.skills)}
                   {exp.achievements && exp.achievements.length > 0 && (
@@ -156,7 +161,9 @@ const renderSkillTags = (skills) => {
                     <h3 className="item-title">{vol.title}</h3>
                     <span className="item-date">{vol.date}</span>
                   </div>
-                  <div className="item-subtitle">{vol.organization}</div>
+                  <div className="item-subtitle">
+                    <EntityLink name={vol.organization} />
+                  </div>
                   <div className="item-location">{vol.location}</div>
                   {renderSkillTags(vol.skills)}
                   {vol.achievements && vol.achievements.length > 0 && (

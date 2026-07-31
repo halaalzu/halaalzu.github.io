@@ -76,6 +76,7 @@
 }
 
 .carousel-dot {
+  position: relative;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -100,12 +101,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .carousel-wrapper {
-    height: 170px;
-  }
-
-  .carousel-arrow {
-    width: 32px;
-    height: 32px;
+    height: clamp(150px, 42vw, 200px);
   }
 
   .carousel-arrow-left {
@@ -114,5 +110,34 @@
 
   .carousel-arrow-right {
     right: 8px;
+  }
+}
+
+/* Finger-sized controls wherever the pointer is coarse. A 36px arrow and an 8px
+   dot are both under the 44px minimum comfortable touch target. */
+@media (pointer: coarse) {
+  .carousel-arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* the dot stays visually small; an invisible pseudo-element carries the
+     tap target so the design is unchanged */
+  .carousel-dot::after {
+    content: '';
+    position: absolute;
+    inset: -16px -8px;
+  }
+}
+
+/* hover growth latches on touch, so keep it to real pointers */
+@media (hover: none) {
+  .carousel-arrow:hover,
+  .carousel-dot:hover {
+    transform: none;
+  }
+
+  .carousel-arrow:hover {
+    transform: translateY(-50%);
   }
 }

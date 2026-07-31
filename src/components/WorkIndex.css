@@ -1,0 +1,256 @@
+/* Compact projects / initiatives index with a preview panel. Paired with
+   WorkIndex.jsx; sits inside .content-wrap on the home page. */
+
+.work-index {
+  margin-top: 22px;
+}
+
+/* ---- Projects / Initiatives switch ---- */
+.work-switch {
+  display: flex;
+  border-bottom: 1px solid #e2d8c8;
+}
+
+.work-switch button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 9px 2px;
+  margin-right: 26px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #a99cb4;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.work-switch button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: #654075;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.work-switch button[aria-selected='true'] {
+  color: #654075;
+}
+
+.work-switch button[aria-selected='true']::after {
+  transform: scaleX(1);
+}
+
+.work-switch-count {
+  font-size: 11px;
+  color: #bdb1c6;
+  margin-left: 5px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- layout ---- */
+.work-index-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 36px;
+  margin-top: 22px;
+  align-items: start;
+}
+
+/* ---- the list ---- */
+.work-index-list {
+  list-style: none;
+  border-top: 1px solid #e2d8c8;
+}
+
+.work-index-row {
+  display: grid;
+  grid-template-columns: 26px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 13px 8px 13px 2px;
+  border-bottom: 1px solid #e2d8c8;
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left 0.3s cubic-bezier(0.2, 0.9, 0.2, 1), background 0.25s ease;
+}
+
+.work-index-row.is-active {
+  padding-left: 10px;
+  background: rgba(143, 110, 157, 0.07);
+}
+
+/* A tablet is wide enough for this layout but has no hover to leave, so the
+   row a finger last touched would stay highlighted alongside the real one. */
+@media (hover: hover) {
+  .work-index-row:hover {
+    padding-left: 10px;
+    background: rgba(143, 110, 157, 0.07);
+  }
+}
+
+.work-index-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #bdb1c6;
+  font-variant-numeric: tabular-nums;
+}
+
+.work-index-row.is-active .work-index-num {
+  color: var(--purple-primary);
+}
+
+.work-index-main {
+  display: block;
+  min-width: 0;
+}
+
+.work-index-name {
+  display: block;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #3a3242;
+  letter-spacing: -0.01em;
+}
+
+.work-index-row.is-active .work-index-name {
+  color: #654075;
+}
+
+.work-index-kind {
+  display: block;
+  font-size: 12px;
+  color: #8f8399;
+  margin-top: 2px;
+}
+
+/* stands in for the panel below the panel's breakpoint */
+.work-index-blurb {
+  display: none;
+}
+
+.work-index-year {
+  font-size: 12px;
+  color: #a99cb4;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---- the preview panel ---- */
+.work-index-panel {
+  position: sticky;
+  top: 24px;
+}
+
+.work-index-thumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 12px 26px rgba(47, 40, 55, 0.16);
+}
+
+.work-index-thumb[data-empty='true'] {
+  background-image: linear-gradient(135deg, #8f6e9d, #654075);
+}
+
+.work-index-panel h3 {
+  margin-top: 14px;
+  font-size: 19px;
+  font-weight: 800;
+  color: #654075;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.work-index-panel p {
+  margin-top: 7px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #645b6e;
+}
+
+.work-index-tags {
+  margin-top: 11px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.work-index-tag {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid #d8cadf;
+  color: #7b6a88;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.work-index-go {
+  margin-top: 14px;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #654075;
+  border-bottom: 1px solid rgba(101, 64, 117, 0.3);
+  padding-bottom: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .work-index-panel-inner {
+    animation: work-index-fade 0.32s ease;
+  }
+}
+
+@keyframes work-index-fade {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Below this the panel would be squeezed to nothing, so drop it and let each
+   row carry its own summary. Rows are links either way, so tapping still works. */
+@media (max-width: 820px) {
+  .work-index-body {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .work-index-panel {
+    display: none;
+  }
+
+  .work-index-row {
+    align-items: start;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .work-index-row:hover,
+  .work-index-row.is-active {
+    background: none;
+    padding-left: 2px;
+  }
+
+  .work-index-blurb {
+    display: block;
+    margin-top: 6px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #645b6e;
+  }
+
+  .work-index-year {
+    padding-top: 2px;
+  }
+}

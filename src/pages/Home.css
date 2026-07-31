@@ -1,117 +1,521 @@
 .home-one-page {
+  position: relative;
   background: var(--cream);
   color: var(--text-dark);
 }
 
 .hero-wrap-min {
   width: 100%;
-  max-width: 1512px;
+  max-width: none;
   margin: 0 auto;
-  background: transparent;
+  background: var(--purple-dark);
+  min-height: 100vh;
+  min-height: 100dvh; /* mobile browser chrome collapses; vh alone overshoots */
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.home-body {
+  position: relative;
+  z-index: 1;
+  background: var(--cream);
+}
+
+/* ── Purple half dissolve ─────────────────────────────────────────────────
+   Nothing on the page moves or changes place. The only thing that happens on
+   scroll is the purple half turning cream, behind a leading edge that leaves
+   the centre split line vertical, tilts as it crosses, and straightens again
+   as it exits the right side. By the time the hero scrolls away there is no
+   purple left to end in a hard line. Progress arrives from Home.jsx as
+   --hero-fade and --wipe-top / --wipe-bottom. */
+.hero-wipe-sweep {
+  display: none;
+}
+
+@supports (clip-path: polygon(0 0, 50% 0, 0 50%)) {
+  @media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+    .hero-wipe-sweep {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      right: 0;
+      background: var(--cream);
+      /* zero-area polygon at rest, so the hero looks untouched until you scroll */
+      clip-path: polygon(
+        0% 0%,
+        var(--wipe-top, 0%) 0%,
+        var(--wipe-bottom, 0%) 100%,
+        0% 100%
+      );
+    }
+
+    /* the quote and stickers go with it — their cream text would be
+       unreadable the moment the purple behind them is gone */
+    .hero-right {
+      opacity: var(--hero-fade, 1);
+      will-change: opacity;
+    }
+
+    .hero-wrap-min[data-hero-faded='true'] .hero-right {
+      pointer-events: none;
+    }
+  }
+}
+
+.hero-wipe-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--purple-dark);
+}
+
+/* Cream panel fills the left half only. It sweeps in once on load and never
+   travels past the split, so the light text on the purple side stays readable. */
+.hero-wipe-cream {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: var(--cream);
+  transform-origin: left center;
+  animation: heroCreamReveal 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes heroCreamReveal {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Hold the dark-on-cream copy back until the cream is under it. */
+.hero-left {
+  animation: heroLeftIn 620ms ease both;
+  animation-delay: 420ms;
+}
+
+@keyframes heroLeftIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-wipe-cream,
+  .hero-left {
+    animation: none;
+  }
 }
 
 .hero-inner-min {
   position: relative;
   width: 100%;
-  min-height: 720px;
-  padding: 72px 32px;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh; /* mobile browser chrome collapses; vh alone overshoots */
+  padding: 0;
   overflow: visible;
 }
 
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+  position: relative;
+  /* max() so a notched phone in landscape never tucks text under the inset */
+  padding: 0 max(64px, env(safe-area-inset-right)) 0 max(64px, env(safe-area-inset-left));
+}
+
+.hero-left {
+  max-width: 660px;
+  justify-self: start;
+  padding-left: 0;
+  padding-top: 0;
+  min-height: 100vh;
+  min-height: 100dvh; /* mobile browser chrome collapses; vh alone overshoots */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-right {
+  justify-self: end;
+  width: 100%;
+  max-width: none;
+  background: transparent;
+  color: #f5f1e8;
+  padding: 44px clamp(48px, 4.75vw, 74px) 34px clamp(48px, 4.75vw, 74px);
+  min-height: 100vh;
+  min-height: 100dvh; /* mobile browser chrome collapses; vh alone overshoots */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+  align-items: center;
+}
+
+/* On wide screens, position the right column independently so it won't shift with the left name size */
+@media (min-width: 1000px) {
+  .hero-left {
+    width: 50%;
+    max-width: none;
+  }
+
+  .hero-right {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    padding: 44px clamp(48px, 4.75vw, 74px) 34px clamp(48px, 4.75vw, 74px);
+    min-height: auto;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .hero-inner-min h1 {
-  text-align: center;
-  font-family: 'Chewy', cursive;
-  font-size: clamp(44px, 9vw, 112px);
+  text-align: left;
+  font-family: var(--font-sharp);
+  font-size: clamp(56px, 10vw, 132px);
   color: #6f3f82;
-  line-height: 0.95;
-  margin-top: 10px;
+  line-height: 0.9;
+  margin-top: 0;
+  margin-bottom: 18px;
+  min-height: 2.1em;
+  overflow: visible;
+  font-weight: 800;
+  letter-spacing: -0.06em;
 }
 
-.name-glitch {
-  transition: opacity 0.15s ease;
+/* Both name faces occupy the same grid cell, so the box is always as tall as
+   the taller of the two and the swap can't nudge the subtitle below it. */
+.name-swap {
+  display: grid;
+  grid-template-areas: 'name';
+  align-items: center;
+  width: fit-content;
 }
 
-.name-glitch.glitched {
-  animation: nameGlitch 0.9s steps(2, end);
+.name-face {
+  grid-area: name;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: center;
 }
 
-@keyframes nameGlitch {
-  0% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  16% {
-    transform: translateX(3px) skewX(2deg);
-    opacity: 0.72;
-    letter-spacing: 0.01em;
-  }
-  35% {
-    transform: translateX(-3px) skewX(-2deg);
-    opacity: 1;
-  }
-  58% {
-    transform: translateX(2px);
-    opacity: 0.84;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
+/* Arabic is left-aligned to the same edge as the English so the hero's left
+   rule stays unbroken — direction only governs shaping and glyph order here. */
+.name-ar {
+  direction: rtl;
+  font-family: var(--font-arabic);
+  font-weight: 800;
+  font-size: 0.9em; /* Arabic sits optically larger at the same px size */
+  line-height: 1.12;
+  letter-spacing: 0; /* tracking breaks the cursive joins */
+}
+
+.name-line {
+  display: block;
+  /* line-height: 0.9 is tighter than either font's ascent, so the caps and the
+     Arabic alefs sit above their own line box. That ink is fine on its own, but
+     the blur below makes each line a filter region sized to that box and the
+     tops get shaved off. Pad the box back out to the ink and pull the padding
+     off again with a matching negative margin, so nothing moves. */
+  padding: 0.24em 0.08em 0.2em;
+  margin: -0.24em -0.08em -0.2em;
+  transition:
+    opacity 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: calc(var(--i) * 80ms);
+  will-change: transform, opacity, filter;
+}
+
+/* Resting state: English shown, Arabic parked off to the right — the side it
+   reads in from — blurred out and waiting. */
+.name-en .name-line {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+
+.name-ar .name-line {
+  opacity: 0;
+  transform: translateX(0.3em);
+  filter: blur(16px);
+}
+
+/* Swapped: English dissolves out to the left, Arabic sweeps in from the right
+   and sharpens. The per-line delay makes it read as one wipe, not two fades. */
+.name-swap.is-arabic .name-en .name-line {
+  opacity: 0;
+  transform: translateX(-0.16em);
+  filter: blur(12px);
+}
+
+.name-swap.is-arabic .name-ar .name-line {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .name-line {
+    transition: none;
+    filter: none;
+    transform: none;
   }
 }
 
 .hero-subtitle,
 .hero-line,
 .hero-prompt {
-  text-align: center;
+  text-align: left;
 }
 
 .hero-subtitle {
-  margin-top: 16px;
-  font-size: 20px;
-  color: #3b3245;
+  margin-top: 14px;
+  font-size: clamp(16px, 1.8vw, 22px);
+  color: #4a3553;
+  white-space: nowrap;
+  width: fit-content;
+  font-family: var(--font-sharp);
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .hero-line {
-  margin-top: 6px;
-  font-size: 20px;
+  margin-top: 14px;
+  font-size: clamp(14px, 1.25vw, 18px);
   color: #4f4560;
+  max-width: 600px;
+  position: relative;
+  padding: 4px 0 0 66px;
+  line-height: 1.5;
+  font-family: var(--font-sharp);
+  font-weight: 500;
+}
+
+.hero-line-jots {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--purple-dark);
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.hero-line-jots span {
+  display: block;
+  transform: translateX(2px);
 }
 
 .hero-prompt {
-  margin-top: 14px;
+  margin-top: 0;
   font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #7b6a88;
+  font-family: var(--font-sharp);
+  font-weight: 700;
 }
 
 .quote-stage {
-  margin: 12px auto 0;
-  max-width: 640px;
-  min-height: 260px;
-  padding: 18px 20px;
+  margin: 0;
+  max-width: none;
+  min-height: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.quote-stage p {
-  color: #5f4d6e;
-  font-size: clamp(24px, 3.1vw, 40px);
-  text-align: center;
-  line-height: 1.22;
-  text-wrap: balance;
+.quote-stage-panel {
+  width: min(100%, 680px);
+  /* fixed, not min-height: every quote gets the same box no matter its length */
+  height: 560px;
+  min-height: 560px;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0;
+  padding-inline: 16px;
+  transform: translateY(40px); /* sits just below the optical centre */
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.quote-stage p {
+  color: inherit;
+  font-size: clamp(32px, 3.8vw, 54px);
+  text-align: left;
+  line-height: 1.12;
+  text-wrap: balance;
+  max-width: 100%;
+  font-family: var(--font-sharp);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-left: 0;
+}
+
+.quote-stage p {
+  color: inherit;
+  font-size: clamp(32px, 3.8vw, 54px);
+  text-align: left;
+  line-height: 1.12;
+  text-wrap: balance;
+  max-width: 100%;
+  font-family: var(--font-sharp);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-left: 0;
+}
+
+/* Quote specific (serif italic for the blockquote, author line, and goodreads link) */
+.quote-stage .site-quote {
+  width: 100%;
+  color: #ffffff;
+}
+
+.site-quote .quote-text {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-weight: 400;
+  /* reduced size: keep layout spacing but make quote much smaller */
+  font-size: clamp(22px, 4vw, 40px);
+  line-height: 1.16;
+  text-wrap: balance;
+  text-align: left;
+  white-space: pre-line; /* keep the line breaks the quote was written with */
+}
+
+/* The stage is a fixed box (see .quote-stage-panel), so a one-liner and a
+   paragraph occupy exactly the same footprint and nothing below them moves when
+   the quote is re-rolled. Text + attribution are centred in it as one group. */
+.site-quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Goodreads quotes run anywhere from one line to a full paragraph, so the size
+   steps down with length instead of letting a long one outgrow the box. */
+.site-quote .quote-text.is-long {
+  font-size: clamp(20px, 2.9vw, 30px);
+  line-height: 1.22;
+}
+
+.site-quote .quote-text.is-xlong {
+  font-size: clamp(17px, 2.2vw, 23px);
+  line-height: 1.3;
+}
+
+/* a whole-page quote still has to live inside the same box */
+.site-quote .quote-text.is-huge {
+  font-size: clamp(14px, 1.6vw, 17px);
+  line-height: 1.34;
+}
+
+.site-quote .quote-author {
+  margin-top: 18px;
+  font-family: var(--font-sharp);
+  font-weight: 700;
+  font-size: 18px;
+  color: rgba(255,255,255,0.95);
+}
+
+.site-quote .quote-book {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+  font-style: italic;
+  transition: text-decoration-color 160ms ease, opacity 160ms ease;
+}
+
+.site-quote .quote-book:hover,
+.site-quote .quote-book:focus-visible {
+  text-decoration-color: currentColor;
+  opacity: 0.85;
+}
+
+/* each new pick fades in rather than snapping (the blockquote is keyed on index) */
+@media (prefers-reduced-motion: no-preference) {
+  .site-quote {
+    animation: quote-fade-in 460ms ease both;
+  }
+}
+
+@keyframes quote-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.goodreads-link {
+  display: none; /* removed per request */
+}
+
+.goodreads-link:hover {
+  text-decoration: underline;
+}
 .hero-sticker {
   position: relative;
   border: 0;
   background: transparent;
-  cursor: pointer;
+  cursor: grab;
   transition: transform 0.2s ease;
-  width: 160px;
-  height: 118px;
+  width: 210px;
+  height: 154px;
   padding: 0;
+  /* every state below composes on top of the drag offset, which Home.jsx sets */
+  transform: translate(var(--dx, 0px), var(--dy, 0px));
+  /* the pointer has to own the gesture or a touch-drag scrolls the page instead */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.hero-sticker img {
+  transform: scale(1.28);
+  transform-origin: center;
+  -webkit-user-drag: none;
+}
+
+/* Picked up: bigger, tilted, and above everything else in the hero. The
+   transition goes so the sticker tracks the pointer exactly. */
+.hero-sticker.is-dragging {
+  cursor: grabbing;
+  transition: none;
+  z-index: 6;
+  transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(1.12) rotate(-4deg);
+  filter: drop-shadow(0 18px 26px rgba(24, 16, 32, 0.32));
 }
 
 .hero-sticker img {
@@ -124,8 +528,9 @@
 .hero-sticker span {
   position: absolute;
   left: 50%;
-  bottom: -12px;
-  transform: translateX(-50%);
+  bottom: 26px; /* lift the hover label up so it doesn't block the click hint */
+  /* compensate for parent upward movement so labels remain in the original visual position */
+  transform: translateX(-50%) translateY(36px);
   background: var(--purple-dark);
   color: #fff;
   font-size: 12px;
@@ -133,96 +538,442 @@
   padding: 4px 10px;
   opacity: 0;
   pointer-events: none;
+  font-family: var(--font-sharp);
+  font-weight: 700;
+  z-index: 1;
 }
 
 .hero-sticker:hover {
-  transform: scale(1.03);
+  transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(1.03);
 }
 
 .hero-sticker:hover span {
   opacity: 1;
 }
 
+
 .hero-stickers-row {
-  margin-top: 12px;
+  margin-top: 6px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  gap: 4px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 0; /* we'll handle overlap with negative margins */
+  flex-wrap: nowrap;
+}
+
+.hero-stickers-panel {
+  width: min(680px, 100%);
+  max-width: 680px;
+  display:flex;
+  justify-content:center; /* center group; we'll let items overlap */
+  align-items:center;
+  position:relative;
+  top:-64px; /* move icons up slightly more into the purple area */
+  padding-inline:12px;
+  box-sizing:border-box;
+  overflow:visible;
+}
+
+.hero-stickers-panel .hero-sticker {
+  /* Four of these sit in a row that has to survive a 320px phone as well as a
+     4K monitor. The width is the ideal size; shrink lets the row give way when
+     the hero's right-hand column is narrower than that ideal, which is what it
+     is at every laptop size — four fixed 200px stickers ran past the edge. */
+  flex: 0 1 auto;
+  min-width: 0;
+  width: clamp(124px, 24vw, 258px);
+  height: auto;
+  aspect-ratio: 4 / 3;
+  /* they overlap rather than sit apart, which is also what buys each one the
+     extra width — the row is capped by the hero's right-hand column */
+  margin: 0 max(-30px, -2.2vw);
+}
+
+.hero-click-object {
+  margin-top: 0; /* move label up */
+  color: #f5f1e8;
+  font-family: var(--font-sharp);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  transform-origin: center;
+  position: relative;
+  top: -52px; /* lift further into the purple panel to sit above icons */
+  z-index: 3; /* keep the click hint above sticker hover labels */
+  animation: clickFloat 3.6s ease-in-out infinite;
+}
+
+@keyframes clickFloat{
+  0%{transform:translateY(0)}
+  40%{transform:translateY(6px)}
+  80%{transform:translateY(2px)}
+  100%{transform:translateY(0)}
+}
+
+.hero-right .hero-sticker span {
+  background: rgba(245, 241, 232, 0.16);
+  color: #f5f1e8;
 }
 
 .content-wrap {
   max-width: 900px;
   margin: 0 auto;
-  padding: 80px 28px 0;
+  padding: 64px max(28px, env(safe-area-inset-right)) 0 max(28px, env(safe-area-inset-left));
+  position: relative;
+  z-index: 1;
 }
 
-.projects-grid-min {
-  margin-top: 26px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(260px, 360px));
-  gap: 16px;
-  justify-content: start;
+/* The projects section is WorkIndex now — see src/components/WorkIndex.css */
+
+/* Me! carousel styles */
+.me-carousel{
+  position: relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  margin:28px auto 0; /* clear the "Me!" heading instead of sliding over it */
+  /* Every dimension of the carousel derives from these three, so one media
+     query re-sizes the whole thing instead of chasing pixel values around. */
+  --card-w:clamp(240px, 44vw, 420px);
+  --card-offset:clamp(132px, 28vw, 272px);
+  --track-h:clamp(300px, 46vh, 360px);
+}
+.me-track-viewport{
+  overflow:visible;width:100%;display:flex;justify-content:center;
+  perspective:1500px;
+  touch-action:pan-y; /* horizontal drag steers the carousel, vertical still scrolls */
+}
+.me-track{position:relative;display:block;width:100%;max-width:760px;height:var(--track-h);margin:0 auto;transform-style:preserve-3d}
+
+/* Every position/hover state is expressed as custom properties on one transform,
+   so the slide, the depth rotation and the hover grow all compose and share a
+   single eased transition instead of fighting each other. */
+.me-item{
+  position:absolute;top:0;left:50%;width:var(--card-w);margin-left:calc(var(--card-w) / -2);height:100%;
+  display:flex;justify-content:center;align-items:center;
+  --x:0px;--y:0px;--rotY:0deg;--scale:1;
+  transform:translate3d(var(--x),var(--y),0) rotateY(var(--rotY)) scale(var(--scale));
+  transition:transform 620ms cubic-bezier(.22,1,.36,1),opacity 420ms ease,filter 420ms ease;
+  will-change:transform;
 }
 
-.project-tile-min {
-  border: 0;
-  border-radius: 14px;
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
-  overflow: hidden;
-  line-height: 0;
-  max-width: 360px;
+/* position classes: center (pos0), immediate neighbors (posm1,pos1), outer neighbors hidden */
+.me-item.pos0{--x:0px;--rotY:0deg;--scale:1;z-index:8;opacity:1}
+.me-item.pos1{--x:var(--card-offset);--rotY:-16deg;--scale:0.8;z-index:5;opacity:0.68;filter:saturate(0.8)}
+.me-item.posm1{--x:calc(var(--card-offset) * -1);--rotY:16deg;--scale:0.8;z-index:5;opacity:0.68;filter:saturate(0.8)}
+.me-item:not(.pos0):not(.pos1):not(.posm1){opacity:0;--scale:0.6;z-index:1;pointer-events:none}
+
+.me-item-inner{display:flex;justify-content:center;align-items:center;transition:filter 420ms ease}
+
+/* Hover pulls a card toward the viewer. Gated on a real pointer: on a
+   touchscreen :hover latches after a tap and the card would stay stuck
+   enlarged until you tapped something else. */
+@media (hover:hover) and (pointer:fine){
+  .me-item.pos0:hover{--scale:1.07;--y:-12px}
+  .me-item.pos1:hover,.me-item.posm1:hover{--scale:0.92;--y:-10px;--rotY:0deg;opacity:1;filter:none;z-index:6}
+  .me-item:hover .me-item-inner{filter:drop-shadow(0 22px 34px rgba(47,40,55,0.22))}
+  .me-item:hover .me-book-cover{transform:rotate(-3deg) translateY(-4px);box-shadow:0 20px 34px rgba(47,40,55,0.3)}
+  .me-item:hover .me-movie-poster{transform:rotate(3deg) translateY(-4px);box-shadow:0 20px 34px rgba(47,40,55,0.28)}
+  /* hovering the card spreads the deck so you can see there is more than one;
+     widening the slot re-runs the same transform on every card */
+  .me-item:hover .polaroid-stack{--slot-x:16px;--slot-y:6px;--slot-rot:5.5deg}
+  .me-item.is-centre:hover .me-link{text-decoration:underline}
 }
 
-.project-tile-min img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-  border-radius: 14px;
+/* keyboard users get the same emphasis without needing a pointer at all */
+.me-item.pos0:focus-visible{--scale:1.07;--y:-12px}
+.me-item.pos1:focus-visible,.me-item.posm1:focus-visible{--scale:0.92;--y:-10px;--rotY:0deg;opacity:1;filter:none;z-index:6}
+
+/* the centre card breathes so the carousel never reads as a still image */
+@media (prefers-reduced-motion: no-preference){
+  .me-item.is-centre .me-item-inner{animation:me-float 6.5s ease-in-out infinite}
+  .me-item.is-centre:hover .me-item-inner{animation-play-state:paused}
+}
+@keyframes me-float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }
 
-.project-tile-min.selected img {
-  filter: saturate(1.05);
+.me-book-cover,.me-movie-poster,.me-vinyl{transition:transform 480ms cubic-bezier(.22,1,.36,1),box-shadow 480ms ease}
+.me-row-inner{display:flex;gap:36px}
+.me-label{font-size:12px;color:#7b6a88;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-top:10px}
+.me-title{font-weight:700;margin-top:6px}
+.me-sub{color:#7b6a88;font-size:13px}
+.me-book,.me-movie,.me-polaroid{display:flex;flex-direction:column;align-items:center}
+.me-book-cover,.me-movie-poster{background:#eee;background-size:cover;background-position:center}
+
+/* The cover reads as an actual book: a shaded spine down the left edge and a
+   stack of page edges peeking out on the right. Two pseudo-elements, no assets. */
+.me-book-cover{
+  position:relative;
+  width:132px;height:196px;
+  border-radius:2px 6px 6px 2px;
+  box-shadow:0 12px 22px rgba(47,40,55,0.26);
+}
+.me-book-cover::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:11px;
+  border-radius:2px 0 0 2px;
+  background:linear-gradient(90deg,rgba(0,0,0,0.38),rgba(0,0,0,0.1) 55%,rgba(255,255,255,0.14));
+}
+.me-book-cover::after{
+  content:'';
+  position:absolute;right:-4px;top:3px;bottom:3px;width:4px;
+  border-radius:0 2px 2px 0;
+  background:repeating-linear-gradient(180deg,#fdfaf3 0 2px,#d5cbbb 2px 3px);
+  box-shadow:1px 0 2px rgba(47,40,55,0.18);
 }
 
-.project-reveal-min {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid #dfd4c3;
+.me-movie-poster{width:132px;height:196px;border-radius:6px;box-shadow:0 12px 22px rgba(47,40,55,0.22)}
+
+/* the stack's own sizing lives with the rest of the polaroid rules below */
+
+.me-vinyl{border-radius:50%;width:190px;height:190px;background:radial-gradient(circle at center,#111 0 40%,#000 60%);display:flex;align-items:center;justify-content:center}
+.me-vinyl .me-vinyl-art{width:96px;height:96px;border-radius:50%}
+
+.me-spotify{display:flex;flex-direction:column;align-items:center;position:relative}
+
+.me-vinyl{
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  background: radial-gradient(circle at center,#0b0b0b 0 42%, #111 42% 46%, #0b0b0b 46% 60%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 26px 52px rgba(11,7,15,0.45), inset 0 6px 14px rgba(255,255,255,0.02);
+  position:relative;
+}
+.me-vinyl-art{width:120px;height:120px;border-radius:50%;background-size:cover;background-position:center;box-shadow:0 8px 24px rgba(0,0,0,0.35)}
+.me-vinyl.spinning{animation:spin 3s linear infinite}
+
+/* central white play circle overlay */
+.me-vinyl-play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.95);display:flex;align-items:center;justify-content:center;border:0;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.25)}
+.me-vinyl-play-icon{color:#222;font-size:18px;font-weight:700;line-height:1}
+
+/* prev/next arrows aligned with vinyl center */
+.me-spotify-controls{position:relative;width:100%;height:0}
+.me-prev,.me-next{position:absolute;top:76%;transform:translateY(-50%);background:transparent;border:0;color:#222;font-size:32px;padding:6px;cursor:pointer}
+.me-prev{left:calc(50% - 60px)}
+.me-next{right:calc(50% - 60px)}
+.me-play{display:none} /* hide inline play, we use the overlay */
+
+/* title and meta styling under the vinyl */
+.me-spotify .me-title{margin-top:18px;font-size:20px;font-weight:700}
+.me-spotify .me-sub{margin-top:6px;color:#6b6b6b}
+
+/* spinning keyframe for the vinyl */
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
-.project-reveal-min h3 {
-  font-size: 26px;
-  color: #2f2837;
+/* Music notes drift up off the vinyl while a preview plays.
+   The container owns visibility (one fade for the whole flock on pause) and the
+   notes only ever run forwards — they are unmounted after the fade, so pressing
+   play again restarts every note from the top instead of resuming mid-flight. */
+.music-notes{
+  position:absolute;left:50%;top:6px;transform:translateX(-50%);
+  width:260px;height:260px;pointer-events:none;z-index:160;
+  opacity:0;transition:opacity 520ms ease;
+}
+.music-notes.playing{opacity:1}
+.music-notes .note{
+  position:absolute;top:0;
+  color:var(--purple-primary);
+  text-shadow:0 6px 18px rgba(124,58,237,0.18);
+  will-change:transform,opacity;
+  opacity:0;
+  animation-name:fly;
+  animation-timing-function:cubic-bezier(.33,.05,.4,1);
+  animation-iteration-count:infinite;
+  animation-fill-mode:both; /* holds the 0% state through the stagger delay */
 }
 
-.project-reveal-min p {
-  margin-top: 6px;
-  color: #645b6e;
-  line-height: 1.65;
+@keyframes fly{
+  0%{opacity:0;transform:translate3d(0,14px,0) scale(0.55) rotate(0deg)}
+  14%{opacity:0.95;transform:translate3d(calc(var(--dx-mid) * 0.28),-26px,0) scale(1) rotate(calc(var(--rot) * 0.25))}
+  55%{opacity:0.9;transform:translate3d(var(--dx-mid),-116px,0) scale(1.06) rotate(calc(var(--rot) * 0.7))}
+  82%{opacity:0.4;transform:translate3d(calc(var(--dx-mid) + (var(--dx) - var(--dx-mid)) * 0.7),-176px,0) scale(0.95) rotate(var(--rot))}
+  100%{opacity:0;transform:translate3d(var(--dx),-220px,0) scale(0.8) rotate(var(--rot))}
 }
 
-.project-reveal-actions {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+@media (prefers-reduced-motion: reduce){
+  .music-notes{display:none}
+  .me-item.is-centre .me-item-inner{animation:none}
 }
 
-.project-reveal-actions a,
-.project-reveal-actions button {
-  border: 1px solid #ccb9db;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  background: #fff;
-  color: #5a3f68;
-  text-decoration: none;
-  cursor: pointer;
+.me-spotify-controls{display:flex;align-items:center;gap:12px;margin-top:10px}
+.me-play{background:#6f3f82;color:#fff;border-radius:999px;padding:8px 12px;border:0}
+
+/* ── Polaroid stack ────────────────────────────────────────────────────────
+   A deck of prints lying on top of each other. Every card's resting place is
+   derived from one number, --d (0 = the card you're looking at), so the whole
+   stack re-fans off a single custom property and a click just re-numbers the
+   slots — see the shuffle in Home.jsx. The extra room around the stack is for
+   the fan and the card that flicks out to the right. */
+.polaroid-stack{
+  position:relative;
+  width:220px;height:186px;
+  /* one slot's worth of offset; the fan below just widens these */
+  --slot-x:8px;--slot-y:9px;--slot-rot:3.5deg;
+  /* room underneath for the cards further down the deck */
+  margin:0 auto 40px;
+  cursor:pointer;
+}
+
+.polaroid-piece{
+  position:absolute;left:0;top:0;
+  width:220px;height:186px;
+  --d:0;--z:1;
+  z-index:var(--z);
+  display:flex;flex-direction:column;
+  /* the white border of a real print: even on three sides, deep at the foot */
+  padding:10px 10px 0;
+  background:#fdfbf5;
+  border-radius:3px;
+  box-shadow:0 10px 20px rgba(47,40,55,0.18),0 1px 2px rgba(47,40,55,0.2);
+  transform:
+    translate(calc(var(--d) * var(--slot-x)),calc(var(--d) * var(--slot-y)))
+    rotate(calc(-6deg + var(--d) * var(--slot-rot)))
+    scale(calc(1 - var(--d) * 0.03));
+  transform-origin:50% 60%;
+  transition:transform 460ms cubic-bezier(.2,.9,.2,1),box-shadow 460ms ease;
+  will-change:transform;
+}
+
+.polaroid-photo{
+  display:block;width:100%;height:132px;
+  background:#e7e1d6;background-size:cover;background-position:center;
+  /* prints are never perfectly white inside the frame */
+  box-shadow:inset 0 0 0 1px rgba(47,40,55,0.08);
+}
+
+.polaroid-caption{
+  display:block;
+  flex:1;
+  padding:7px 2px 0;
+  font-family:'Chewy',cursive;
+  font-size:13px;line-height:1.2;
+  color:#6b5c76;
+  text-align:center;
+  /* one line, however long the pin title is */
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* Flick: the top card lifts off to the right, turns over the stack and drops
+   in at the back. The final frame resolves to the same calc as the resting
+   transform above — by then --d is already the buried slot, so it lands
+   exactly where the transition would have put it and nothing snaps. */
+.polaroid-piece.is-tossed{animation:polaroidToss 620ms cubic-bezier(.3,.8,.35,1) both}
+
+@keyframes polaroidToss{
+  /* z-index has to clear the resting cards (100 - depth) for the first half, or
+     the card you just pressed slides out from underneath the deck instead of
+     off the top of it. It drops below them on the way back down. */
+  0%{transform:translate(0,0) rotate(-6deg) scale(1);z-index:200}
+  40%{transform:translate(78px,-22px) rotate(13deg) scale(1.05);z-index:200}
+  70%{transform:translate(58px,40px) rotate(2deg) scale(0.99);z-index:0}
+  100%{
+    transform:
+      translate(calc(var(--d) * var(--slot-x)),calc(var(--d) * var(--slot-y)))
+      rotate(calc(-6deg + var(--d) * var(--slot-rot)))
+      scale(calc(1 - var(--d) * 0.03));
+    z-index:0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .polaroid-piece{transition:none}
+  .polaroid-piece.is-tossed{animation:none}
+}
+
+.me-nav{background:transparent;border:0;font-size:28px;color:var(--purple);cursor:pointer}
+.me-nav:focus{outline:2px solid rgba(111,63,130,0.18)}
+
+/* purple indicator bars centered under the carousel */
+.me-indicators{display:flex;gap:10px;justify-content:center;margin-top:18px;margin-left:auto;margin-right:auto}
+.me-indicators .bar{width:44px;height:8px;border-radius:999px;background:rgba(0,0,0,0.12);transition:all 280ms cubic-bezier(.2,.9,.2,1);box-shadow:0 6px 12px rgba(10,8,12,0.06);cursor:pointer}
+.me-indicators .bar:hover{background:rgba(111,63,130,0.42);transform:translateY(-2px)}
+
+.me-indicators .bar.active{background:var(--purple-primary);width:64px;box-shadow:0 10px 30px rgba(143,110,157,0.18);border:0}
+
+/* --- live data affordances (see src/hooks/useMeData.js) --- */
+
+/* every card is clickable: neighbours rotate the carousel, the centre opens the
+   source, and a horizontal drag anywhere in the track steps it */
+.me-item{cursor:pointer;user-select:none;-webkit-user-select:none}
+
+/* The controls inside a card — play/pause, track skip, the polaroid deck, the
+   profile link — all stop the click so they don't also open the card's source.
+   On a neighbour that swallowed the tap and the carousel stayed put, so off the
+   centre they go inert and the click reaches .me-item. */
+.me-item:not(.is-centre) .me-vinyl-play-overlay,
+.me-item:not(.is-centre) .me-spotify-controls,
+.me-item:not(.is-centre) .polaroid-stack,
+.me-item:not(.is-centre) a.me-link{pointer-events:none}
+.me-item:focus-visible{outline:2px solid rgba(111,63,130,0.35);outline-offset:6px;border-radius:12px}
+
+/* "View on Goodreads/Letterboxd" reads as a link cue, underlined on the centre
+   card (the hover rule lives in the pointer:fine block above) */
+.me-link{margin-top:8px;font-size:13px;color:var(--purple-primary);font-weight:600}
+
+/* placeholder art while a feed is empty or a fetch fell back */
+[data-empty='true']{background-image:linear-gradient(135deg,rgba(143,110,157,0.22),rgba(143,110,157,0.06));box-shadow:inset 0 0 0 1px rgba(111,63,130,0.12)}
+
+.me-prev:disabled,.me-next:disabled{opacity:0.3;cursor:default}
+
+/* the whole stack is one shuffle button; the top card lifts on hover */
+.polaroid-stack:focus-visible{outline:2px solid rgba(111,63,130,0.35);outline-offset:8px;border-radius:8px}
+.polaroid-stack:hover .polaroid-piece.is-top{transform:translate(0,-8px) rotate(-7deg) scale(1.02);box-shadow:0 18px 30px rgba(47,40,55,0.24)}
+
+a.me-link{text-decoration:none}
+a.me-link:hover{text-decoration:underline}
+
+.me-updated{margin-top:12px;text-align:center;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#9a8ea6;padding:0 16px}
+
+/* ── Me! carousel across screen sizes ──────────────────────────────────────
+   Only the three size variables on .me-carousel change; everything else is
+   derived from them. */
+
+/* tablets (iPad portrait, small laptops): pull the side cards in so they peek
+   rather than run off the edge of the screen */
+@media (max-width: 1000px){
+  .me-carousel{--card-w:clamp(240px, 50vw, 380px);--card-offset:clamp(150px, 29vw, 244px)}
+}
+
+/* phones: at this width the side cards would sit on top of the centre one, so
+   the carousel goes single-card — swipe, tap the bars, or use arrow keys */
+@media (max-width: 640px){
+  .me-carousel{--card-w:min(310px, 88vw);--card-offset:0px;--track-h:340px}
+  .me-item.pos1,.me-item.posm1{opacity:0;pointer-events:none;--scale:0.78;--rotY:0deg}
+  .me-vinyl{width:158px;height:158px}
+  .me-vinyl-art{width:100px;height:100px}
+  .me-vinyl-play-overlay{width:44px;height:44px}
+  .me-book-cover,.me-movie-poster{width:114px;height:169px}
+  .polaroid-stack,.polaroid-piece{width:186px;height:164px}
+  .polaroid-photo{height:114px}
+  .polaroid-caption{font-size:12px}
+  .music-notes{width:210px;height:210px}
+  .me-spotify .me-title{margin-top:14px;font-size:18px}
+  .me-indicators{gap:8px}
+  .me-indicators .bar{width:34px;height:7px}
+  .me-indicators .bar.active{width:48px}
+}
+
+/* smallest phones still in circulation (iPhone SE / Galaxy S at 360-375px) */
+@media (max-width: 380px){
+  .me-carousel{--card-w:min(268px, 92vw);--track-h:318px}
+  .me-vinyl{width:140px;height:140px}
+  .me-vinyl-art{width:88px;height:88px}
+  .me-book-cover,.me-movie-poster{width:104px;height:154px}
+}
+
+/* keep section titles above any section content that stacks with z-index */
+.section-head {
+  position: relative;
+  z-index: 2;
 }
 
 .section-head p {
@@ -234,16 +985,39 @@
 
 .section-head h2 {
   margin-top: 8px;
-  font-size: 44px;
+  font-size: 48px;
   color: #654075;
-  font-family: 'Chewy', cursive;
+  font-family: var(--font-sharp);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+/* Every other section heading fills left-to-right as it scrolls into view,
+   matching the hero → experience handoff. .is-filled is toggled by an
+   IntersectionObserver in Home.jsx. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .home-body .section-head h2 {
+      color: transparent;
+      background: linear-gradient(90deg, #654075 50%, rgba(101, 64, 117, 0.16) 50%) 100% 0 / 200% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      background-position: 100% 0;
+      transition: background-position 1s cubic-bezier(0.25, 0.1, 0.25, 1) 120ms;
+    }
+
+    .home-body .section-head h2.is-filled {
+      background-position: 0 0;
+    }
+  }
 }
 
 .about-text {
   margin-top: 18px;
-  font-size: 18px;
-  line-height: 1.75;
+  font-size: 19px;
+  line-height: 1.72;
   color: #473f50;
+  font-family: var(--font-sharp);
 }
 
 .timeline-list {
@@ -266,7 +1040,7 @@
   grid-template-columns: 170px 36px 1fr;
   align-items: start;
   gap: 0;
-  padding: 16px 0;
+  padding: 18px 0;
 }
 
 .timeline-date {
@@ -289,8 +1063,10 @@
 }
 
 .timeline-content h3 {
-  font-size: 18px;
+  font-size: 19px;
   color: #2f2837;
+  font-family: var(--font-sharp);
+  font-weight: 700;
 }
 
 .timeline-content h3 span {
@@ -299,9 +1075,10 @@
 }
 
 .timeline-content p {
-  font-size: 15px;
-  margin-top: 4px;
+  font-size: 16px;
+  margin-top: 5px;
   color: #645b6e;
+  font-family: var(--font-sharp);
 }
 
 .row-list-min {
@@ -313,13 +1090,15 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  padding: 18px 0;
+  padding: 20px 0;
   border-bottom: 1px solid #dfd4c3;
 }
 
 .row-min h3 {
-  font-size: 18px;
+  font-size: 19px;
   color: #2f2837;
+  font-family: var(--font-sharp);
+  font-weight: 700;
 }
 
 .row-min h3 span {
@@ -328,9 +1107,10 @@
 }
 
 .row-min p {
-  font-size: 15px;
-  margin-top: 4px;
+  font-size: 16px;
+  margin-top: 5px;
   color: #645b6e;
+  font-family: var(--font-sharp);
 }
 
 .row-min time {
@@ -365,6 +1145,8 @@
   color: #5a3f68;
   text-decoration: underline;
   text-underline-offset: 2px;
+  font-family: var(--font-sharp);
+  font-weight: 700;
 }
 
 .row-actions button {
@@ -383,6 +1165,8 @@
   align-items: center;
   color: #706678;
   font-size: 20px;
+  font-family: var(--font-sharp);
+  font-weight: 700;
 }
 
 .contact-inline-min a {
@@ -394,82 +1178,126 @@
   color: #9b92a2;
 }
 
-.gallery-overlay-min {
-  position: fixed;
-  inset: 0;
-  background: rgba(49, 37, 57, 0.75);
-  z-index: 3000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.gallery-modal-min {
-  width: min(900px, 100%);
-  max-height: 84vh;
-  overflow-y: auto;
-  background: var(--cream);
-  border-radius: 16px;
-  padding: 22px;
-}
-
-.gallery-modal-min button {
-  border: 0;
-  background: transparent;
-  color: #6a4b78;
-  cursor: pointer;
-}
-
-.gallery-modal-min h3 {
-  margin-top: 4px;
-  color: #4d3159;
-}
-
-.gallery-grid-min {
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.gallery-grid-min img {
-  width: 100%;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
 @media (max-width: 900px) {
-  .hero-inner-min {
+  /* stacked hero can exceed the viewport, so the blade sweep stays off here
+     (see the min-width: 901px block) and the experience panel just follows */
+  .hero-wrap-min {
     min-height: auto;
-    padding-bottom: 36px;
+  }
+
+  .hero-inner-min {
+    height: auto;
+    min-height: auto;
+    padding-bottom: 56px;
+  }
+
+  .hero-split {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    min-height: auto;
+    padding: 0 max(24px, env(safe-area-inset-right)) 0 max(24px, env(safe-area-inset-left));
+  }
+
+  .hero-left {
+    padding-left: 24px;
+    /* stacked hero starts at the top of the page, so the name has to begin
+       below the fixed nav mark rather than underneath it */
+    padding-top: calc(max(25px, env(safe-area-inset-top)) + 92px);
+    min-height: auto;
+    justify-content: flex-start;
+  }
+
+  .hero-right {
+    min-height: 0;
+    padding: 24px clamp(20px, 4vw, 30px) 20px;
+  }
+
+  /* Stacked layout: a vertical split would slice both columns, so the cream
+     sits behind the left column only and the rest of the hero stays purple. */
+  .hero-wipe-cream {
+    display: none;
+  }
+
+  .hero-left {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -12px;
+    bottom: -20px;
+    left: -88px;
+    right: -88px;
+    background: var(--cream);
   }
 
   .hero-sticker {
-    width: 120px;
-    height: 88px;
+    width: 156px;
+    height: 116px;
   }
 
   .quote-stage {
-    min-height: 180px;
-    padding: 10px;
+    min-height: 0;
+    padding: 0;
+  }
+
+  /* still one fixed box per quote on mobile, just a shorter one */
+  .quote-stage-panel {
+    height: 360px;
+    min-height: 360px;
+    transform: none;
   }
 
   .quote-stage p {
-    font-size: clamp(20px, 6vw, 28px);
+    font-size: clamp(18px, 6vw, 24px);
   }
 
-  .projects-grid-min {
-    grid-template-columns: 1fr;
-    gap: 12px;
+  .site-quote .quote-text.is-long {
+    font-size: clamp(17px, 4.6vw, 22px);
   }
 
-  .project-tile-min {
-    max-width: 100%;
+  .site-quote .quote-text.is-xlong {
+    font-size: clamp(15px, 3.8vw, 18px);
   }
 
   .hero-inner-min {
-    text-align: center;
+    text-align: left;
+  }
+
+  .hero-inner-min h1,
+  .hero-subtitle,
+  .hero-line {
+    text-align: left;
+  }
+
+  .hero-subtitle {
+    white-space: normal;
+  }
+
+  .hero-line {
+    padding-left: 78px;
+    background-size: 72px auto;
+  }
+
+  .hero-line-jots {
+    font-size: 20px;
+  }
+
+  .hero-right .hero-sticker {
+    width: 156px;
+    height: 116px;
+  }
+
+  .hero-click-object {
+    font-size: 12px;
+  }
+
+  .hero-stickers-panel {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .section-head h2 {
@@ -504,8 +1332,130 @@
   .row-actions {
     flex-wrap: wrap;
   }
+}
 
-  .gallery-grid-min {
-    grid-template-columns: 1fr;
+/* ── Cross-device passes ──────────────────────────────────────────────────
+   Everything above targets a desktop-width mouse. These blocks cover the rest
+   of the matrix: tablets, phones in both orientations, touch input with no
+   hover at all, and notched hardware. */
+
+/* Tablet / small-laptop band. The hero is still two columns here but the
+   right-hand column is narrow, so the quote and stickers need reining in. */
+@media (min-width: 901px) and (max-width: 1180px) {
+  .hero-split {
+    padding: 0 40px;
   }
+
+  .quote-stage-panel {
+    height: 460px;
+    min-height: 460px;
+    transform: translateY(56px);
+  }
+
+  .hero-stickers-panel {
+    top: -40px;
+  }
+
+  .hero-click-object {
+    top: -32px;
+  }
+}
+
+/* Phones and iPads in portrait share the stacked layout from the max-width:900
+   block; these are the pieces that block still leaves too large. */
+@media (max-width: 640px) {
+  .content-wrap {
+    padding: 48px max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left));
+  }
+
+  .section-head h2 {
+    font-size: 30px;
+  }
+
+  .about-text {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .contact-inline-min {
+    font-size: 16px;
+    gap: 8px;
+  }
+
+  .hero-split {
+    padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+  }
+
+  .hero-left {
+    padding-left: 16px;
+  }
+
+  .hero-left::before {
+    left: -40px;
+    right: -40px;
+  }
+}
+
+/* iPhone SE / older Android sit at 320-375px, where the display name is the
+   first thing to run past the edge. */
+@media (max-width: 380px) {
+  .hero-inner-min h1 {
+    font-size: clamp(40px, 13vw, 56px);
+  }
+
+  .hero-line {
+    padding-left: 62px;
+  }
+
+  .hero-line-jots {
+    font-size: 17px;
+  }
+
+  .quote-stage-panel {
+    height: 320px;
+    min-height: 320px;
+  }
+}
+
+/* Phone held sideways: 100dvh is only ~390px tall, so the fixed-height quote
+   box has to give or the hero swallows several screens. */
+@media (max-height: 560px) and (orientation: landscape) {
+  .quote-stage-panel {
+    height: auto;
+    min-height: 0;
+    padding-block: 24px;
+    transform: none;
+  }
+
+  .hero-stickers-panel,
+  .hero-click-object {
+    top: 0;
+  }
+
+  .me-carousel {
+    --track-h: 300px;
+  }
+}
+
+/* Touch input: :hover either never fires or latches after a tap, so anything
+   that only exists on hover has to be there unconditionally instead. */
+@media (hover: none) {
+  /* the sticker captions are the only thing naming these four icons */
+  .hero-sticker span {
+    opacity: 1;
+  }
+
+  .hero-sticker:active {
+    transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(0.97);
+  }
+
+  .me-item.is-centre .me-link {
+    text-decoration: underline;
+  }
+}
+
+/* Notched / gesture-bar hardware: keep the last row of links off the home
+   indicator and out from under the rounded corners in landscape. */
+.footer-min {
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
 }

@@ -10,6 +10,9 @@
   z-index: 2000;
   /* No blur - transparent overlay */
   background: transparent;
+  /* clear of the notch and home indicator on phones */
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
 }
 
 .contact-modal {
@@ -22,6 +25,11 @@
   max-width: 280px;
   width: auto;
   border: 2px solid var(--purple-primary);
+  /* a phone held sideways is ~390px tall — the modal scrolls rather than
+     running off both ends of the screen */
+  max-height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-close {
@@ -79,6 +87,19 @@
   background: var(--purple-primary);
   color: white;
   box-shadow: 0 6px 15px rgba(143, 110, 157, 0.3);
+}
+
+@media (hover: none) {
+  /* on touch this colour would stick after the tap that opened the link */
+  .contact-icon-button:hover {
+    background: var(--purple-light);
+    color: var(--purple-dark);
+    box-shadow: none;
+  }
+
+  .modal-close:hover {
+    transform: none;
+  }
 }
 
 .contact-icon-image {

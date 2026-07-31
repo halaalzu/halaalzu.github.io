@@ -1,0 +1,88 @@
+name: Refresh Me! carousel data
+
+on:
+  schedule:
+    # every 6 hours
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Shares the Pages group with deploy.yml so the two never publish at once.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Fetch Goodreads / Spotify / Letterboxd / Pinterest
+        env:
+          GOODREADS_USER: ${{ vars.GOODREADS_USER }}
+          GOODREADS_SHELF: ${{ vars.GOODREADS_SHELF }}
+          GOODREADS_QUOTE_LIMIT: ${{ vars.GOODREADS_QUOTE_LIMIT }}
+          LETTERBOXD_USER: ${{ vars.LETTERBOXD_USER }}
+          PINTEREST_USER: ${{ vars.PINTEREST_USER }}
+          PINTEREST_BOARD: ${{ vars.PINTEREST_BOARD }}
+          SPOTIFY_USER: ${{ vars.SPOTIFY_USER }}
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+        run: node scripts/fetch-me-data.mjs
+
+      - name: Commit if changed
+        id: commit
+        run: |
+          if git diff --quiet -- public/data/me.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes to public/data/me.json"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/me.json
+          git commit -m "chore: refresh Me! carousel data"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # A GITHUB_TOKEN push does not trigger other workflows, so deploy.yml
+      # will not pick this commit up — publish it here instead.
+      - name: Install
+        if: steps.commit.outputs.changed == 'true'
+        run: npm ci
+
+      - name: Build
+        if: steps.commit.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Configure Pages
+        if: steps.commit.outputs.changed == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        if: steps.commit.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy
+        id: deployment
+        if: steps.commit.outputs.changed == 'true'
+        uses: actions/deploy-pages@v4

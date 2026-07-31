@@ -1,5 +1,6 @@
 .resume-page {
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   padding: 80px 20px 60px;
   background: var(--cream);
@@ -492,5 +493,31 @@
   .skill-tag {
     font-size: 12px;
     padding: 6px 12px;
+  }
+}
+
+/* ── Tablet band ──────────────────────────────────────────────────────────
+   Between the phone breakpoint and a real laptop, three columns of scrolling
+   cards is unreadable — two gives each item room without stacking everything. */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .resume-content.resume-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .page-title {
+    font-size: clamp(42px, 6vw, 64px);
+  }
+}
+
+@media (orientation: landscape) {
+  .resume-page {
+    padding-left: max(15px, env(safe-area-inset-left));
+    padding-right: max(15px, env(safe-area-inset-right));
+  }
+}
+
+@media (hover: none) {
+  .resume-item:hover {
+    transform: none;
   }
 }

@@ -1,0 +1,100 @@
+.entity-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32em;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(143, 110, 157, 0.35);
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.entity-link:hover,
+.entity-link:focus-visible {
+  color: var(--purple-dark);
+  border-bottom-color: var(--purple-dark);
+}
+
+.entity-link:focus-visible {
+  outline: none;
+}
+
+.entity-link-favicon {
+  width: 0.95em;
+  height: 0.95em;
+  border-radius: 3px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transform: translateY(-0.02em);
+  transition: transform 160ms ease;
+}
+
+.entity-link:hover .entity-link-favicon {
+  transform: translateY(-0.02em) scale(1.12);
+}
+
+.entity-link-tip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  z-index: 40;
+  width: max-content;
+  max-width: 260px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(143, 110, 157, 0.28);
+  background: var(--white);
+  box-shadow: 0 10px 24px rgba(45, 30, 55, 0.16);
+  color: #4a3553;
+  font-family: var(--font-sharp);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: 0;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 4px);
+  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
+  pointer-events: none;
+}
+
+.entity-link-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border: 6px solid transparent;
+  border-top-color: var(--white);
+}
+
+.entity-link:hover .entity-link-tip,
+.entity-link:focus-visible .entity-link-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* Tooltips are hover-only affordances; on touch there is no hover to leave, so
+   a tapped tip would stay open. Keyed on the input device as well as the width,
+   because a touch iPad is over 720px wide. */
+@media (max-width: 720px), (hover: none) {
+  .entity-link-tip {
+    display: none;
+  }
+}
+
+/* never let a tip near the edge of a small window widen the page */
+.entity-link-tip {
+  max-width: min(260px, calc(100vw - 32px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entity-link,
+  .entity-link-favicon,
+  .entity-link-tip {
+    transition: none;
+  }
+}

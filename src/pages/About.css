@@ -1,5 +1,6 @@
 .about-page {
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   padding: 120px 20px 60px;
   background: var(--cream);
@@ -270,5 +271,24 @@
 
   .competency-item-open p {
     font-size: 15px;
+  }
+}
+
+/* ── Small phones ─────────────────────────────────────────────────────────
+   320-380px: the display title is the only thing that overflows here. */
+@media (max-width: 380px) {
+  .page-title {
+    font-size: 34px;
+  }
+
+  .section-title-open {
+    font-size: 24px;
+  }
+}
+
+@media (orientation: landscape) {
+  .about-page {
+    padding-left: max(15px, env(safe-area-inset-left));
+    padding-right: max(15px, env(safe-area-inset-right));
   }
 }

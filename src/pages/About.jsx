@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import NavBar from '../components/NavBar'
+import EntityLink from '../components/EntityLink'
 import { education, technicalSkills } from '../data/experience'
 import './About.css'
 
@@ -65,7 +66,9 @@ const About = () => {
                     transition={{ delay: index * 0.1 }}
                   >
                     <h3 className="education-degree">{edu.degree}</h3>
-                    <div className="education-institution">{edu.institution}</div>
+                    <div className="education-institution">
+                      <EntityLink name={edu.institution} />
+                    </div>
                     <div className="education-location">{edu.location}</div>
                     <div className="education-date">{edu.date}</div>
                     {edu.details && (

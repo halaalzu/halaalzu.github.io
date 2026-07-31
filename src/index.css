@@ -13,17 +13,61 @@
   --white: #FFFFFF;
   --text-dark: #2D2D2D;
   --shadow: rgba(0, 0, 0, 0.1);
+  /* Avenir Next only exists on macOS/iOS. Windows falls through to Segoe UI and
+     Android to Roboto (via system-ui) rather than dropping all the way to Arial,
+     so the geometry stays close to the Mac rendering everywhere. */
+  --font-sharp: 'Avenir Next', 'Avenir', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Tajawal is a geometric humanist Arabic cut to sit next to Latin geometric
+     sans, so it carries the same weight and rhythm as Avenir Next above. */
+  --font-arabic: 'Tajawal', 'Noto Sans Arabic', 'Geeza Pro', system-ui, sans-serif;
+}
+
+html {
+  /* iOS Safari otherwise inflates body text when a phone is turned landscape */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* both elements, or iOS still lets a stray wide child scroll the page sideways */
+  overflow-x: hidden;
 }
 
 body {
-  font-family: 'ADLaM Display', cursive;
+  font-family: var(--font-sharp);
   background: var(--cream);
   color: var(--text-dark);
   overflow-x: hidden;
+  /* long unbroken strings (URLs, emails) wrap instead of widening the page */
+  overflow-wrap: break-word;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* no grey flash box on tap in iOS/Android Chrome */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Nothing embedded may be wider than its column — the single biggest source of
+   sideways scroll on phones. */
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-sharp);
+  /* skips the legacy 300ms tap delay on touch devices */
+  touch-action: manipulation;
 }
 
 #root {
   min-height: 100vh;
+  /* dvh tracks the collapsing mobile browser chrome; 100vh alone overshoots on
+     iOS Safari and Android Chrome and leaves a dead strip below the fold */
+  min-height: 100dvh;
 }
 
 /* Smooth scrolling */
@@ -31,20 +75,32 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Custom scrollbar — hidden by design. Firefox needs its own property, or
+   Windows/Linux Firefox is the only browser still showing a bar. */
+html {
+  scrollbar-width: none;
+}
+
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0;
+  height: 0;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--cream);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--purple-light);
-  border-radius: 5px;
+  background: transparent;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--purple-primary);
+  background: transparent;
 }

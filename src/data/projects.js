@@ -1,11 +1,20 @@
 // Easy to edit: Add projects here by adding objects to the arrays
 // Format matches alzureiqi.dev style
+//
+// The home page index (src/components/WorkIndex.jsx) reads the short fields —
+// slug, kind, year, cover, blurb. Everything else shows on /work/<slug>.
+// Paths with spaces must be percent-encoded so inline background-image works.
 
 export const projects = {
   completed: [
     {
       id: 6,
       title: "SineWave",
+      slug: "sinewave",
+      kind: "Computer Vision",
+      year: "Feb 2026",
+      cover: "/assets/RS450277_IMG_3763_hpr.webp",
+      blurb: "A rhythm game played with hand gestures, built for motor rehab — real-time CV turns movement into music while tracking recovery metrics.",
       description: "SineWave is a rhythm-based hand gesture game designed for motor rehabilitation. Using real-time computer vision and PyTorch-based gesture classification, it provides musical feedback while tracking movement metrics to support rehabilitation progress.",
       tech: ["Python", "MediaPipe", "OpenCV", "PyTorch"],
       type: "AI/Computer Vision Application",
@@ -28,6 +37,11 @@ export const projects = {
     {
       id: 1,
       title: "BookTok",
+      slug: "booktok",
+      kind: "Full-Stack Web",
+      year: "Jan 2026",
+      cover: "/assets/1768250233760.jpeg",
+      blurb: "An AI pipeline that turns book summaries into short-form videos in a scrollable feed — like TikTok, for finding your next read.",
       description: "BookTok turns book summaries into short, engaging videos and shows them in a scrollable feed so users can quickly discover new reads. It makes finding your next book feel like scrolling TikTok, but for books.",
       tech: ["Node.js", "Express", "React", "Gemini API", "ElevenLabs", "FFmpeg", "Cloudinary", "MongoDB Atlas"],
       type: "Full-Stack Web Application",
@@ -52,6 +66,11 @@ export const projects = {
     {
       id: 2,
       title: "Accessible Catan",
+      slug: "accessible-catan",
+      kind: "CAD / 3D Print",
+      year: "Sep–Dec 2025",
+      cover: "/assets/Painted%20Final%20Prints.jpg",
+      blurb: "Catan redesigned for players with hand tremors, using magnetic slot-fit parts refined across three prototypes.",
       description: "Accessible Catan is a SolidWorks redesign of the classic board game to improve playability for users with hand tremors using stable, magnetic, slot-fit components refined through multiple prototypes.",
       tech: ["SolidWorks", "Iterative Design", "3D Modeling", "Prototyping"],
       type: "AutoCAD/3D Print",
@@ -78,6 +97,11 @@ export const projects = {
     {
       id: 3,
       title: "Flower Puzzle Assembly",
+      slug: "flower-puzzle",
+      kind: "CAD / 3D Print",
+      year: "Sep–Dec 2025",
+      cover: "/assets/STL%20Print%20Layout.png",
+      blurb: "A multi-part mechanical puzzle with interlocking moving components, iterated over four revisions for fit and smooth motion.",
       description: "Flower Puzzle Assembly is a multi-part mechanical puzzle designed with interlocking components and smooth motion in mind. It went through 4 design revisions to improve fit, alignment, and overall reliability.",
       tech: ["SolidWorks", "Iterative Design", "Tolerance Analysis", "Part Modeling"],
       type: "AutoCAD/3D Print",
@@ -100,6 +124,11 @@ export const projects = {
     {
       id: 4,
       title: "2000 Nissan Skyline R34 GT-R 3D Print",
+      slug: "skyline-r34",
+      kind: "CAD / 3D Print",
+      year: "2025",
+      cover: null, // no photo on file yet — the index falls back to a gradient
+      blurb: "A detailed CAD recreation of my favourite car, built for precision geometry practice and prepped for fabrication.",
       description: "I designed a detailed CAD model of the 2000 Nissan Skyline R34 GT-R (my favourite car from my favourite character) so I had to recreate it myself.",
       tech: ["CAD", "3D Modeling", "Digital Fabrication"],
       type: "AutoCAD/3D Print",
@@ -121,6 +150,11 @@ export const projects = {
     {
       id: 5,
       title: "To-Do List",
+      slug: "to-do-list",
+      kind: "Full-Stack Web",
+      year: "Dec 2025",
+      cover: "/assets/IMG_6426.JPG",
+      blurb: "A full-stack Flask task manager with REST-style routing and real-time state — a clean run at core CRUD logic.",
       description: "I built a full-stack to-do list app that lets users add, complete, and delete tasks with real-time updates through a clean web interface. It reinforced core CRUD logic, backend routing, and organized data handling.",
       tech: ["Python", "Flask", "HTML/CSS", "JavaScript"],
       type: "Full-Stack Web Application",

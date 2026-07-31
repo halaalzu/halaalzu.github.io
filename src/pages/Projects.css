@@ -1,5 +1,6 @@
 .projects-page {
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   padding: 80px 20px 60px;
   background: var(--cream);
@@ -290,5 +291,46 @@
   .tech-tag {
     font-size: 11px;
     padding: 5px 10px;
+  }
+}
+
+/* ── Tablet band ──────────────────────────────────────────────────────────
+   769-1100px (iPad portrait and landscape, small laptops) previously got the
+   full three-column desktop grid, which left each card around 220px wide with
+   30px of padding inside it. */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .projects-grid-main,
+  .projects-grid-3x2 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .page-title {
+    font-size: clamp(42px, 6vw, 64px);
+  }
+
+  .project-card-main {
+    padding: 24px;
+  }
+}
+
+/* the fixed background is decorative; make sure it can't force a scrollbar */
+.projects-background {
+  width: 100%;
+  max-width: 100vw;
+}
+
+@media (orientation: landscape) {
+  .projects-page {
+    padding-left: max(15px, env(safe-area-inset-left));
+    padding-right: max(15px, env(safe-area-inset-right));
+  }
+}
+
+@media (hover: none) {
+  /* the lift would stay applied to the last card tapped */
+  .project-card-main:hover {
+    transform: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   }
 }

@@ -1,11 +1,14 @@
 .nav-bar {
   position: fixed;
-  top: 25px;
-  left: 25px;
+  /* insets keep the bar clear of the notch when a phone is held sideways */
+  top: max(25px, env(safe-area-inset-top));
+  left: max(25px, env(safe-area-inset-left));
   z-index: 2000;
   display: flex;
   align-items: center;
   gap: 15px;
+  /* never wider than the screen, whatever the link count grows to */
+  max-width: calc(100% - 50px);
 }
 
 .nav-home-link-hala {
@@ -87,12 +90,12 @@
 
 @media (max-width: 768px) {
   .nav-bar {
-    top: 10px;
-    left: 10px;
-    right: 10px;
+    top: max(10px, env(safe-area-inset-top));
+    left: max(10px, env(safe-area-inset-left));
+    right: max(10px, env(safe-area-inset-right));
     flex-wrap: nowrap;
     gap: 5px;
-    max-width: calc(100vw - 20px);
+    max-width: none;
   }
 
   .nav-home-image {
@@ -122,13 +125,36 @@
   }
 
   .nav-link {
-    padding: 6px 10px;
-    font-size: 10px;
+    /* was 6px/10px — that gave a ~24px tall target, well under the 44px
+       minimum, and these are the only navigation on the page */
+    padding: 9px 12px;
+    min-height: 38px;
+    font-size: 11px;
     border-width: 2px;
     white-space: nowrap;
   }
 
   .nav-icon {
     font-size: 12px;
+  }
+}
+
+/* Tapping a nav link on a phone leaves it stuck in the hover colour until you
+   tap elsewhere, which reads as a wrong "active" page. */
+@media (hover: none) {
+  .nav-link:hover {
+    background: var(--white);
+    color: var(--purple-dark);
+    transform: none;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .nav-link.active:hover {
+    background: var(--purple-dark);
+    color: var(--white);
+  }
+
+  .nav-home-link-hala:hover {
+    transform: none;
   }
 }

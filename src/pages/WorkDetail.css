@@ -1,0 +1,231 @@
+.work-detail-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  padding: 88px 20px 80px;
+  background: var(--cream);
+}
+
+.work-detail-background {
+  position: fixed;
+  inset: 0;
+  background-image: url('/assets/6cf1fba5-12dd-4771-8735-a213e3774660.png?v=3');
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.work-detail-container {
+  max-width: 760px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.work-detail-back {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #654075;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(101, 64, 117, 0.28);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease;
+}
+
+.work-detail-back:hover {
+  border-bottom-color: #654075;
+}
+
+.work-detail-head {
+  margin-top: 26px;
+}
+
+.work-detail-kind {
+  color: var(--purple-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.work-detail-head h1 {
+  margin-top: 10px;
+  font-size: 46px;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #654075;
+}
+
+.work-detail-meta {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #8f8399;
+}
+
+.work-detail-links {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.work-detail-links a {
+  border: 1px solid #ccb9db;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  background: #fff;
+  color: #5a3f68;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.work-detail-links a:hover {
+  background: #f7f1fb;
+  border-color: var(--purple-primary);
+}
+
+.work-detail-media {
+  margin-top: 28px;
+}
+
+.work-detail-description {
+  margin-top: 28px;
+  font-size: 18px;
+  line-height: 1.72;
+  color: #473f50;
+}
+
+.work-detail-tags {
+  margin-top: 20px;
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.work-detail-tag {
+  font-size: 12px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid #d8cadf;
+  color: #7b6a88;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.work-detail-section {
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid #e2d8c8;
+}
+
+.work-detail-section h2 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--purple-primary);
+}
+
+.work-detail-section ul {
+  margin-top: 14px;
+  padding-left: 20px;
+}
+
+.work-detail-section li {
+  font-size: 15.5px;
+  line-height: 1.68;
+  color: #564d61;
+  margin-bottom: 9px;
+}
+
+.work-detail-glance li {
+  color: #7b6a88;
+  font-size: 14.5px;
+}
+
+.work-detail-nav {
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid #e2d8c8;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.work-detail-nav a {
+  text-decoration: none;
+  color: #3a3242;
+  font-size: 15px;
+  font-weight: 700;
+  max-width: 46%;
+  transition: color 0.2s ease;
+}
+
+.work-detail-nav a:hover {
+  color: #654075;
+}
+
+.work-detail-nav a span {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #a99cb4;
+  margin-bottom: 5px;
+}
+
+.work-detail-next {
+  text-align: right;
+  margin-left: auto;
+}
+
+.work-detail-missing {
+  padding-top: 60px;
+}
+
+.work-detail-missing h1 {
+  font-size: 38px;
+  font-weight: 800;
+  color: #654075;
+  margin-bottom: 10px;
+}
+
+.work-detail-missing p {
+  color: #645b6e;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 640px) {
+  .work-detail-head h1 {
+    font-size: 32px;
+  }
+
+  .work-detail-description {
+    font-size: 16.5px;
+  }
+}
+
+/* ── Small phones ─────────────────────────────────────────────────────────
+   The 640px block covers headline sizing; below 380px the page gutters and the
+   back link need attention too. */
+@media (max-width: 380px) {
+  .work-detail-page {
+    padding: 84px 14px 60px;
+  }
+
+  .work-detail-head h1 {
+    font-size: 27px;
+  }
+}
+
+@media (orientation: landscape) {
+  .work-detail-page {
+    padding-left: max(14px, env(safe-area-inset-left));
+    padding-right: max(14px, env(safe-area-inset-right));
+  }
+}
