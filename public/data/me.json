@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-29T16:41:23.117Z",
+  "updatedAt": "2026-08-29T20:53:25.174Z",
   "book": {
     "title": "The Fertility of Evil",
     "author": "Amara Lakhous",
@@ -149,9 +149,7 @@
   "pinterest": null,
   "sources": {
     "goodreads": {
-      "ok": false,
-      "error": "fetch failed",
-      "stale": true
+      "ok": true
     },
     "goodreadsQuotes": {
       "ok": true
