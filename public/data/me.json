@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-16T21:15:36.743Z",
+  "updatedAt": "2026-09-17T04:49:12.900Z",
   "book": {
     "title": "The Fertility of Evil",
     "author": "Amara Lakhous",
@@ -166,7 +166,7 @@
     },
     "pinterest": {
       "ok": false,
-      "error": "no RSS feed at https://www.pinterest.com/halaalzu/feed.rss — check the username in your profile URL, and that the account is public",
+      "error": "fetch failed",
       "stale": false
     }
   }
