@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { extracurricularExperience } from '../data/experience'
-import ContactModal from '../components/ContactModal'
+import { workExperience, extracurricularExperience } from '../data/experience'
 import EntityLink from '../components/EntityLink'
 import WorkIndex from '../components/WorkIndex'
 import { charities } from '../data/charities'
+import { contactInfo } from '../data/contact'
 import { meFallback, meProfiles } from '../data/me'
 import useMeData from '../hooks/useMeData'
 import useRotatingQuote from '../hooks/useRotatingQuote'
-import './Charity.css'
 import './Home.css'
 
 const clamp01 = (value) => Math.min(Math.max(value, 0), 1)
@@ -30,7 +29,8 @@ const timeAgo = (iso) => {
 }
 
 const Home = () => {
-  const [isContactOpen, setIsContactOpen] = useState(false)
+  // the envelope's letter, pinned out by a press (hover alone is CSS)
+  const [isLetterOpen, setIsLetterOpen] = useState(false)
   const [isNameGlitched, setIsNameGlitched] = useState(false)
   const heroRef = useRef(null)
 
@@ -60,6 +60,9 @@ const Home = () => {
   // where each hero sticker has been dragged to, keyed by sticker id
   const [stickerOffsets, setStickerOffsets] = useState({})
   const [draggingSticker, setDraggingSticker] = useState(null)
+  // which charity row is expanded; only reachable by press on touch, where
+  // there is no hover to open it
+  const [openCharity, setOpenCharity] = useState(null)
   const audioRef = useRef(null)
   const dragRef = useRef(null)
   const stickerDragRef = useRef(null)
@@ -153,26 +156,35 @@ const Home = () => {
       id: 'resume',
       label: 'Experience',
       target: 'work',
-      image: '/assets/ChatGPT Image Jan 16, 2026 at 10_51_38 PM.png'
+      image: '/assets/sticker-experience.png'
     },
     {
       id: 'projects',
       label: 'Projects',
       target: 'projects',
-      image: '/assets/ChatGPT Image Jan 16, 2026 at 10_51_36 PM.png'
+      image: '/assets/sticker-projects.png'
     },
     {
       id: 'donate',
       label: 'Causes',
       target: 'donate',
-      image: '/assets/ChatGPT Image Jan 16, 2026 at 10_52_26 PM.png'
+      image: '/assets/sticker-causes.png'
     },
     {
       id: 'contact',
       label: 'Contact',
-      action: 'modal',
-      image: '/assets/ChatGPT Image Jan 16, 2026 at 10_51_34 PM.png'
+      action: 'letter',
+      image: '/assets/sticker-contact.png'
     }
+  ]
+
+  // The four links written on the envelope's letter, each with the icon it
+  // used to carry in the contact modal.
+  const contactLinks = [
+    { label: 'Email', href: `mailto:${contactInfo.email}`, icon: '/assets/icon-email.png' },
+    { label: 'LinkedIn', href: contactInfo.linkedin, external: true, icon: '/assets/icon-linkedin.png' },
+    { label: 'GitHub', href: contactInfo.github, external: true, icon: '/assets/icon-github.png' },
+    { label: 'Resume', href: contactInfo.resumeUrl, external: true, icon: '/assets/icon-resume.png' }
   ]
 
   const causes = [
@@ -190,6 +202,14 @@ const Home = () => {
     }
   ]
 
+  // Home timeline leads with the most recent work role, then fills in with
+  // community/leadership roles. workExperience entries carry `company` instead
+  // of `organization`, so the lead item is remapped to match.
+  const timelineItems = [
+    { ...workExperience[0], organization: workExperience[0].company },
+    ...extracurricularExperience
+  ].slice(0, 5)
+
   // Only where there is a purple half to dissolve: below 901px the hero stacks
   // into one column, and reduced motion opts out entirely.
   const isSweepActive = () =>
@@ -206,8 +226,8 @@ const Home = () => {
     // a drag ends in a click too — that one isn't a press on the sticker
     if (stickerDragRef.current?.moved) return
 
-    if (item.action === 'modal') {
-      setIsContactOpen(true)
+    if (item.action === 'letter') {
+      setIsLetterOpen((open) => !open)
       return
     }
 
@@ -245,18 +265,55 @@ const Home = () => {
     // a few pixels of slop, so a press with a shaky finger still counts as a tap
     if (!drag.moved && Math.abs(dx) + Math.abs(dy) < 5) return
     drag.moved = true
-    setStickerOffsets((prev) => ({
-      ...prev,
-      [drag.id]: { x: drag.origin.x + dx, y: drag.origin.y + dy }
-    }))
+    // kept on the ref as well as in state, so the drop reads the live position
+    // rather than whatever the last render happened to commit
+    drag.at = { x: drag.origin.x + dx, y: drag.origin.y + dy }
+    setStickerOffsets((prev) => ({ ...prev, [drag.id]: drag.at }))
   }
 
-  const endStickerDrag = () => {
+  // A sticker rests wherever you let go of it — over the name, over the quote,
+  // anywhere. The only thing enforced is that it stays inside the hero, so a
+  // sticker can't be flung somewhere it can't be picked up again.
+  const settleSticker = (node, offset) => {
+    const hero = heroRef.current
+    if (!hero) return offset
+
+    // Measure with the transform off: that gives the sticker's layout box, free
+    // of both the drag offset and the hover/drag scales, in the same viewport
+    // coordinates as the hero bounds.
+    const applied = node.style.transform
+    node.style.transform = 'none'
+    const base = node.getBoundingClientRect()
+    node.style.transform = applied
+
+    const bounds = hero.getBoundingClientRect()
+
+    return {
+      x: Math.min(
+        Math.max(offset.x, bounds.left - base.left),
+        bounds.right - base.right
+      ),
+      y: Math.min(
+        Math.max(offset.y, bounds.top - base.top),
+        bounds.bottom - base.bottom
+      )
+    }
+  }
+
+  const endStickerDrag = (e) => {
     const drag = stickerDragRef.current
     setDraggingSticker(null)
-    // hold the flag through the click that follows, then drop it
-    if (drag?.moved) window.setTimeout(() => { stickerDragRef.current = null }, 0)
-    else stickerDragRef.current = null
+
+    if (drag?.moved) {
+      const node = e.currentTarget
+      const landed = settleSticker(node, drag.at || drag.origin)
+      setStickerOffsets((prev) => ({ ...prev, [drag.id]: landed }))
+      // hold the flag through the click that follows, then drop it
+      window.setTimeout(() => { stickerDragRef.current = null }, 0)
+      return
+    }
+
+    stickerDragRef.current = null
   }
 
   useEffect(() => {
@@ -401,7 +458,10 @@ const Home = () => {
           <div className="hero-left">
             {/* Both names are always mounted and stacked in the same grid cell,
                 so the swap never reflows the column beneath it. */}
-            <h1 className={`name-swap ${isNameGlitched ? 'is-arabic' : ''}`} aria-label="Hala Alzureiqi">
+            <h1
+              className={`name-swap ${isNameGlitched ? 'is-arabic' : ''}`}
+              aria-label="Hala Alzureiqi"
+            >
               <span className="name-face name-en" aria-hidden="true">
                 {NAME_EN.map((line, i) => (
                   <span className="name-line" key={line} style={{ '--i': i }}>{line}</span>
@@ -416,15 +476,12 @@ const Home = () => {
             <p className="hero-subtitle">
               Biomedical Engineering @ <EntityLink name="University of Waterloo" />
             </p>
-            <p className="hero-line">
-              <span className="hero-line-jots" aria-hidden="true">
-                <span>&gt;</span>
-                <span>&gt;</span>
-                <span>&gt;</span>
-              </span>
-              I'm a biomedical engineering student focused on practical healthcare tools for low-resource settings.
-              My work combines embedded systems, software, and human-centered design.
-            </p>
+            <ul className="hero-line-list">
+              <li>Previously a research intern at <EntityLink name="NRC" />.</li>
+              <li>I care about human rights and accessible bio-tech.</li>
+              <li>I like embedded systems, software, and hands-on design.</li>
+              <li>I'm interested in medical imaging, radiopharmaceuticals, and medical physics.</li>
+            </ul>
           </div>
 
           <div className="hero-right">
@@ -466,25 +523,62 @@ const Home = () => {
             <div className="hero-stickers-row hero-stickers-panel">
               {iconConfigs.map((item) => {
                 const offset = stickerOffset(item.id)
+                const isEnvelope = item.action === 'letter'
                 return (
-                  <button
+                  /* The slot carries the drag offset rather than the button, so
+                     the envelope's letter travels with it. The offset rides in as
+                     variables so the hover and drag scales compose with it in CSS
+                     instead of being overwritten by an inline transform. */
+                  <div
                     key={item.id}
-                    type="button"
-                    className={`hero-sticker${draggingSticker === item.id ? ' is-dragging' : ''}`}
-                    /* the offset rides in as variables so the hover and drag
-                       scales in CSS can compose with it instead of being
-                       overwritten by an inline transform */
+                    className={[
+                      'hero-sticker-slot',
+                      draggingSticker === item.id ? 'is-dragging' : '',
+                      isEnvelope && isLetterOpen ? 'is-open' : ''
+                    ].join(' ').replace(/\s+/g, ' ').trim()}
                     style={{ '--dx': `${offset.x}px`, '--dy': `${offset.y}px` }}
                     onPointerDown={(e) => startStickerDrag(e, item)}
                     onPointerMove={moveStickerDrag}
                     onPointerUp={endStickerDrag}
                     onPointerCancel={endStickerDrag}
-                    onClick={() => handleStickerClick(item)}
-                    aria-label={`Go to ${item.label}`}
                   >
-                    <img src={item.image} alt={item.label} draggable="false" />
-                    <span>{item.label}</span>
-                  </button>
+                    <button
+                      type="button"
+                      className="hero-sticker"
+                      onClick={() => handleStickerClick(item)}
+                      aria-label={isEnvelope ? 'Contact links' : `Go to ${item.label}`}
+                      aria-expanded={isEnvelope ? isLetterOpen : undefined}
+                    >
+                      <img src={item.image} alt={item.label} draggable="false" />
+                      <span>{item.label}</span>
+                    </button>
+
+                    {isEnvelope && (
+                      /* the page inside the envelope: slides out on hover, and
+                         stays out once the envelope has been pressed */
+                      <div className="hero-letter" aria-label="Contact links">
+                        {contactLinks.map((link) => (
+                          <a
+                            key={link.label}
+                            className="hero-letter-link"
+                            href={link.href}
+                            {...(link.external ? { target: '_blank', rel: 'noreferrer' } : {})}
+                            tabIndex={isLetterOpen ? 0 : -1}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <img
+                              className="hero-letter-icon"
+                              src={link.icon}
+                              alt=""
+                              aria-hidden="true"
+                              draggable="false"
+                            />
+                            {link.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 )
               })}
             </div>
@@ -501,7 +595,7 @@ const Home = () => {
             <h2>Experience & Community</h2>
           </div>
           <div className="timeline-list">
-            {extracurricularExperience.slice(0, 4).map((role) => (
+            {timelineItems.map((role) => (
               <article key={role.id} className="timeline-item">
                 <time className="timeline-date">{role.date}</time>
                 <span className="timeline-marker" aria-hidden="true" />
@@ -537,9 +631,19 @@ const Home = () => {
             {charities.map((charity, idx) => (
               <div
                 key={charity.id}
-                className="charity-row"
+                className={`charity-row ${openCharity === charity.id ? 'is-open' : ''}`}
                 tabIndex={0}
+                role="button"
+                aria-expanded={openCharity === charity.id}
                 aria-label={charity.name}
+                // On a pointer device hover already opens the row; this is what
+                // opens it on a touchscreen, where there is no hover to give.
+                onClick={() => setOpenCharity((id) => (id === charity.id ? null : charity.id))}
+                onKeyDown={(e) => {
+                  if (e.key !== 'Enter' && e.key !== ' ') return
+                  e.preventDefault()
+                  setOpenCharity((id) => (id === charity.id ? null : charity.id))
+                }}
               >
                 {/* background image faded in on hover */}
                 {charity.image && (
@@ -565,7 +669,16 @@ const Home = () => {
                     <p className="charity-short">{charity.description}</p>
                   </div>
                   {charity.link && (
-                    <a href={charity.link} target="_blank" rel="noopener noreferrer" className="charity-link-inline">Donate</a>
+                    <a
+                      href={charity.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="charity-link-inline"
+                      // following the link shouldn't also collapse the row
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Donate
+                    </a>
                   )}
                 </div>
               </div>
@@ -575,7 +688,7 @@ const Home = () => {
 
         <section className="content-wrap" id="me">
           <div className="section-head">
-            <p>Me!</p>
+            <p>Click to learn more about my current interests</p>
             <h2>Me!</h2>
           </div>
 
@@ -653,7 +766,15 @@ const Home = () => {
                         <div className="me-label">Currently reading</div>
                         <div className="me-title">{book.title}</div>
                         <div className="me-sub">{book.author}</div>
-                        <span className="me-link">View on Goodreads</span>
+                        <a
+                          className="me-profile-link"
+                          href={book.profile || meProfiles.goodreads}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          view my goodreads
+                        </a>
                       </div>
                     )}
 
@@ -670,7 +791,6 @@ const Home = () => {
                         <div className="me-sub">
                           {[movie.year, movie.rating].filter(Boolean).join(' · ')}
                         </div>
-                        <span className="me-link">View on Letterboxd</span>
                       </div>
                     )}
 
@@ -764,7 +884,6 @@ const Home = () => {
                           {track?.artist}
                           {track?.duration && <> · <span className="me-duration">{track.duration}</span></>}
                         </div>
-                        <span className="me-link">Open in Spotify</span>
                       </div>
                     )}
 
@@ -812,15 +931,6 @@ const Home = () => {
                         </div>
                         <div className="me-label">Recently saved</div>
                         <div className="me-sub">click to shuffle</div>
-                        <a
-                          className="me-link"
-                          href={pinterestProfile}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          my interests →
-                        </a>
                       </div>
                     )}
                     </div>
@@ -849,8 +959,6 @@ const Home = () => {
 
         <footer className="content-wrap footer-min" id="contact">
           <div className="contact-inline-min">
-            <a href="mailto:halzureiqi@gmail.com">halzureiqi@gmail.com</a>
-            <span>·</span>
             <a href="https://www.linkedin.com/in/hala-alzureiqi/" target="_blank" rel="noopener noreferrer">
               LinkedIn
             </a>
@@ -862,11 +970,15 @@ const Home = () => {
             <a href="/assets/Hala_Alzureiqi___Resume__Software_.pdf" target="_blank" rel="noopener noreferrer">
               Resume
             </a>
+            <span>·</span>
+            <a href="mailto:halzureiqi@gmail.com" className="footer-email">
+              <span className="footer-email-label">Email</span>
+              <span className="footer-email-address">halzureiqi@gmail.com</span>
+            </a>
           </div>
         </footer>
       </div>
 
-      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </main>
   )
 }

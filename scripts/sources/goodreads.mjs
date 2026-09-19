@@ -35,11 +35,19 @@ export const fetchGoodreads = async ({ user, shelf = 'currently-reading' }) => {
   const title = tag(item, 'title')
   if (!title) throw new Error('feed item had no title')
 
+  // The feed's own <link> points at the reviewer's /review/show/ page, which
+  // Goodreads gates behind sign-in for anyone but the reviewer. book_id gives
+  // us the public /book/show/ page instead, which is what visitors should land on.
+  const bookId = tag(item, 'book_id')
+  const bookLink = bookId
+    ? `https://www.goodreads.com/book/show/${bookId}`
+    : tag(item, 'link') || `https://www.goodreads.com/${encodeURIComponent(user)}`
+
   return {
     title,
     author: tag(item, 'author_name'),
     cover: bestCover(item),
-    link: tag(item, 'link') || `https://www.goodreads.com/${encodeURIComponent(user)}`,
+    link: bookLink,
     profile: `https://www.goodreads.com/${encodeURIComponent(user)}`,
     shelf
   }

@@ -9,10 +9,8 @@
 .work-detail-background {
   position: fixed;
   inset: 0;
-  background-image: url('/assets/6cf1fba5-12dd-4771-8735-a213e3774660.png?v=3');
-  background-repeat: repeat;
-  background-size: cover;
-  background-position: center;
+  /* plain cream — the notebook/grid paper texture was removed */
+  background: var(--cream);
   z-index: 0;
   pointer-events: none;
 }

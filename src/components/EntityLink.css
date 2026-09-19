@@ -19,6 +19,13 @@
   outline: none;
 }
 
+.entity-link-label {
+  /* flex items default to a min-width equal to their own content width, so
+     without this the label refuses to wrap and just pushes the link (and
+     whatever it's inline with) past the edge of a narrow container. */
+  min-width: 0;
+}
+
 .entity-link-favicon {
   width: 0.95em;
   height: 0.95em;

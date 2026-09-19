@@ -2,12 +2,26 @@
 
 export const workExperience = [
   {
+    id: 4,
+    title: "Research Intern",
+    company: "National Research Council Canada",
+    location: "Ottawa, ON",
+    date: "May 2026 – Aug. 2026",
+    description: "Researching trust loss in human-autonomy teaming using multimodal biosensors and machine learning.",
+    skills: ["Human-Autonomy Teaming", "iMotions", "GSR", "Eye Tracking", "Machine Learning", "Experimental Design"],
+    achievements: [
+      "Conducted literature reviews on trust measurement in human-autonomy teaming to design 2 trust-violation scenarios, author their experimental protocol, and conduct pilot studies to detect indicators of trust loss",
+      "Integrated and calibrated non-invasive sensors (GSR, eye tracking, facial expressions, voice) using iMotions to capture physiological and behavioural responses across 75 participants following REB approval",
+      "Analyzed and cross-referenced sensor streams with post-hoc surveys to identify indicators of trust; developing a binary trust classification framework evaluating multiple ML models on raw multimodal sensor data"
+    ]
+  },
+  {
     id: 1,
     title: "Guest Services Associate",
     company: "Fleetway Bowling Alley - ESAM Group",
     location: "London, ON",
     date: "Sep. 2023 – Aug. 2025",
-    description: "Delivered high-quality customer service by managing reservations, POS transactions, and guest inquiries",
+    description: "Handled day-to-day guest services at a bowling alley, from reservations to POS operations.",
     skills: ["Customer Service", "POS Systems", "Operations"],
     achievements: [
       "Delivered high-quality customer service by managing reservations, POS transactions, and guest inquiries",
@@ -21,7 +35,7 @@ export const workExperience = [
     company: "Elections Canada",
     location: "London, ON",
     date: "Apr. 2025",
-    description: "Directed voters and managed polling station flow to ensure accessibility and efficiency throughout election day",
+    description: "Supported polling station operations for a federal election, focused on accessibility and voter flow.",
     skills: ["Voter Support", "Compliance", "Operations Management"],
     achievements: [
       "Directed voters and managed polling station flow to ensure accessibility and efficiency throughout election day",
@@ -35,7 +49,7 @@ export const workExperience = [
     company: "London Islamic School Camp SHINE",
     location: "London, ON",
     date: "Jun. 2022 – Aug. 2024",
-    description: "Supervised and supported 15–20 campers, including those with special needs, ensuring a safe, inclusive, and engaging environment",
+    description: "Supervised campers at a STEM-focused summer camp, including those with special needs.",
     skills: ["Child Supervision", "STEM Education", "Special Needs Support"],
     achievements: [
       "Supervised and supported 15–20 campers, including those with special needs, ensuring a safe, inclusive, and engaging environment",
@@ -51,13 +65,12 @@ export const extracurricularExperience = [
     title: "Tech Lead",
     organization: "Muslim Student Association",
     location: "Waterloo, ON",
-    date: "Sep. 2025 – Present",
-    description: "Developed and maintained internal web tools used by 10+ executive members to centralize operational resources",
-    skills: ["Web Development", "Documentation", "System Maintenance"],
+    date: "Jan. 2026 – Present",
+    description: "Leading development of a privacy-first AI search tool for the MSA executive team.",
+    skills: ["RAG", "PostgreSQL", "pgvector", "Document Ingestion", "System Design"],
     achievements: [
-      "Developed and maintained internal web tools used by 10+ executive members to centralize operational resources",
-      "Designed a structured documentation system to improve information organization, retrieval, and continuity across executive terms",
-      "Supported ongoing web and application maintenance to ensure system reliability and consistent access"
+      "Evaluated and selected a privacy-first RAG stack for an internal AI search tool serving 20+ executive users; pitched the solution to a non-technical audience emphasizing data safety and document confidentiality",
+      "Built a document ingestion pipeline (PDF, DOCX, XLSX) for chunking and embedding-based retrieval, integrated with PostgreSQL + pgvector for semantic search with citation-backed, document-restricted responses"
     ]
   },
   {
@@ -66,26 +79,12 @@ export const extracurricularExperience = [
     organization: "UW Biomedical Engineering Society",
     location: "Waterloo, ON",
     date: "Oct. 2025 – Present",
-    description: "Collaborated with mechanical and software sub-teams to design an assistive knee brace",
-    skills: ["PCB Design", "KiCad", "Arduino", "BLE"],
+    description: "Building EMG acquisition hardware and BLE firmware for an assistive knee brace.",
+    skills: ["EMG Signal Acquisition", "ESP32", "BLE", "GATT", "Python"],
     achievements: [
-      "Collaborated with mechanical and software sub-teams to design an assistive knee brace",
-      "Created PCB schematics and layouts in KiCad to support reliable EMG signal acquisition",
-      "Independently developed Arduino-based ESP32-S3 software to enable BLE data transmission to the software team"
-    ]
-  },
-  {
-    id: 3,
-    title: "Software Sub-team Member",
-    organization: "UW Biomechatronics Design Team",
-    location: "Waterloo, ON",
-    date: "Sep. 2025 – Present",
-    description: "Collaborated on a lower-limb exoskeleton system, focusing on system integration and control logic",
-    skills: ["ESP32", "System Integration", "Sensor Data"],
-    achievements: [
-      "Collaborated on a lower-limb exoskeleton system, focusing on system integration and control logic",
-      "Worked with ESP32 microcontrollers to test motors, LEDs, and hardware–software interactions",
-      "Supported early-stage sensor data interpretation and collaborated across electrical and mechanical sub-teams"
+      "Researched analog filtering techniques for EMG signal acquisition and supported circuit testing",
+      "Programmed ESP32s to stream multi-channel EMG over BLE via custom GATT services for an assistive knee brace",
+      "Built a Python BLE client with a GUI to stream, filter, and visualize live EMG signals; validated against expected muscle activation patterns and supported device testing"
     ]
   },
   {
@@ -94,7 +93,7 @@ export const extracurricularExperience = [
     organization: "UW Pre-Med Club",
     location: "Waterloo, ON",
     date: "Sep. 2025 – Present",
-    description: "Managed budgeting, expense tracking, and financial documentation for club initiatives",
+    description: "Managing club finances and sponsorship funding for the UW Pre-Med Club.",
     skills: ["Budgeting", "Sponsorship", "Financial Management"],
     achievements: [
       "Managed budgeting, expense tracking, and financial documentation for club initiatives",
