@@ -4,6 +4,13 @@
 // Favicons are pulled from the domain, so adding an entry only needs a domain.
 
 export const entities = {
+  'National Research Council Canada': {
+    url: 'https://nrc.canada.ca/en/research-development/research-collaboration/research-centres/digital-technologies-research-centre',
+    domain: 'nrc.canada.ca',
+    description:
+      "Canada's largest federal research organization; based at its Digital Technologies Research Centre.",
+    aliases: ['NRC', 'National Research Council']
+  },
   'University of Waterloo': {
     url: 'https://uwaterloo.ca',
     domain: 'uwaterloo.ca',

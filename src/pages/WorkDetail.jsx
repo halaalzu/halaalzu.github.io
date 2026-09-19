@@ -32,7 +32,6 @@ const WorkDetail = () => {
   return (
     <div className="work-detail-page">
       <NavBar />
-      <div className="work-detail-background" />
 
       <motion.article
         className="work-detail-container"

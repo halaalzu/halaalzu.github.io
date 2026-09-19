@@ -140,7 +140,9 @@
 }
 
 .hero-left {
-  max-width: 660px;
+  max-width: 860px;
+  min-width: 0;
+  overflow: hidden;
   justify-self: start;
   padding-left: 0;
   padding-top: 0;
@@ -167,10 +169,16 @@
   align-items: center;
 }
 
-/* On wide screens, position the right column independently so it won't shift with the left name size */
-@media (min-width: 1000px) {
+/* On wide screens, position the right column independently so it won't shift with the left name size.
+   This has to pick up right where the 900px stacked-layout breakpoint leaves off — a gap between the
+   two would land the two-column grid at its default 1fr/1fr split, squeezing the hero copy. */
+@media (min-width: 901px) {
   .hero-left {
-    width: 50%;
+    /* hero-right is absolutely positioned (see below) and no longer shares
+       this grid column, so hero-left can use the whole column up to the
+       vertical split line instead of the old 70% that left "Alzureiqi"
+       clipped by overflow: hidden at common laptop widths. */
+    width: calc(100% - 24px);
     max-width: none;
   }
 
@@ -283,7 +291,7 @@
 }
 
 .hero-subtitle,
-.hero-line,
+.hero-line-list,
 .hero-prompt {
   text-align: left;
 }
@@ -299,34 +307,45 @@
   letter-spacing: -0.03em;
 }
 
-.hero-line {
-  margin-top: 14px;
+.hero-line-list {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: none;
   font-size: clamp(14px, 1.25vw, 18px);
   color: #4f4560;
-  max-width: 600px;
-  position: relative;
-  padding: 4px 0 0 66px;
   line-height: 1.5;
   font-family: var(--font-sharp);
   font-weight: 500;
 }
 
-.hero-line-jots {
-  position: absolute;
-  left: 0;
-  top: 2px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  color: var(--purple-dark);
-  font-size: 22px;
-  line-height: 1;
-  font-weight: 800;
+.hero-line-list li {
+  position: relative;
+  padding-left: 30px;
 }
 
-.hero-line-jots span {
-  display: block;
-  transform: translateX(2px);
+/* Only the last line (the research-interests one) is long enough that it may
+   still need to wrap; the rest should always read as a single line. Scoped to
+   min-width: 641px — below that, the stacked hero column is narrow enough
+   that forcing no-wrap would push text past the edge of the screen. */
+@media (min-width: 641px) {
+  .hero-line-list li:not(:last-child) {
+    white-space: nowrap;
+  }
+}
+
+.hero-line-list li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--purple-dark);
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-weight: 800;
 }
 
 .hero-prompt {
@@ -485,16 +504,13 @@
 .goodreads-link:hover {
   text-decoration: underline;
 }
-.hero-sticker {
+/* The slot holds one sticker plus, on the envelope, its letter — so the drag
+   offset lives here and the letter travels with the envelope. The scales below
+   sit on the sticker itself, which keeps them from compounding with the offset. */
+.hero-sticker-slot {
   position: relative;
-  border: 0;
-  background: transparent;
-  cursor: grab;
-  transition: transform 0.2s ease;
-  width: 210px;
-  height: 154px;
-  padding: 0;
-  /* every state below composes on top of the drag offset, which Home.jsx sets */
+  z-index: 0; /* own stacking context, so the letter can tuck in behind */
+  width: 134px;
   transform: translate(var(--dx, 0px), var(--dy, 0px));
   /* the pointer has to own the gesture or a touch-drag scrolls the page instead */
   touch-action: none;
@@ -502,35 +518,47 @@
   -webkit-user-select: none;
 }
 
+.hero-sticker {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: grab;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
 .hero-sticker img {
-  transform: scale(1.28);
+  width: 100%;
+  height: auto;
+  display: block;
   transform-origin: center;
   -webkit-user-drag: none;
 }
 
 /* Picked up: bigger, tilted, and above everything else in the hero. The
    transition goes so the sticker tracks the pointer exactly. */
-.hero-sticker.is-dragging {
-  cursor: grabbing;
-  transition: none;
+.hero-sticker-slot.is-dragging {
   z-index: 6;
-  transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(1.12) rotate(-4deg);
-  filter: drop-shadow(0 18px 26px rgba(24, 16, 32, 0.32));
 }
 
-.hero-sticker img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+.hero-sticker-slot.is-dragging .hero-sticker {
+  cursor: grabbing;
+  transition: none;
+  transform: scale(1.12) rotate(-4deg);
+  filter: drop-shadow(0 18px 26px rgba(24, 16, 32, 0.32));
 }
 
 .hero-sticker span {
   position: absolute;
   left: 50%;
-  bottom: 26px; /* lift the hover label up so it doesn't block the click hint */
-  /* compensate for parent upward movement so labels remain in the original visual position */
-  transform: translateX(-50%) translateY(36px);
+  /* The box used to be a fixed 4:3 with the art floating inside it, so the
+     label could sit within that slack. The box hugs the artwork now, so it has
+     to clear the bottom edge outright — .hero-click-object carries matching
+     margin so the hint below still has room. */
+  bottom: 0;
+  transform: translateX(-50%) translateY(30px);
   background: var(--purple-dark);
   color: #fff;
   font-size: 12px;
@@ -543,11 +571,11 @@
   z-index: 1;
 }
 
-.hero-sticker:hover {
-  transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(1.03);
+.hero-sticker-slot:hover .hero-sticker {
+  transform: scale(1.03);
 }
 
-.hero-sticker:hover span {
+.hero-sticker-slot:hover .hero-sticker span {
   opacity: 1;
 }
 
@@ -557,7 +585,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0; /* we'll handle overlap with negative margins */
+  gap: 0; /* the stickers carry their own margins */
   flex-wrap: nowrap;
 }
 
@@ -565,7 +593,7 @@
   width: min(680px, 100%);
   max-width: 680px;
   display:flex;
-  justify-content:center; /* center group; we'll let items overlap */
+  justify-content:center;
   align-items:center;
   position:relative;
   top:-64px; /* move icons up slightly more into the purple area */
@@ -574,23 +602,110 @@
   overflow:visible;
 }
 
-.hero-stickers-panel .hero-sticker {
+.hero-stickers-panel .hero-sticker-slot {
   /* Four of these sit in a row that has to survive a 320px phone as well as a
      4K monitor. The width is the ideal size; shrink lets the row give way when
      the hero's right-hand column is narrower than that ideal, which is what it
      is at every laptop size — four fixed 200px stickers ran past the edge. */
   flex: 0 1 auto;
   min-width: 0;
-  width: clamp(124px, 24vw, 258px);
+  width: clamp(70px, 12vw, 130px);
   height: auto;
-  aspect-ratio: 4 / 3;
-  /* they overlap rather than sit apart, which is also what buys each one the
-     extra width — the row is capped by the hero's right-hand column */
-  margin: 0 max(-30px, -2.2vw);
+  /* They used to overlap, which read as one clump once the transparent
+     canvas came off them. Real space between instead — the row is capped by
+     the hero's right-hand column, so the shrink above pays for it. */
+  margin: 0 clamp(5px, 1vw, 13px);
+}
+
+/* ── The envelope's letter ─────────────────────────────────────────────────
+   A page that slides up out of the envelope on hover and drops back in when
+   you leave. Pressing the envelope pins it out (.is-open from Home.jsx); press
+   again and it goes back. It sits at a negative z-index inside the slot's own
+   stacking context, so it really does come out from behind the envelope. */
+.hero-letter {
+  position: absolute;
+  left: 50%;
+  /* overlaps the envelope, so there is no dead gap to cross with the pointer */
+  bottom: 46%;
+  z-index: -1;
+  width: max(172px, 122%);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 11px 11px 19px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #fdfbf5 0%, #f6f0e2 100%);
+  border-radius: 3px 3px 2px 2px;
+  box-shadow: 0 12px 24px rgba(24, 16, 32, 0.28);
+  /* tucked all the way inside the envelope at rest */
+  transform: translate(-50%, 26%) scaleY(0.42);
+  transform-origin: 50% 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+}
+
+.hero-sticker-slot.is-open .hero-letter {
+  transform: translate(-50%, -8%) scaleY(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hover only where hover is real. On a touchscreen :hover latches after a tap,
+   which would leave the letter stuck out and fighting the press that pins it. */
+@media (hover: hover) and (pointer: fine) {
+  .hero-sticker-slot:hover .hero-letter {
+    transform: translate(-50%, -8%) scaleY(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.hero-letter-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sharp);
+  font-size: clamp(10px, 1.05vw, 13px);
+  font-weight: 700;
+  color: #5b3a6b;
+  text-decoration: none;
+  padding: 3px 4px;
+  border-radius: 4px;
+  /* ruled like a page */
+  border-bottom: 1px solid rgba(111, 63, 130, 0.16);
+  white-space: nowrap;
+}
+
+.hero-letter-link:last-child {
+  border-bottom: 0;
+}
+
+.hero-letter-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex: none;
+  -webkit-user-drag: none;
+}
+
+.hero-letter-link:hover,
+.hero-letter-link:focus-visible {
+  background: rgba(111, 63, 130, 0.1);
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter {
+    transition: opacity 200ms ease;
+    transform: translate(-50%, -8%) scaleY(1);
+  }
 }
 
 .hero-click-object {
-  margin-top: 0; /* move label up */
+  margin-top: 30px; /* clear the sticker labels, which hang below their icons */
   color: #f5f1e8;
   font-family: var(--font-sharp);
   font-size: 14px;
@@ -681,7 +796,6 @@
   /* hovering the card spreads the deck so you can see there is more than one;
      widening the slot re-runs the same transform on every card */
   .me-item:hover .polaroid-stack{--slot-x:16px;--slot-y:6px;--slot-rot:5.5deg}
-  .me-item.is-centre:hover .me-link{text-decoration:underline}
 }
 
 /* keyboard users get the same emphasis without needing a pointer at all */
@@ -703,6 +817,8 @@
 .me-label{font-size:12px;color:#7b6a88;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-top:10px}
 .me-title{font-weight:700;margin-top:6px}
 .me-sub{color:#7b6a88;font-size:13px}
+.me-profile-link{margin-top:8px;font-size:12px;color:#7b6a88;text-decoration:underline;text-underline-offset:2px}
+.me-profile-link:hover{color:#2f2837}
 .me-book,.me-movie,.me-polaroid{display:flex;flex-direction:column;align-items:center}
 .me-book-cover,.me-movie-poster{background:#eee;background-size:cover;background-position:center}
 
@@ -911,13 +1027,8 @@
    centre they go inert and the click reaches .me-item. */
 .me-item:not(.is-centre) .me-vinyl-play-overlay,
 .me-item:not(.is-centre) .me-spotify-controls,
-.me-item:not(.is-centre) .polaroid-stack,
-.me-item:not(.is-centre) a.me-link{pointer-events:none}
+.me-item:not(.is-centre) .polaroid-stack{pointer-events:none}
 .me-item:focus-visible{outline:2px solid rgba(111,63,130,0.35);outline-offset:6px;border-radius:12px}
-
-/* "View on Goodreads/Letterboxd" reads as a link cue, underlined on the centre
-   card (the hover rule lives in the pointer:fine block above) */
-.me-link{margin-top:8px;font-size:13px;color:var(--purple-primary);font-weight:600}
 
 /* placeholder art while a feed is empty or a fetch fell back */
 [data-empty='true']{background-image:linear-gradient(135deg,rgba(143,110,157,0.22),rgba(143,110,157,0.06));box-shadow:inset 0 0 0 1px rgba(111,63,130,0.12)}
@@ -927,9 +1038,6 @@
 /* the whole stack is one shuffle button; the top card lifts on hover */
 .polaroid-stack:focus-visible{outline:2px solid rgba(111,63,130,0.35);outline-offset:8px;border-radius:8px}
 .polaroid-stack:hover .polaroid-piece.is-top{transform:translate(0,-8px) rotate(-7deg) scale(1.02);box-shadow:0 18px 30px rgba(47,40,55,0.24)}
-
-a.me-link{text-decoration:none}
-a.me-link:hover{text-decoration:underline}
 
 .me-updated{margin-top:12px;text-align:center;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#9a8ea6;padding:0 16px}
 
@@ -1174,8 +1282,27 @@ a.me-link:hover{text-decoration:underline}
   color: #706678;
 }
 
-.contact-inline-min span {
+.contact-inline-min > span {
   color: #9b92a2;
+}
+
+.footer-email-label,
+.footer-email-address {
+  color: inherit;
+}
+
+.footer-email-address {
+  display: none;
+}
+
+.footer-email:hover .footer-email-label,
+.footer-email:focus-visible .footer-email-label {
+  display: none;
+}
+
+.footer-email:hover .footer-email-address,
+.footer-email:focus-visible .footer-email-address {
+  display: inline;
 }
 
 @media (max-width: 900px) {
@@ -1234,9 +1361,8 @@ a.me-link:hover{text-decoration:underline}
     background: var(--cream);
   }
 
-  .hero-sticker {
-    width: 156px;
-    height: 116px;
+  .hero-sticker-slot {
+    width: 92px;
   }
 
   .quote-stage {
@@ -1269,7 +1395,7 @@ a.me-link:hover{text-decoration:underline}
 
   .hero-inner-min h1,
   .hero-subtitle,
-  .hero-line {
+  .hero-line-list {
     text-align: left;
   }
 
@@ -1277,18 +1403,8 @@ a.me-link:hover{text-decoration:underline}
     white-space: normal;
   }
 
-  .hero-line {
-    padding-left: 78px;
-    background-size: 72px auto;
-  }
-
-  .hero-line-jots {
-    font-size: 20px;
-  }
-
-  .hero-right .hero-sticker {
-    width: 156px;
-    height: 116px;
+  .hero-right .hero-sticker-slot {
+    width: 92px;
   }
 
   .hero-click-object {
@@ -1344,6 +1460,12 @@ a.me-link:hover{text-decoration:underline}
 @media (min-width: 901px) and (max-width: 1180px) {
   .hero-split {
     padding: 0 40px;
+  }
+
+  /* the hero column is narrowest in this band; forcing the subtitle onto one
+     line runs it past the edge of hero-left, so let it wrap here instead */
+  .hero-subtitle {
+    white-space: normal;
   }
 
   .quote-stage-panel {
@@ -1403,12 +1525,8 @@ a.me-link:hover{text-decoration:underline}
     font-size: clamp(40px, 13vw, 56px);
   }
 
-  .hero-line {
-    padding-left: 62px;
-  }
-
-  .hero-line-jots {
-    font-size: 17px;
+  .hero-line-list li {
+    padding-left: 24px;
   }
 
   .quote-stage-panel {
@@ -1446,11 +1564,7 @@ a.me-link:hover{text-decoration:underline}
   }
 
   .hero-sticker:active {
-    transform: translate(var(--dx, 0px), var(--dy, 0px)) scale(0.97);
-  }
-
-  .me-item.is-centre .me-link {
-    text-decoration: underline;
+    transform: scale(0.97);
   }
 }
 
@@ -1458,4 +1572,277 @@ a.me-link:hover{text-decoration:underline}
    indicator and out from under the rounded corners in landscape. */
 .footer-min {
   padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
+/* ── Phone hero: fit the cream half and the purple half on one screen ──────
+   The stacked hero used to run to roughly two and a half screens, with a tall
+   band of empty purple above the quote and the stickers pushed off the bottom.
+   Everything below tightens the vertical rhythm so the name, the intro, the
+   quote and the stickers all land within the first viewport. */
+@media (max-width: 640px) {
+  .hero-inner-min {
+    padding-bottom: 20px;
+  }
+
+  .hero-split {
+    gap: 0;
+  }
+
+  .hero-left {
+    padding-top: 0;
+    padding-bottom: 10px;
+    justify-content: flex-start;
+  }
+
+  .hero-inner-min h1 {
+    font-size: clamp(38px, 12vw, 54px);
+    margin-bottom: 8px;
+  }
+
+  .hero-subtitle {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  .hero-line-list {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.45;
+    gap: 6px;
+  }
+
+  .hero-left::before {
+    top: -8px;
+    bottom: -12px;
+  }
+
+  /* the purple half starts right under the intro instead of a screen later */
+  .hero-right {
+    padding: 20px max(16px, env(safe-area-inset-right)) 14px max(16px, env(safe-area-inset-left));
+  }
+
+  /* auto height here rather than the desktop's fixed box: on a phone the point
+     is to spend no more purple than the quote actually needs */
+  .quote-stage-panel {
+    height: auto;
+    min-height: 0;
+    transform: none;
+    padding-inline: 0;
+  }
+
+  .site-quote .quote-text {
+    font-size: clamp(17px, 5vw, 21px);
+    line-height: 1.24;
+  }
+
+  .site-quote .quote-text.is-long {
+    font-size: clamp(16px, 4.4vw, 19px);
+  }
+
+  .site-quote .quote-text.is-xlong {
+    font-size: clamp(14px, 3.8vw, 17px);
+  }
+
+  .site-quote .quote-text.is-huge {
+    font-size: clamp(12px, 3.2vw, 15px);
+  }
+
+  .site-quote .quote-author {
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  /* Four across in one line, small enough that they all fit. The base rule
+     lifts them up into the purple with a negative offset, which on a phone
+     would drop them on top of the quote. */
+  .hero-stickers-panel {
+    top: 0;
+    flex-wrap: nowrap;
+    padding-inline: 0;
+    margin-top: 14px;
+  }
+
+  .hero-stickers-panel .hero-sticker {
+    width: min(20vw, 80px);
+    margin: 0 max(-8px, -1.2vw);
+  }
+
+  .hero-click-object {
+    top: 0;
+    margin-top: 8px;
+    font-size: 11px;
+  }
+
+  /* the caption bubbles are sized for 200px stickers */
+  .hero-sticker span {
+    bottom: 12px;
+    font-size: 10px;
+    padding: 3px 7px;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
+/* ── Experience timeline on phone ─────────────────────────────────────────
+   The rail and its markers used to be dropped below 900px, leaving a plain
+   list. They fit fine once the rail moves to the far left and the date sits
+   above the role rather than in its own 170px column. */
+@media (max-width: 900px) {
+  .timeline-list::before {
+    display: block;
+    left: 5px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 12px 1fr;
+    gap: 0 16px;
+    padding: 12px 0;
+    border-bottom: none;
+  }
+
+  .timeline-date {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: left;
+    padding-right: 0;
+    margin-bottom: 2px;
+  }
+
+  .timeline-marker {
+    display: block;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 9px;
+    height: 9px;
+    margin: 5px 0 0 1px;
+  }
+
+  .timeline-content {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* ── Footer links on one line ─────────────────────────────────────────────
+   "Resume" used to wrap onto a second row. The type scales with the viewport
+   so the four links stay on one line down to a 320px screen. */
+@media (max-width: 640px) {
+  .contact-inline-min {
+    flex-wrap: nowrap;
+    gap: 6px;
+    font-size: clamp(10px, 3.2vw, 15px);
+    white-space: nowrap;
+  }
+}
+
+/* ── Causes list (formerly the standalone Charity page) ──────────────────
+   Ported in when that page was folded into the one-page home; a compact
+   list of rows that expand to show the description on hover/focus. */
+.charity-list { display: flex; flex-direction: column; gap: 10px; }
+.charity-row {
+  position: relative;
+  background: var(--panel);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 12px 14px;
+  overflow: hidden;
+  transition: padding 350ms ease, max-height 350ms ease, background-color 350ms ease;
+  max-height: 84px;
+}
+.charity-row:focus-visible, .charity-row:hover {
+  outline: none;
+  padding: 22px 18px;
+  max-height: 220px;
+  border-top: 3px solid var(--purple-primary);
+}
+
+.charity-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  z-index: 0;
+  filter: saturate(0.9) contrast(0.95);
+}
+.charity-row:focus-visible .charity-bg, .charity-row:hover .charity-bg { opacity: 0.14; }
+
+.charity-row-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.charity-bullet { font-size: 18px; line-height: 1; color: var(--muted); margin-top: 6px; }
+.charity-main { flex: 1 1 auto; }
+.charity-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.charity-title { font-family: Georgia, 'Times New Roman', serif; margin: 0; font-weight: 600; }
+.charity-year { font-family: 'Courier New', monospace; color: rgba(0,0,0,0.45); font-size: 13px; }
+.charity-sub { font-family: 'Courier New', monospace; color: rgba(0,0,0,0.45); font-size: 13px; margin-top: 6px; }
+.charity-short {
+  margin: 0;
+  color: rgba(0,0,0,0.85);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 350ms ease, opacity 260ms ease, margin 260ms ease;
+}
+.charity-row:focus-visible .charity-short, .charity-row:hover .charity-short {
+  margin-top: 8px;
+  max-height: 240px;
+  opacity: 1;
+}
+.charity-link-inline { margin-left: 12px; align-self: flex-start; color: var(--purple-primary); font-weight: 600; z-index: 3; opacity: 1; }
+
+/* Ensure keyboard users see same hover effects */
+.charity-row:focus-visible { box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+
+/* Touch input has no hover, so the rows above would stay locked at their 84px
+   collapsed height forever: the description is unreachable and any title that
+   wraps to a second line gets sliced by the clamp. On these devices the row is
+   simply always open. */
+@media (hover: none) {
+  .charity-row {
+    max-height: none;
+    padding: 16px 14px;
+  }
+
+  .charity-short {
+    max-height: none;
+    opacity: 1;
+    margin-top: 8px;
+    overflow: visible;
+  }
+
+  .charity-row:hover {
+    max-height: none;
+    padding: 16px 14px;
+    border-top: 0;
+  }
+}
+
+/* Even with a mouse, a narrow window wraps these titles onto two or three lines
+   and 84px is not enough room for them. */
+@media (max-width: 560px) {
+  .charity-row {
+    max-height: none;
+  }
+
+  .charity-head {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .charity-row-inner {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* the Donate link beside the text squeezes the description into a ~230px
+     column on a phone; below it, the description gets the full row */
+  .charity-link-inline {
+    flex-basis: 100%;
+    margin-left: 26px;
+    margin-top: 10px;
+  }
 }
