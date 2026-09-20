@@ -146,33 +146,6 @@ export const projects = {
       github: "https://github.com/halaalzu/2000-Nissan-Skyline-R34-GT-R-3D-Print",
       liveDemo: null,
       images: [] // Add image URLs here: ['/assets/skyline-1.png', '/assets/skyline-2.png']
-    },
-    {
-      id: 5,
-      title: "To-Do List",
-      slug: "to-do-list",
-      kind: "Full-Stack Web",
-      year: "Dec 2025",
-      cover: "/assets/IMG_6426.JPG",
-      blurb: "A full-stack Flask task manager with REST-style routing and real-time state, built as a clean run at core CRUD logic.",
-      description: "I built a full-stack to-do list app that lets users add, complete, and delete tasks with real-time updates through a clean web interface. It reinforced core CRUD logic, backend routing, and organized data handling.",
-      tech: ["Python", "Flask", "HTML/CSS", "JavaScript"],
-      type: "Full-Stack Web Application",
-      status: "completed",
-      date: "Dec. 2025",
-      keyAchievements: [
-        "Developed a full-stack task management application using Flask, implementing REST-style routes to support task creation, updating, and deleting through backend Python logic",
-        "Built a front-end with HTML, CSS, and JavaScript for user interactions and reflect real-time task state changes",
-        "Implemented basic CRUD logic and program flow in Python"
-      ],
-      details: [
-        "Task management with add, complete, and delete",
-        "CRUD logic and REST-style routing",
-        "Real-time task state updates"
-      ],
-      github: "https://github.com/halaalzu/To-Do-List",
-      liveDemo: "https://to-do-list-22no.onrender.com/login",
-      images: [] // Add image URLs here: ['/assets/todo-1.png', '/assets/todo-2.png']
     }
   ],
   featured: [
