@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T04:53:01.514Z",
+  "updatedAt": "2026-09-21T12:43:16.090Z",
   "book": {
     "title": "The Fertility of Evil",
     "author": "Amara Lakhous",
@@ -156,7 +156,7 @@
     },
     "letterboxd": {
       "ok": false,
-      "error": "503 Service Unavailable for https://letterboxd.com/halaalzu/rss/",
+      "error": "no film entries in the feed yet",
       "stale": false
     },
     "spotify": {
