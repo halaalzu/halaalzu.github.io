@@ -8,12 +8,39 @@
 export const projects = {
   completed: [
     {
+      id: 8,
+      title: "Assistive Knee Brace",
+      slug: "assistive-knee-brace",
+      kind: "Hardware / Embedded",
+      year: "Oct 2025–present",
+      cover: null,
+      blurb: "EMG acquisition hardware and BLE firmware for an assistive knee brace, built with the UW Biomedical Engineering Society.",
+      description: "As an Electrical Sub-team member for the UW Biomedical Engineering Society, I'm collaborating with the mechanical and software sub-teams to design an assistive knee brace. My work covers EMG signal acquisition hardware, ESP32 firmware to stream multi-channel EMG over BLE, and a Python BLE client to visualize and validate the signals.",
+      tech: ["PCB Design", "KiCad", "Arduino", "ESP32", "BLE", "GATT", "Python"],
+      type: "Hardware Design",
+      status: "ongoing",
+      date: "Oct. 2025 – Present",
+      keyAchievements: [
+        "Researched analog filtering techniques for EMG signal acquisition and supported circuit testing",
+        "Programmed ESP32s to stream multi-channel EMG over BLE via custom GATT services for an assistive knee brace",
+        "Built a Python BLE client with a GUI to stream, filter, and visualize live EMG signals; validated against expected muscle activation patterns and supported device testing"
+      ],
+      details: [
+        "EMG signal acquisition circuit design and filtering",
+        "ESP32 firmware streaming multi-channel EMG over BLE",
+        "Python BLE client with live signal visualization"
+      ],
+      github: null,
+      liveDemo: null,
+      images: []
+    },
+    {
       id: 6,
       title: "SineWave",
       slug: "sinewave",
       kind: "Computer Vision",
       year: "Feb 2026",
-      cover: "/assets/RS450277_IMG_3763_hpr.webp",
+      cover: "/assets/sinewave-thumbnail.webp",
       blurb: "A rhythm game played with hand gestures, built for motor rehab. Real-time computer vision turns movement into music while tracking recovery metrics.",
       description: "SineWave is a rhythm-based hand gesture game designed for motor rehabilitation. Using real-time computer vision and PyTorch-based gesture classification, it provides musical feedback while tracking movement metrics to support rehabilitation progress.",
       tech: ["Python", "MediaPipe", "OpenCV", "PyTorch"],
@@ -40,7 +67,7 @@ export const projects = {
       slug: "booktok",
       kind: "Full-Stack Web",
       year: "Jan 2026",
-      cover: "/assets/1768250233760.jpeg",
+      cover: "/assets/booktok-thumbnail.webp",
       blurb: "An AI pipeline that turns book summaries into short-form videos in a scrollable feed, like TikTok for finding your next read.",
       description: "BookTok turns book summaries into short, engaging videos and shows them in a scrollable feed so users can quickly discover new reads. It makes finding your next book feel like scrolling TikTok, but for books.",
       tech: ["Node.js", "Express", "React", "Gemini API", "ElevenLabs", "FFmpeg", "Cloudinary", "MongoDB Atlas"],
@@ -69,7 +96,7 @@ export const projects = {
       slug: "accessible-catan",
       kind: "CAD / 3D Print",
       year: "Sep–Dec 2025",
-      cover: "/assets/Painted%20Final%20Prints.jpg",
+      cover: "/assets/catan-thumbnail.webp",
       blurb: "Catan redesigned for players with hand tremors, using magnetic slot-fit parts refined across three prototypes.",
       description: "Accessible Catan is a SolidWorks redesign of the classic board game to improve playability for users with hand tremors using stable, magnetic, slot-fit components refined through multiple prototypes.",
       tech: ["SolidWorks", "Iterative Design", "3D Modeling", "Prototyping"],
@@ -100,7 +127,7 @@ export const projects = {
       slug: "flower-puzzle",
       kind: "CAD / 3D Print",
       year: "Sep–Dec 2025",
-      cover: "/assets/STL%20Print%20Layout.png",
+      cover: "/assets/flower-thumbnail.webp",
       blurb: "A multi-part mechanical puzzle with interlocking moving components, iterated over four revisions for fit and smooth motion.",
       description: "Flower Puzzle Assembly is a multi-part mechanical puzzle designed with interlocking components and smooth motion in mind. It went through 4 design revisions to improve fit, alignment, and overall reliability.",
       tech: ["SolidWorks", "Iterative Design", "Tolerance Analysis", "Part Modeling"],
@@ -127,7 +154,7 @@ export const projects = {
       slug: "skyline-r34",
       kind: "CAD / 3D Print",
       year: "2025",
-      cover: null, // no photo on file yet — the index falls back to a gradient
+      cover: "/assets/skyline-r34-thumbnail.webp",
       blurb: "A detailed CAD recreation of my favourite car, built for precision geometry practice and prepped for fabrication.",
       description: "I designed a detailed CAD model of the 2000 Nissan Skyline R34 GT-R (my favourite car from my favourite character) so I had to recreate it myself.",
       tech: ["CAD", "3D Modeling", "Digital Fabrication"],
@@ -145,7 +172,7 @@ export const projects = {
       ],
       github: "https://github.com/halaalzu/2000-Nissan-Skyline-R34-GT-R-3D-Print",
       liveDemo: null,
-      images: [] // Add image URLs here: ['/assets/skyline-1.png', '/assets/skyline-2.png']
+      images: ['/assets/skyline-r34.mp4']
     }
   ],
   featured: [
