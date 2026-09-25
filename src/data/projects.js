@@ -13,7 +13,7 @@ export const projects = {
       slug: "assistive-knee-brace",
       kind: "Hardware / Embedded",
       year: "Oct 2025–present",
-      cover: null,
+      cover: "/assets/knee-brace-thumbnail.webp",
       blurb: "EMG acquisition hardware and BLE firmware for an assistive knee brace, built with the UW Biomedical Engineering Society.",
       description: "As an Electrical Sub-team member for the UW Biomedical Engineering Society, I'm collaborating with the mechanical and software sub-teams to design an assistive knee brace. My work covers EMG signal acquisition hardware, ESP32 firmware to stream multi-channel EMG over BLE, and a Python BLE client to visualize and validate the signals.",
       tech: ["PCB Design", "KiCad", "Arduino", "ESP32", "BLE", "GATT", "Python"],
@@ -32,7 +32,7 @@ export const projects = {
       ],
       github: null,
       liveDemo: null,
-      images: []
+      images: ['/assets/knee-brace-1.webp', '/assets/knee-brace-2.mov', '/assets/knee-brace-thumbnail.webp']
     },
     {
       id: 6,
