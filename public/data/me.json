@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T18:11:23.818Z",
+  "updatedAt": "2026-09-28T19:24:20.840Z",
   "book": {
     "title": "The Fertility of Evil",
     "author": "Amara Lakhous",
@@ -206,7 +206,41 @@
     "range": "month",
     "profile": "https://open.spotify.com"
   },
-  "pinterest": null,
+  "pinterest": {
+    "pins": [
+      {
+        "image": "https://i.pinimg.com/564x/ef/db/34/efdb347ba745ea46d7b6fcff291d58b5.jpg",
+        "link": "https://www.pinterest.com/pin/762023199495419896/",
+        "title": null
+      },
+      {
+        "image": "https://i.pinimg.com/564x/6a/b6/f6/6ab6f670472dedcf34406a5cf8cbe808.jpg",
+        "link": "https://www.pinterest.com/pin/762023199495419892/",
+        "title": "#ceramics #ceramique #seramik #seramiksanatı #kahve #coffee #winnie #winniethepoohquotes…"
+      },
+      {
+        "image": "https://i.pinimg.com/564x/0b/e1/af/0be1af2a44aafd4f3bafd25dfed1ba2e.jpg",
+        "link": "https://www.pinterest.com/pin/762023199495416062/",
+        "title": null
+      },
+      {
+        "image": "https://i.pinimg.com/564x/32/26/47/3226472816f478d29b4430a276d84fa0.jpg",
+        "link": "https://www.pinterest.com/pin/762023199495416057/",
+        "title": "tom and jerry funny pic"
+      },
+      {
+        "image": "https://i.pinimg.com/564x/f1/93/50/f193506d3e73fa495f3882c2f1a95d22.jpg",
+        "link": "https://www.pinterest.com/pin/762023199495416013/",
+        "title": "Pottery painting, Paddington plate"
+      },
+      {
+        "image": "https://i.pinimg.com/564x/af/a0/c2/afa0c2a463894f707a9d6776190b9f18.jpg",
+        "link": "https://www.pinterest.com/pin/762023199495415995/",
+        "title": "By me :)"
+      }
+    ],
+    "profile": "https://www.pinterest.com/halaazlu/"
+  },
   "sources": {
     "goodreads": {
       "ok": true
@@ -223,9 +257,7 @@
       "ok": true
     },
     "pinterest": {
-      "ok": false,
-      "error": "no RSS feed at https://www.pinterest.com/halaalzu/feed.rss — check the username in your profile URL, and that the account is public",
-      "stale": false
+      "ok": true
     }
   }
 }
