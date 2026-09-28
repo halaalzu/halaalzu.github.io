@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T13:48:28.826Z",
+  "updatedAt": "2026-09-28T18:11:23.818Z",
   "book": {
     "title": "The Fertility of Evil",
     "author": "Amara Lakhous",
@@ -145,7 +145,67 @@
     "profile": "https://www.goodreads.com/halaalzu"
   },
   "movie": null,
-  "spotify": null,
+  "spotify": {
+    "tracks": [
+      {
+        "title": "Ashan Habeeby",
+        "artist": "TUL8TE, Vodafone",
+        "album": "Ashan Habeeby",
+        "art": "https://i.scdn.co/image/ab67616d0000b273b5c24f540298f2652f70465c",
+        "duration": "2:56",
+        "previewUrl": null,
+        "link": "https://open.spotify.com/track/47KL0buSc2RfvEARcAwj3r",
+        "rank": 1,
+        "range": "month"
+      },
+      {
+        "title": "Enta Habeeby",
+        "artist": "TUL8TE",
+        "album": "Sadeek El Bernameg",
+        "art": "https://i.scdn.co/image/ab67616d0000b273a18f4a190692590da7fdc898",
+        "duration": "4:42",
+        "previewUrl": null,
+        "link": "https://open.spotify.com/track/7bHp6LhAGExiF15hU8vuWY",
+        "rank": 2,
+        "range": "month"
+      },
+      {
+        "title": "honeybee",
+        "artist": "Olivia Rodrigo",
+        "album": "you seem pretty sad for a girl so in love",
+        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
+        "duration": "3:43",
+        "previewUrl": null,
+        "link": "https://open.spotify.com/track/4kX7xkopoXZCfE1D6fNwl2",
+        "rank": 3,
+        "range": "month"
+      },
+      {
+        "title": "Garee2a Awy - A COLORS SHOW",
+        "artist": "TUL8TE, COLORS",
+        "album": "Garee2a Awy - A COLORS SHOW",
+        "art": "https://i.scdn.co/image/ab67616d0000b27373aa5127d0871a45c130ea55",
+        "duration": "2:39",
+        "previewUrl": null,
+        "link": "https://open.spotify.com/track/4rf1NRUuO9jRXdRSvsYpHC",
+        "rank": 4,
+        "range": "month"
+      },
+      {
+        "title": "Mawgou Garh Tany",
+        "artist": "Wael Jassar",
+        "album": "Kol Deea Shakhseya",
+        "art": "https://i.scdn.co/image/ab67616d0000b273e52226d78a4ff990caacb558",
+        "duration": "4:37",
+        "previewUrl": null,
+        "link": "https://open.spotify.com/track/51s2QDaIou72ysuF2WAxtv",
+        "rank": 5,
+        "range": "month"
+      }
+    ],
+    "range": "month",
+    "profile": "https://open.spotify.com"
+  },
   "pinterest": null,
   "sources": {
     "goodreads": {
@@ -160,9 +220,7 @@
       "stale": false
     },
     "spotify": {
-      "ok": false,
-      "error": "missing SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET / SPOTIFY_REFRESH_TOKEN",
-      "stale": false
+      "ok": true
     },
     "pinterest": {
       "ok": false,
