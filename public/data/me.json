@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T19:24:20.840Z",
+  "updatedAt": "2026-09-28T19:27:10.516Z",
   "book": {
     "title": "The Fertility of Evil",
     "author": "Amara Lakhous",
@@ -144,7 +144,15 @@
     ],
     "profile": "https://www.goodreads.com/halaalzu"
   },
-  "movie": null,
+  "movie": {
+    "title": "Spider-Man: Brand New Day",
+    "year": "2026",
+    "rating": "★★★",
+    "watchedAt": "2026-09-28",
+    "poster": "https://a.ltrbxd.com/resized/film-poster/8/7/2/8/7/1/872871-spider-man-brand-new-day-0-460-0-690-crop.jpg?v=ebe6beb4fc",
+    "link": "https://letterboxd.com/halaalzu/film/spider-man-brand-new-day/",
+    "profile": "https://letterboxd.com/halaalzu/"
+  },
   "spotify": {
     "tracks": [
       {
@@ -249,9 +257,7 @@
       "ok": true
     },
     "letterboxd": {
-      "ok": false,
-      "error": "no film entries in the feed yet",
-      "stale": false
+      "ok": true
     },
     "spotify": {
       "ok": true
