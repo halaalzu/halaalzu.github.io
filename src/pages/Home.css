@@ -1322,17 +1322,22 @@
 
 @media (max-width: 900px) {
   /* The stacked hero fills the full first screen — purple, top to bottom —
-     so nothing cream is visible until the visitor actually scrolls. */
+     so nothing cream is visible until the visitor actually scrolls. dvh
+     tracks the browser chrome as it collapses, which can be shorter than
+     the fully-collapsed screen; lvh pins to that larger case so the purple
+     never falls a few px short and flashes cream before you've scrolled. */
   .hero-wrap-min {
     min-height: 100vh;
     min-height: 100dvh;
+    min-height: 100lvh;
   }
 
   .hero-inner-min {
     height: auto;
     min-height: 100vh;
     min-height: 100dvh;
-    padding-block: calc(max(25px, env(safe-area-inset-top)) + 92px) 32px;
+    min-height: 100lvh;
+    padding-block: calc(max(25px, env(safe-area-inset-top)) + 116px) 32px;
     display: flex;
     flex-direction: column;
     justify-content: center;

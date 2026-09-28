@@ -262,14 +262,29 @@
     display: none !important;
   }
 
-  /* Show ~2 rows and let the rest live in their own scroll box, so one
+  /* Show 2 rows plus enough of a third to read as "cut off, scroll for more"
+     rather than a clean stop — the rest lives in its own scroll box, so one
      collection can't push the whole page into a long scroll on a phone. */
   .work-index-list {
-    max-height: 176px;
+    max-height: 216px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent 100%);
+    scrollbar-color: var(--purple-primary) transparent;
+  }
+
+  .work-index-list::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .work-index-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .work-index-list::-webkit-scrollbar-thumb {
+    background: var(--purple-primary);
+    border-radius: 2px;
   }
 }
