@@ -180,6 +180,11 @@
        clipped by overflow: hidden at common laptop widths. */
     width: calc(100% - 24px);
     max-width: none;
+    /* Lets the h1 below size itself off this box's actual width instead of
+       the viewport — vw and the column's share of the viewport drift apart
+       right at this breakpoint and again around 1200-1250px, which is what
+       let "Alzureiqi" clip against overflow: hidden above. */
+    container-type: inline-size;
   }
 
   .hero-right {
@@ -207,6 +212,16 @@
   overflow: visible;
   font-weight: 800;
   letter-spacing: -0.06em;
+}
+
+/* vw and .hero-left's actual share of the viewport (see container-type in the
+   min-width: 901px block above) drift apart right at this breakpoint and
+   again around 1200-1250px — enough to run "Alzureiqi" past overflow: hidden.
+   cqw ties the size to the box that clips it instead, so it can't happen. */
+@media (min-width: 901px) {
+  .hero-inner-min h1 {
+    font-size: clamp(56px, 20cqw, 132px);
+  }
 }
 
 /* Both name faces occupy the same grid cell, so the box is always as tall as
@@ -1306,30 +1321,33 @@
 }
 
 @media (max-width: 900px) {
-  /* stacked hero can exceed the viewport, so the blade sweep stays off here
-     (see the min-width: 901px block) and the experience panel just follows */
+  /* The stacked hero fills the full first screen — purple, top to bottom —
+     so nothing cream is visible until the visitor actually scrolls. */
   .hero-wrap-min {
-    min-height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .hero-inner-min {
     height: auto;
-    min-height: auto;
-    padding-bottom: 56px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-block: calc(max(25px, env(safe-area-inset-top)) + 92px) 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .hero-split {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
     padding: 0 max(24px, env(safe-area-inset-right)) 0 max(24px, env(safe-area-inset-left));
   }
 
   .hero-left {
     padding-left: 24px;
-    /* stacked hero starts at the top of the page, so the name has to begin
-       below the fixed nav mark rather than underneath it */
-    padding-top: calc(max(25px, env(safe-area-inset-top)) + 92px);
+    padding-top: 0;
     min-height: auto;
     justify-content: flex-start;
   }
@@ -1339,54 +1357,56 @@
     padding: 24px clamp(20px, 4vw, 30px) 20px;
   }
 
-  /* Stacked layout: a vertical split would slice both columns, so the cream
-     sits behind the left column only and the rest of the hero stays purple. */
+  /* Stacked layout: colours are inverted from the desktop split — the whole
+     screen stays purple with cream text, so there is no cream card behind
+     the name to sweep in. */
   .hero-wipe-cream {
     display: none;
   }
 
-  .hero-left {
-    position: relative;
-    z-index: 1;
+  /* With the quote panel gone, the name and intro are the only things in the
+     purple screen — size them off the viewport so they read as the hero
+     rather than leaving the space half-empty. */
+  .hero-inner-min h1 {
+    color: var(--cream);
+    font-size: clamp(60px, 19vw, 132px);
   }
 
-  .hero-left::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: -12px;
-    bottom: -20px;
-    left: -88px;
-    right: -88px;
-    background: var(--cream);
+  .hero-subtitle {
+    color: rgba(245, 241, 232, 0.92);
+    font-size: clamp(18px, 5.2vw, 26px);
+    margin-top: 16px;
+  }
+
+  .hero-line-list {
+    color: rgba(245, 241, 232, 0.82);
+    font-size: clamp(15px, 4.6vw, 20px);
+    line-height: 1.5;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .hero-line-list li::before {
+    color: var(--cream);
+  }
+
+  .hero-left .entity-link {
+    border-bottom-color: rgba(245, 241, 232, 0.4);
+  }
+
+  .hero-left .entity-link:hover,
+  .hero-left .entity-link:focus-visible {
+    color: var(--cream);
+    border-bottom-color: var(--cream);
+  }
+
+  /* the quote panel is dropped on phone — the hero reads as name + stickers */
+  .hero-right .quote-stage {
+    display: none;
   }
 
   .hero-sticker-slot {
     width: 92px;
-  }
-
-  .quote-stage {
-    min-height: 0;
-    padding: 0;
-  }
-
-  /* still one fixed box per quote on mobile, just a shorter one */
-  .quote-stage-panel {
-    height: 360px;
-    min-height: 360px;
-    transform: none;
-  }
-
-  .quote-stage p {
-    font-size: clamp(18px, 6vw, 24px);
-  }
-
-  .site-quote .quote-text.is-long {
-    font-size: clamp(17px, 4.6vw, 22px);
-  }
-
-  .site-quote .quote-text.is-xlong {
-    font-size: clamp(15px, 3.8vw, 18px);
   }
 
   .hero-inner-min {
@@ -1511,27 +1531,22 @@
   .hero-left {
     padding-left: 16px;
   }
-
-  .hero-left::before {
-    left: -40px;
-    right: -40px;
-  }
 }
 
 /* iPhone SE / older Android sit at 320-375px, where the display name is the
    first thing to run past the edge. */
 @media (max-width: 380px) {
-  .hero-inner-min h1 {
-    font-size: clamp(40px, 13vw, 56px);
-  }
-
   .hero-line-list li {
     padding-left: 24px;
   }
+}
 
-  .quote-stage-panel {
-    height: 320px;
-    min-height: 320px;
+/* Below 340px the 19vw name size runs "Alzureiqi" past hero-left's edge
+   (clipped by overflow: hidden) — the one width band that needs a smaller
+   ceiling than the rest of the phone range. */
+@media (max-width: 340px) {
+  .hero-inner-min h1 {
+    font-size: clamp(48px, 17vw, 60px);
   }
 }
 
@@ -1574,16 +1589,11 @@
   padding-bottom: calc(80px + env(safe-area-inset-bottom));
 }
 
-/* ── Phone hero: fit the cream half and the purple half on one screen ──────
-   The stacked hero used to run to roughly two and a half screens, with a tall
-   band of empty purple above the quote and the stickers pushed off the bottom.
-   Everything below tightens the vertical rhythm so the name, the intro, the
-   quote and the stickers all land within the first viewport. */
+/* ── Phone hero: tighten the vertical rhythm ────────────────────────────────
+   Below this width the name, intro and stickers all need to read comfortably
+   within one purple screen without the quote panel that fills this space
+   above 640px. */
 @media (max-width: 640px) {
-  .hero-inner-min {
-    padding-bottom: 20px;
-  }
-
   .hero-split {
     gap: 0;
   }
@@ -1594,62 +1604,9 @@
     justify-content: flex-start;
   }
 
-  .hero-inner-min h1 {
-    font-size: clamp(38px, 12vw, 54px);
-    margin-bottom: 8px;
-  }
-
-  .hero-subtitle {
-    margin-top: 8px;
-    font-size: 15px;
-  }
-
-  .hero-line-list {
-    margin-top: 10px;
-    font-size: 14px;
-    line-height: 1.45;
-    gap: 6px;
-  }
-
-  .hero-left::before {
-    top: -8px;
-    bottom: -12px;
-  }
-
-  /* the purple half starts right under the intro instead of a screen later */
+  /* the sticker row starts right under the intro instead of a screen later */
   .hero-right {
     padding: 20px max(16px, env(safe-area-inset-right)) 14px max(16px, env(safe-area-inset-left));
-  }
-
-  /* auto height here rather than the desktop's fixed box: on a phone the point
-     is to spend no more purple than the quote actually needs */
-  .quote-stage-panel {
-    height: auto;
-    min-height: 0;
-    transform: none;
-    padding-inline: 0;
-  }
-
-  .site-quote .quote-text {
-    font-size: clamp(17px, 5vw, 21px);
-    line-height: 1.24;
-  }
-
-  .site-quote .quote-text.is-long {
-    font-size: clamp(16px, 4.4vw, 19px);
-  }
-
-  .site-quote .quote-text.is-xlong {
-    font-size: clamp(14px, 3.8vw, 17px);
-  }
-
-  .site-quote .quote-text.is-huge {
-    font-size: clamp(12px, 3.2vw, 15px);
-  }
-
-  .site-quote .quote-author {
-    margin-top: 10px;
-    font-size: 15px;
   }
 
   /* Four across in one line, small enough that they all fit. The base rule
@@ -1844,5 +1801,16 @@
     flex-basis: 100%;
     margin-left: 26px;
     margin-top: 10px;
+  }
+}
+
+/* ── Descriptions hidden on phones ────────────────────────────────────────
+   On iPhone these rows have no hover to gate their description behind (see
+   the `hover: none` block above), so it was permanently expanded and made
+   the Causes/Projects lists feel cluttered. Drop it at phone widths and
+   keep just the title/date/sub. */
+@media (max-width: 640px) {
+  .charity-short {
+    display: none !important;
   }
 }

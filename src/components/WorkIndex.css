@@ -254,3 +254,22 @@
     padding-top: 2px;
   }
 }
+
+/* On iPhone drop the blurb this breakpoint just turned on — the panel is
+   already gone here too, so the row is left as title / kind / year only. */
+@media (max-width: 640px) {
+  .work-index-blurb {
+    display: none !important;
+  }
+
+  /* Show ~2 rows and let the rest live in their own scroll box, so one
+     collection can't push the whole page into a long scroll on a phone. */
+  .work-index-list {
+    max-height: 176px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent 100%);
+  }
+}

@@ -7,6 +7,11 @@
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token'
 const API = 'https://api.spotify.com/v1'
+// Spotify stopped returning preview_url for effectively everyone in Nov 2024
+// (it's null on every track in practice now, regardless of app age). Apple's
+// unauthenticated iTunes Search API still hands back a 30s preview clip for
+// most mainstream tracks, so it's the fallback that keeps the vinyl playable.
+const ITUNES_SEARCH_URL = 'https://itunes.apple.com/search'
 
 const formatDuration = (ms) => {
   if (!Number.isFinite(ms)) return null
@@ -46,6 +51,26 @@ const api = async (accessToken, path) => {
     )
   }
   return response.json()
+}
+
+const fetchItunesPreview = async (artist, title) => {
+  const term = `${artist} ${title}`
+  const url = `${ITUNES_SEARCH_URL}?term=${encodeURIComponent(term)}&media=music&entity=song&limit=1`
+  try {
+    const response = await fetch(url)
+    if (!response.ok) return null
+    const body = await response.json()
+    return body.results?.[0]?.previewUrl || null
+  } catch {
+    return null
+  }
+}
+
+/** Spotify's preview_url is gone; fill the gap from iTunes so playback still works. */
+const withPlayablePreview = async (track) => {
+  if (track.previewUrl) return track
+  const previewUrl = await fetchItunesPreview(track.artist, track.title)
+  return previewUrl ? { ...track, previewUrl, previewSource: 'itunes' } : track
 }
 
 const normalizeTrack = (track, extra = {}) => ({
@@ -94,6 +119,8 @@ export const fetchSpotify = async ({ clientId, clientSecret, refreshToken, user,
   if (currentUrl) {
     tracks = tracks.map((track) => ({ ...track, isPlaying: track.link === currentUrl }))
   }
+
+  tracks = await Promise.all(tracks.map(withPlayablePreview))
 
   return {
     tracks: tracks.slice(0, limit),

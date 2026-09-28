@@ -333,6 +333,15 @@ const Home = () => {
     }
   }, [])
 
+  // Spotify's top-tracks order doesn't know or care which ones have a preview
+  // clip, so #1 by plays is often silent. Land on the first track that can
+  // actually play instead of making that the visitor's first impression.
+  useEffect(() => {
+    if (trackIndex !== 0 || tracks[0]?.previewUrl) return
+    const firstPlayable = tracks.findIndex((t) => t.previewUrl)
+    if (firstPlayable > 0) setTrackIndex(firstPlayable)
+  }, [tracks])
+
   // Play the 30s Spotify preview when the API gave us one; otherwise the vinyl
   // just spins and the notes fly (Spotify omits preview_url on plenty of tracks).
   useEffect(() => {
