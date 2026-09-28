@@ -6,11 +6,12 @@ The four cards in the **Me!** section on the home page are fed by
 (and on demand from the Actions tab → *Refresh Me! carousel data* → *Run workflow*).
 
 ```
-scripts/fetch-me-data.mjs    orchestrates the four sources, writes public/data/me.json
-scripts/sources/*.mjs        one file per source
-scripts/spotify-auth.mjs     one-time helper to mint the Spotify refresh token
-scripts/lib/                 tiny RSS reader + .env.local loader, no dependencies
-src/hooks/useMeData.js       front end loads /data/me.json, falls back to src/data/me.js
+scripts/fetch-me-data.mjs        orchestrates the four sources, writes public/data/me.json
+scripts/sources/*.mjs            one file per source
+scripts/spotify-auth.mjs         one-time helper to mint the Spotify refresh token
+scripts/update-top-playlist.mjs  rebuilds the "Top 10 This Month" Spotify playlist
+scripts/lib/                     tiny RSS reader + .env.local loader, no dependencies
+src/hooks/useMeData.js           front end loads /data/me.json, falls back to src/data/me.js
 ```
 
 The site stays fully static — there is no server. If a feed is down, that card
@@ -82,8 +83,39 @@ to **Read and write**, or it cannot push the refreshed `me.json`.
 5. `npm run me:fetch` to confirm, then copy the three values into repository
    secrets for CI.
 
-Scopes requested are read-only: `user-top-read`, `user-read-recently-played`,
-`user-read-currently-playing`.
+Scopes requested: `user-top-read`, `user-read-recently-played`,
+`user-read-currently-playing` (all read-only, for the carousel card), plus
+`playlist-modify-public` and `playlist-modify-private` (for the auto-playlist
+below).
+
+## Top 10 This Month playlist
+
+[`.github/workflows/top-playlist.yml`](../.github/workflows/top-playlist.yml)
+runs on the 1st of every month (and on demand from the Actions tab) and
+rebuilds a public Spotify playlist called **Top 10 This Month** from your
+short-term top tracks (Spotify's own "last ~4 weeks" window). It replaces the
+playlist's contents outright each run rather than appending, so it always
+reflects just that month's top 10.
+
+Run it locally any time:
+
+```bash
+npm run me:spotify-playlist
+```
+
+Configuration:
+
+| Variable | Where | Default |
+| --- | --- | --- |
+| `SPOTIFY_PLAYLIST_NAME` | repo variable / `.env.local` | `Top 10 This Month` |
+| `SPOTIFY_PLAYLIST_SIZE` | `.env.local` only | `10` |
+
+It reuses the same `SPOTIFY_CLIENT_ID` / `SPOTIFY_CLIENT_SECRET` /
+`SPOTIFY_REFRESH_TOKEN` as the carousel fetch, but the refresh token must have
+been minted **after** the `playlist-modify-*` scopes were added to
+`spotify-auth.mjs` — if you authorized before that, re-run
+`npm run me:spotify-auth` and update the `SPOTIFY_REFRESH_TOKEN` repo secret
+with the new value.
 
 ## Notes
 

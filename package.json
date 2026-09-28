@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "me:fetch": "node scripts/fetch-me-data.mjs",
-    "me:spotify-auth": "node scripts/spotify-auth.mjs"
+    "me:spotify-auth": "node scripts/spotify-auth.mjs",
+    "me:spotify-playlist": "node scripts/update-top-playlist.mjs"
   },
   "dependencies": {
     "react": "^18.2.0",

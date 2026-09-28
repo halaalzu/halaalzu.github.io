@@ -1,0 +1,31 @@
+name: Refresh Top 10 This Month playlist
+
+on:
+  schedule:
+    # 09:00 UTC on the 1st of every month
+    - cron: "0 9 1 * *"
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Update playlist
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+          SPOTIFY_PLAYLIST_NAME: ${{ vars.SPOTIFY_PLAYLIST_NAME }}
+        run: node scripts/update-top-playlist.mjs

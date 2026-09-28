@@ -19,7 +19,10 @@ const REDIRECT_URI = `http://127.0.0.1:${PORT}/callback`
 const SCOPES = [
   'user-top-read', // top tracks of the month
   'user-read-recently-played', // fallback when the top list is empty
-  'user-read-currently-playing' // "now playing" flag
+  'user-read-currently-playing', // "now playing" flag
+  'playlist-modify-public', // create/update the "Top 10 This Month" playlist
+  'playlist-modify-private',
+  'playlist-read-private' // check whether that playlist already exists
 ].join(' ')
 
 const clientId = process.env.SPOTIFY_CLIENT_ID
