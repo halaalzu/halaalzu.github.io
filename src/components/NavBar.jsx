@@ -24,7 +24,7 @@ const NavBar = () => {
       transition={{ duration: 0.5 }}
     >
       <Link to="/" className="nav-home-link-hala" aria-label="Home">
-        <img src="/assets/ChatGPT Image Jan 18, 2026 at 01_07_29 PM.png" alt="Home" className="nav-home-image" />
+        <img src="/assets/nav-home-icon.png" alt="Home" className="nav-home-image" />
       </Link>
     </motion.nav>
   )

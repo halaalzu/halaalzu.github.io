@@ -34,6 +34,7 @@ jobs:
           cache: npm
 
       - name: Fetch Goodreads / Spotify / Letterboxd / Pinterest
+        id: fetch
         env:
           GOODREADS_USER: ${{ vars.GOODREADS_USER }}
           GOODREADS_SHELF: ${{ vars.GOODREADS_SHELF }}
@@ -86,3 +87,13 @@ jobs:
         id: deployment
         if: steps.commit.outputs.changed == 'true'
         uses: actions/deploy-pages@v4
+
+      # Runs last on purpose: the commit/build/deploy above still go out with
+      # whatever sources DID succeed, but a source that fell back to stale
+      # data (Goodreads, Pinterest, etc.) turns this run red — which is what
+      # gets a failure email out to whoever's watching this repo.
+      - name: Fail run if a source fell back to stale data
+        if: steps.fetch.outputs.failed_sources != ''
+        run: |
+          echo "::error::These sources failed and kept their previous value: ${{ steps.fetch.outputs.failed_sources }}"
+          exit 1

@@ -54,7 +54,12 @@ const api = async (accessToken, path) => {
 }
 
 const fetchItunesPreview = async (artist, title) => {
-  const term = `${artist} ${title}`
+  // "artist" can be several credits joined with ", " (e.g. a brand-tie-in
+  // collab like "TUL8TE, Vodafone") — iTunes' search matches on all terms,
+  // so a non-musical credit like a brand name zeroes out the results. Search
+  // on the primary artist only.
+  const primaryArtist = (artist || '').split(',')[0].trim()
+  const term = `${primaryArtist} ${title}`
   const url = `${ITUNES_SEARCH_URL}?term=${encodeURIComponent(term)}&media=music&entity=song&limit=1`
   try {
     const response = await fetch(url)

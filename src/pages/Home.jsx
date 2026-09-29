@@ -66,6 +66,9 @@ const Home = () => {
   const audioRef = useRef(null)
   const dragRef = useRef(null)
   const stickerDragRef = useRef(null)
+  // which way we were last stepping through tracks, so the no-preview
+  // auto-skip (below) continues in that direction instead of always forward
+  const trackSkipDirection = useRef(1)
 
   const widgets = useMemo(
     () => [
@@ -131,6 +134,7 @@ const Home = () => {
   }
 
   const stepTrack = (delta) => {
+    trackSkipDirection.current = delta < 0 ? -1 : 1
     setTrackIndex((i) => (i + delta + tracks.length) % tracks.length)
   }
 
@@ -333,14 +337,16 @@ const Home = () => {
     }
   }, [])
 
-  // Spotify's top-tracks order doesn't know or care which ones have a preview
-  // clip, so #1 by plays is often silent. Land on the first track that can
-  // actually play instead of making that the visitor's first impression.
+  // Spotify no longer returns preview_url for anyone, and the iTunes fallback
+  // doesn't carry every track either, so some tracks simply have no clip to
+  // play. Rather than stranding a visitor on dead air, skip straight past a
+  // silent one in whichever direction we were already travelling (forward on
+  // first load).
   useEffect(() => {
-    if (trackIndex !== 0 || tracks[0]?.previewUrl) return
-    const firstPlayable = tracks.findIndex((t) => t.previewUrl)
-    if (firstPlayable > 0) setTrackIndex(firstPlayable)
-  }, [tracks])
+    if (track?.previewUrl) return
+    if (!tracks.some((t) => t.previewUrl)) return
+    setTrackIndex((i) => (i + trackSkipDirection.current + tracks.length) % tracks.length)
+  }, [trackIndex, tracks, track?.previewUrl])
 
   // Play the 30s Spotify preview when the API gave us one; otherwise the vinyl
   // just spins and the notes fly (Spotify omits preview_url on plenty of tracks).
@@ -356,6 +362,23 @@ const Home = () => {
     if (!track?.previewUrl) return
     audio.play().catch(() => setIsPlaying(false))
   }, [isPlaying, track?.previewUrl])
+
+  // The preview <audio> uses preload="none", so hitting ‹ / › cold-starts a
+  // fresh network fetch and the new track sits silent until it arrives.
+  // Prefetch every track's clip as soon as the data loads (not gated on
+  // isPlaying) so by the time you press play or switch tracks, the browser
+  // already has it cached instead of racing a fetch against your next click.
+  useEffect(() => {
+    const urls = tracks.map((t) => t.previewUrl).filter(Boolean)
+    const warmers = urls.map((url) => {
+      const el = new Audio()
+      el.preload = 'auto'
+      el.src = url
+      el.load()
+      return el
+    })
+    return () => warmers.forEach((el) => { el.src = '' })
+  }, [tracks])
 
   // Mount the notes on play, keep them alive through the CSS fade-out on pause.
   useEffect(() => {
@@ -517,6 +540,9 @@ const Home = () => {
                     </>
                   )}
                 </footer>
+                {meData.updatedAt && (
+                  <p className="quote-updated">Pulled from Hala's Goodreads {timeAgo(meData.updatedAt)}</p>
+                )}
               </blockquote>
 
               <a
@@ -727,8 +753,13 @@ const Home = () => {
               }}
               onPointerCancel={() => { dragRef.current = null }}
               onKeyDown={(e) => {
-                if (e.key === 'ArrowLeft') { e.preventDefault(); stepCarousel(-1) }
-                if (e.key === 'ArrowRight') { e.preventDefault(); stepCarousel(1) }
+                if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+                e.preventDefault()
+                const delta = e.key === 'ArrowLeft' ? -1 : 1
+                // While the Spotify widget is centred, arrow keys skip tracks
+                // (same as the ‹ › buttons) instead of spinning the carousel.
+                if (widgets[activeIndex]?.type === 'spotify') stepTrack(delta)
+                else stepCarousel(delta)
               }}
             >
               <div className="me-track">
@@ -976,7 +1007,7 @@ const Home = () => {
               GitHub
             </a>
             <span>·</span>
-            <a href="/assets/Hala_Alzureiqi___Resume__Software_.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/assets/hala-alzureiqi-resume.pdf" target="_blank" rel="noopener noreferrer">
               Resume
             </a>
             <span>·</span>

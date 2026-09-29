@@ -88,7 +88,7 @@ export const projects = {
       github: "https://github.com/ishashenoy/booktok-frontend",
       githubBackend: "https://github.com/ishashenoy/booktok-backend",
       liveDemo: null,
-      images: ['/assets/booktok-logo.jpeg', '/assets/1768250233760.jpeg', 'https://youtu.be/0o5lP3xi_ak']
+      images: ['/assets/booktok-logo.jpeg', '/assets/booktok-screenshot.jpeg', 'https://youtu.be/0o5lP3xi_ak']
     },
     {
       id: 2,
@@ -116,9 +116,9 @@ export const projects = {
       github: "https://github.com/halaalzu/Accessible-Catan-3D-Print",
       liveDemo: null,
       images: [
-        '/assets/SolidWroks 3D Version Assembly.jpg',
-        '/assets/Painted Final Prints.jpg',
-        '/assets/Painted 3D Version .jpg'
+        '/assets/catan-solidworks-assembly.jpg',
+        '/assets/catan-painted-prints.jpg',
+        '/assets/catan-painted-3d.jpg'
       ]
     },
     {
@@ -146,7 +146,7 @@ export const projects = {
       ],
       github: "https://github.com/halaalzu/Fragrant-Water-Lily-3D-Print",
       liveDemo: null,
-      images: ['/assets/Flower Mechanism Video.mov', '/assets/STL Print Layout.png']
+      images: ['/assets/flower-puzzle-mechanism.mov', '/assets/flower-puzzle-stl-layout.png']
     },
     {
       id: 4,

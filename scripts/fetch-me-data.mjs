@@ -8,7 +8,7 @@
 // previous value is carried over from the existing me.json so a widget never
 // goes blank because Pinterest had a bad afternoon.
 
-import { readFile, writeFile, mkdir } from 'node:fs/promises'
+import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises'
 import path from 'node:path'
 
 import { loadEnv, projectRoot as root } from './lib/env.mjs'
@@ -111,7 +111,14 @@ const main = async () => {
   const failed = Object.entries(payload.sources).filter(([, s]) => !s.ok)
   console.log(`\nWrote ${path.relative(root, OUTPUT)}`)
   if (failed.length) {
-    console.log(`${failed.length} source(s) fell back to the previous value: ${failed.map(([n]) => n).join(', ')}`)
+    const names = failed.map(([n]) => n).join(', ')
+    console.log(`${failed.length} source(s) fell back to the previous value: ${names}`)
+    // Surfaced as a step output so the workflow can fail the run *after* still
+    // committing/deploying the good sources — a red run is what gets a GitHub
+    // notification email out, a thrown error here would just skip the commit.
+    if (process.env.GITHUB_OUTPUT) {
+      await appendFile(process.env.GITHUB_OUTPUT, `failed_sources=${names}\n`)
+    }
   }
 }
 

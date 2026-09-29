@@ -54,7 +54,7 @@ const ContactModal = ({ isOpen, onClose }) => {
               >
                 <div className="contact-icon-image">
                   {/* Add your GitHub icon image here */}
-                  <img src="/assets/ChatGPT_Image_Jan_16__2026_at_11_31_49_PM_copy-removebg-preview.png" alt="GitHub" onError={(e) => e.target.style.display = 'none'} />
+                  <img src="/assets/contact-icon-github.png" alt="GitHub" onError={(e) => e.target.style.display = 'none'} />
                 </div>
                 <span className="contact-icon-label">GitHub</span>
               </motion.button>
@@ -68,7 +68,7 @@ const ContactModal = ({ isOpen, onClose }) => {
               >
                 <div className="contact-icon-image">
                   {/* Add your LinkedIn icon image here */}
-                  <img src="/assets/ChatGPT_Image_Jan_16__2026_at_11_31_49_PM_copy_2-removebg-preview.png" alt="LinkedIn" onError={(e) => e.target.style.display = 'none'} />
+                  <img src="/assets/contact-icon-linkedin.png" alt="LinkedIn" onError={(e) => e.target.style.display = 'none'} />
                 </div>
                 <span className="contact-icon-label">LinkedIn</span>
               </motion.button>
@@ -82,7 +82,7 @@ const ContactModal = ({ isOpen, onClose }) => {
               >
                 <div className="contact-icon-image">
                   {/* Add your Email icon image here */}
-                  <img src="/assets/ChatGPT_Image_Jan_16__2026_at_11_31_49_PM_copy_3-removebg-preview.png" alt="Email" onError={(e) => e.target.style.display = 'none'} />
+                  <img src="/assets/contact-icon-email.png" alt="Email" onError={(e) => e.target.style.display = 'none'} />
                 </div>
                 <span className="contact-icon-label">Email</span>
               </motion.button>
@@ -96,7 +96,7 @@ const ContactModal = ({ isOpen, onClose }) => {
               >
                 <div className="contact-icon-image">
                   {/* Add your Resume icon image here */}
-                  <img src="/assets/ChatGPT_Image_Jan_16__2026_at_11_31_49_PM_copy_4-removebg-preview.png" alt="Resume" onError={(e) => e.target.style.display = 'none'} />
+                  <img src="/assets/contact-icon-resume.png" alt="Resume" onError={(e) => e.target.style.display = 'none'} />
                 </div>
                 <span className="contact-icon-label">Resume</span>
               </motion.button>

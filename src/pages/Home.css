@@ -516,6 +516,18 @@
   display: none; /* removed per request */
 }
 
+.site-quote .quote-updated {
+  margin: 10px 0 0;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-sharp);
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
+}
+
 .goodreads-link:hover {
   text-decoration: underline;
 }
