@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T12:48:06.052Z",
+  "updatedAt": "2026-09-29T22:12:37.409Z",
   "book": {
     "title": "The Fertility of Evil",
     "author": "Amara Lakhous",
@@ -161,10 +161,11 @@
         "album": "Ashan Habeeby",
         "art": "https://i.scdn.co/image/ab67616d0000b273b5c24f540298f2652f70465c",
         "duration": "2:56",
-        "previewUrl": null,
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5b/84/ba5b84b9-31bf-921a-48c9-1f258d97119e/mzaf_13913561262738973371.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/47KL0buSc2RfvEARcAwj3r",
         "rank": 1,
-        "range": "month"
+        "range": "month",
+        "previewSource": "itunes"
       },
       {
         "title": "Enta Habeeby",
