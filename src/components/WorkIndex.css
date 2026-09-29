@@ -146,6 +146,13 @@
   top: 24px;
 }
 
+.work-index-panel-inner {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .work-index-thumb {
   width: 100%;
   aspect-ratio: 4 / 3;

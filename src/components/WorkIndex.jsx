@@ -68,7 +68,12 @@ const WorkIndex = () => {
 
         <div className="work-index-panel" aria-hidden="true">
           {/* keyed so swapping items replays the fade */}
-          <div className="work-index-panel-inner" key={active.slug}>
+          <Link
+            to={`/work/${active.slug}`}
+            className="work-index-panel-inner"
+            key={active.slug}
+            tabIndex={-1}
+          >
             <div
               className="work-index-thumb"
               data-empty={active.cover ? undefined : 'true'}
@@ -84,7 +89,7 @@ const WorkIndex = () => {
               </div>
             )}
             <span className="work-index-go">Read more →</span>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
