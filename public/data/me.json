@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-30T12:30:04.688Z",
+  "updatedAt": "2026-09-30T22:12:36.832Z",
   "book": {
     "title": "The Fertility of Evil",
     "author": "Amara Lakhous",
@@ -161,7 +161,7 @@
         "album": "Ashan Habeeby",
         "art": "https://i.scdn.co/image/ab67616d0000b273b5c24f540298f2652f70465c",
         "duration": "2:56",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5b/84/ba5b84b9-31bf-921a-48c9-1f258d97119e/mzaf_13913561262738973371.plus.aac.p.m4a",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/5f/7c/4f/5f7c4fd0-cf2d-5c4a-4e94-538b78968566/mzaf_14678430738519273634.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/47KL0buSc2RfvEARcAwj3r",
         "rank": 1,
         "range": "month",
@@ -192,18 +192,6 @@
         "previewSource": "itunes"
       },
       {
-        "title": "Mawgou Garh Tany",
-        "artist": "Wael Jassar",
-        "album": "Kol Deea Shakhseya",
-        "art": "https://i.scdn.co/image/ab67616d0000b273e52226d78a4ff990caacb558",
-        "duration": "4:37",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/dc/e1/38/dce138d8-978c-2680-5a96-3603a5cd74dc/mzaf_1348029561786321235.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/51s2QDaIou72ysuF2WAxtv",
-        "rank": 4,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
         "title": "maggots for brains",
         "artist": "Olivia Rodrigo",
         "album": "you seem pretty sad for a girl so in love",
@@ -211,6 +199,18 @@
         "duration": "4:00",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b8/15/39/b81539c7-0d62-58f3-895c-b943ffbdce44/mzaf_3600869676720745744.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/6jfiwkcwt8iYCdkbLukxeI",
+        "rank": 4,
+        "range": "month",
+        "previewSource": "itunes"
+      },
+      {
+        "title": "Mawgou Garh Tany",
+        "artist": "Wael Jassar",
+        "album": "Kol Deea Shakhseya",
+        "art": "https://i.scdn.co/image/ab67616d0000b273e52226d78a4ff990caacb558",
+        "duration": "4:37",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/dc/e1/38/dce138d8-978c-2680-5a96-3603a5cd74dc/mzaf_1348029561786321235.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/51s2QDaIou72ysuF2WAxtv",
         "rank": 5,
         "range": "month",
         "previewSource": "itunes"
