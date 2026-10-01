@@ -73,6 +73,13 @@ export const entities = {
       'K–8 private school in London, Ontario, operated by the London Muslim Mosque. Camp SHINE is its summer program.',
     aliases: ['London Islamic School']
   },
+  'WRHN Cancer Centre': {
+    url: 'https://www.wrhn.ca',
+    domain: 'wrhn.ca',
+    description:
+      'Waterloo Regional Health Network Cancer Centre, providing radiation oncology services across the Waterloo Region.',
+    aliases: ['WRHN']
+  },
   'Sir Frederick Banting Secondary School': {
     url: 'https://banting.tvdsb.ca/en/index.aspx',
     domain: 'tvdsb.ca',

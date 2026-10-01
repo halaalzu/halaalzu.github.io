@@ -509,9 +509,9 @@ const Home = () => {
               Biomedical Engineering @ <EntityLink name="University of Waterloo" />
             </p>
             <ul className="hero-line-list">
+              <li>Incoming Medical Physics Research Assistant @ <EntityLink name="WRHN Cancer Centre" />.</li>
               <li>Previously a research intern at <EntityLink name="NRC" />.</li>
               <li>I care about human rights and accessible bio-tech.</li>
-              <li>I like embedded systems, software, and hands-on design.</li>
               <li>I'm interested in medical imaging, radiopharmaceuticals, and medical physics.</li>
             </ul>
           </div>

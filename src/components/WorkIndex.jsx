@@ -74,11 +74,12 @@ const WorkIndex = () => {
             key={active.slug}
             tabIndex={-1}
           >
-            <div
-              className="work-index-thumb"
-              data-empty={active.cover ? undefined : 'true'}
-              style={active.cover ? { backgroundImage: `url(${active.cover})` } : undefined}
-            />
+            {active.cover && (
+              <div
+                className="work-index-thumb"
+                style={{ backgroundImage: `url(${active.cover})` }}
+              />
+            )}
             <h3>{active.title}</h3>
             <p>{active.blurb}</p>
             {active.tags.length > 0 && (
