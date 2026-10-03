@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-02T22:10:55.863Z",
+  "updatedAt": "2026-10-03T05:14:16.737Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -222,6 +222,11 @@
   "pinterest": {
     "pins": [
       {
+        "image": "https://i.pinimg.com/564x/17/6c/e7/176ce722625577a2e19bb19017ccbffb.jpg",
+        "link": "https://www.pinterest.com/pin/762023199496622810/",
+        "title": null
+      },
+      {
         "image": "https://i.pinimg.com/564x/bb/ca/f5/bbcaf5a4011fdfa24cc3d741c6a90f4d.jpg",
         "link": "https://www.pinterest.com/pin/762023199496552180/",
         "title": null
@@ -245,11 +250,6 @@
         "image": "https://i.pinimg.com/564x/6a/b6/f6/6ab6f670472dedcf34406a5cf8cbe808.jpg",
         "link": "https://www.pinterest.com/pin/762023199495419892/",
         "title": "#ceramics #ceramique #seramik #seramiksanatı #kahve #coffee #winnie #winniethepoohquotes…"
-      },
-      {
-        "image": "https://i.pinimg.com/564x/0b/e1/af/0be1af2a44aafd4f3bafd25dfed1ba2e.jpg",
-        "link": "https://www.pinterest.com/pin/762023199495416062/",
-        "title": null
       }
     ],
     "profile": "https://www.pinterest.com/halaazlu/"
