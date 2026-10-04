@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-04T12:17:35.269Z",
+  "updatedAt": "2026-10-04T21:20:45.947Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -168,18 +168,6 @@
         "previewSource": "itunes"
       },
       {
-        "title": "honeybee",
-        "artist": "Olivia Rodrigo",
-        "album": "you seem pretty sad for a girl so in love",
-        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
-        "duration": "3:43",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/07/7f/68/077f68ac-3720-0963-8185-347458b4a3c8/mzaf_826887783104606101.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/4kX7xkopoXZCfE1D6fNwl2",
-        "rank": 2,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
         "title": "Enta Habeeby",
         "artist": "TUL8TE",
         "album": "Sadeek El Bernameg",
@@ -187,6 +175,18 @@
         "duration": "4:42",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5b/84/ba5b84b9-31bf-921a-48c9-1f258d97119e/mzaf_13913561262738973371.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/7bHp6LhAGExiF15hU8vuWY",
+        "rank": 2,
+        "range": "month",
+        "previewSource": "itunes"
+      },
+      {
+        "title": "honeybee",
+        "artist": "Olivia Rodrigo",
+        "album": "you seem pretty sad for a girl so in love",
+        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
+        "duration": "3:43",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/07/7f/68/077f68ac-3720-0963-8185-347458b4a3c8/mzaf_826887783104606101.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/4kX7xkopoXZCfE1D6fNwl2",
         "rank": 3,
         "range": "month",
         "previewSource": "itunes"
