@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-11T12:44:22.701Z",
+  "updatedAt": "2026-10-11T21:54:48.657Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -165,6 +165,7 @@
         "link": "https://open.spotify.com/track/47KL0buSc2RfvEARcAwj3r",
         "rank": 1,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -177,6 +178,7 @@
         "link": "https://open.spotify.com/track/7bHp6LhAGExiF15hU8vuWY",
         "rank": 2,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -189,6 +191,20 @@
         "link": "https://open.spotify.com/track/4kX7xkopoXZCfE1D6fNwl2",
         "rank": 3,
         "range": "month",
+        "isPlaying": false,
+        "previewSource": "itunes"
+      },
+      {
+        "title": "Garee2a Awy",
+        "artist": "TUL8TE",
+        "album": "Sadeek El Bernameg",
+        "art": "https://i.scdn.co/image/ab67616d0000b273a18f4a190692590da7fdc898",
+        "duration": "2:40",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/8c/c7/0a/8cc70acd-7496-9d5d-4371-0286c6232c0b/mzaf_13652233055462659839.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/5iViOn3MXUREQ9kmu8DfUo",
+        "rank": 4,
+        "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -199,20 +215,9 @@
         "duration": "4:00",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b8/15/39/b81539c7-0d62-58f3-895c-b943ffbdce44/mzaf_3600869676720745744.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/6jfiwkcwt8iYCdkbLukxeI",
-        "rank": 4,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
-        "title": "Mawgou Garh Tany",
-        "artist": "Wael Jassar",
-        "album": "Kol Deea Shakhseya",
-        "art": "https://i.scdn.co/image/ab67616d0000b273e52226d78a4ff990caacb558",
-        "duration": "4:37",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/dc/e1/38/dce138d8-978c-2680-5a96-3603a5cd74dc/mzaf_1348029561786321235.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/51s2QDaIou72ysuF2WAxtv",
         "rank": 5,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       }
     ],
