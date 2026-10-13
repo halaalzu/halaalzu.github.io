@@ -276,6 +276,10 @@ const Home = () => {
 
   const startStickerDrag = (e, item) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return
+    // a press starting on a letter link is a link press, not a sticker press
+    // — skip drag tracking (and the pointer capture below) entirely so the
+    // click isn't retargeted off the link and its href navigates normally
+    if (e.target.closest?.('.hero-letter-link')) return
     stickerDragRef.current = {
       id: item.id,
       startX: e.clientX,
@@ -333,6 +337,10 @@ const Home = () => {
   }
 
   const endStickerDrag = (e, item) => {
+    // no drag was tracked for a press that started on a letter link (see
+    // startStickerDrag) — leave it alone so the link's own click still fires
+    if (e.target.closest?.('.hero-letter-link')) return
+
     const drag = stickerDragRef.current
     setDraggingSticker(null)
 
