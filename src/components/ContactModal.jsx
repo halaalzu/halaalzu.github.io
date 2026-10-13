@@ -7,10 +7,6 @@ const ContactModal = ({ isOpen, onClose }) => {
     window.location.href = `mailto:${contactInfo.email}`
   }
 
-  const handleResumeClick = () => {
-    window.open(contactInfo.resumeUrl, '_blank')
-  }
-
   const handleGithubClick = () => {
     window.open(contactInfo.github, '_blank')
   }
@@ -85,20 +81,6 @@ const ContactModal = ({ isOpen, onClose }) => {
                   <img src="/assets/contact-icon-email.png" alt="Email" onError={(e) => e.target.style.display = 'none'} />
                 </div>
                 <span className="contact-icon-label">Email</span>
-              </motion.button>
-
-              <motion.button
-                className="contact-icon-button resume"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleResumeClick}
-                aria-label="Resume"
-              >
-                <div className="contact-icon-image">
-                  {/* Add your Resume icon image here */}
-                  <img src="/assets/contact-icon-resume.png" alt="Resume" onError={(e) => e.target.style.display = 'none'} />
-                </div>
-                <span className="contact-icon-label">Resume</span>
               </motion.button>
             </div>
           </motion.div>

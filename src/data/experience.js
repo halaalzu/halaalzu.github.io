@@ -88,7 +88,7 @@ export const extracurricularExperience = [
     ]
   },
   {
-    id: 4,
+    id: 3,
     title: "Treasurer",
     organization: "UW Pre-Med Club",
     location: "Waterloo, ON",

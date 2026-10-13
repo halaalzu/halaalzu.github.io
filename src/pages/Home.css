@@ -1697,8 +1697,8 @@
 }
 
 /* ── Footer links on one line ─────────────────────────────────────────────
-   "Resume" used to wrap onto a second row. The type scales with the viewport
-   so the four links stay on one line down to a 320px screen. */
+   Keeps the links from wrapping onto a second row. The type scales with the
+   viewport so they stay on one line down to a 320px screen. */
 @media (max-width: 640px) {
   .contact-inline-min {
     flex-wrap: nowrap;

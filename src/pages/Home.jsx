@@ -66,6 +66,10 @@ const Home = () => {
   const audioRef = useRef(null)
   const dragRef = useRef(null)
   const stickerDragRef = useRef(null)
+  // set right before a tap is handled from the pointerup that ends a drag, so
+  // the click event that follows (if it still reaches the button) is skipped
+  // instead of firing the navigation a second time
+  const stickerClickHandledRef = useRef(false)
   // which way we were last stepping through tracks, so the no-preview
   // auto-skip (below) continues in that direction instead of always forward
   const trackSkipDirection = useRef(1)
@@ -187,8 +191,7 @@ const Home = () => {
   const contactLinks = [
     { label: 'Email', href: `mailto:${contactInfo.email}`, icon: '/assets/icon-email.png' },
     { label: 'LinkedIn', href: contactInfo.linkedin, external: true, icon: '/assets/icon-linkedin.png' },
-    { label: 'GitHub', href: contactInfo.github, external: true, icon: '/assets/icon-github.png' },
-    { label: 'Resume', href: contactInfo.resumeUrl, external: true, icon: '/assets/icon-resume.png' }
+    { label: 'GitHub', href: contactInfo.github, external: true, icon: '/assets/icon-github.png' }
   ]
 
   const causes = [
@@ -226,18 +229,43 @@ const Home = () => {
     node.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  const handleStickerClick = (item) => {
-    // a drag ends in a click too — that one isn't a press on the sticker
-    if (stickerDragRef.current?.moved) return
+  // Same hover capability the envelope's CSS hover-open uses (see
+  // `@media (hover: hover) and (pointer: fine)` in Home.css) — on those
+  // devices hover already opens the letter, so a press on the envelope
+  // scrolls to the footer instead; on touch, where there is no hover, the
+  // press is what opens the letter.
+  const hasRealHover = () =>
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
+  const performStickerAction = (item) => {
     if (item.action === 'letter') {
-      setIsLetterOpen((open) => !open)
+      if (hasRealHover()) {
+        scrollToSection('contact')
+      } else {
+        setIsLetterOpen((open) => !open)
+      }
       return
     }
 
     if (item.target) {
       scrollToSection(item.target)
     }
+  }
+
+  const handleStickerClick = (item) => {
+    // the pointerup that ends a tap already ran the action below (see
+    // endStickerDrag) — the click event that follows is a duplicate, except
+    // on browsers where pointer capture doesn't retarget it, where this is
+    // the only time it runs (also covers keyboard activation)
+    if (stickerClickHandledRef.current) {
+      stickerClickHandledRef.current = false
+      return
+    }
+
+    // a drag ends in a click too — that one isn't a press on the sticker
+    if (stickerDragRef.current?.moved) return
+
+    performStickerAction(item)
   }
 
   // ── Draggable stickers ──────────────────────────────────────────────────
@@ -304,7 +332,7 @@ const Home = () => {
     }
   }
 
-  const endStickerDrag = (e) => {
+  const endStickerDrag = (e, item) => {
     const drag = stickerDragRef.current
     setDraggingSticker(null)
 
@@ -318,6 +346,17 @@ const Home = () => {
     }
 
     stickerDragRef.current = null
+
+    // the div holds pointer capture (see startStickerDrag), which in some
+    // browsers retargets the click event that would normally follow to this
+    // div instead of the button inside it — so a plain tap is actioned here,
+    // on the pointerup we know we got, rather than relying on that click
+    if (item && e.type === 'pointerup') {
+      stickerClickHandledRef.current = true
+      performStickerAction(item)
+      // in case the click never arrives to consume the flag (browser-dependent)
+      window.setTimeout(() => { stickerClickHandledRef.current = false }, 500)
+    }
   }
 
   useEffect(() => {
@@ -574,8 +613,8 @@ const Home = () => {
                     style={{ '--dx': `${offset.x}px`, '--dy': `${offset.y}px` }}
                     onPointerDown={(e) => startStickerDrag(e, item)}
                     onPointerMove={moveStickerDrag}
-                    onPointerUp={endStickerDrag}
-                    onPointerCancel={endStickerDrag}
+                    onPointerUp={(e) => endStickerDrag(e, item)}
+                    onPointerCancel={(e) => endStickerDrag(e)}
                   >
                     <button
                       type="button"
@@ -1005,10 +1044,6 @@ const Home = () => {
             <span>·</span>
             <a href="https://github.com/halaalzu" target="_blank" rel="noopener noreferrer">
               GitHub
-            </a>
-            <span>·</span>
-            <a href="/assets/hala-alzureiqi-resume.pdf" target="_blank" rel="noopener noreferrer">
-              Resume
             </a>
             <span>·</span>
             <a href="mailto:halzureiqi@gmail.com" className="footer-email">
