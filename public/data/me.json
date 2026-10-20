@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T04:44:29.585Z",
+  "updatedAt": "2026-10-20T11:31:08.339Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -265,7 +265,9 @@
       "ok": true
     },
     "spotify": {
-      "ok": true
+      "ok": false,
+      "error": "GET /me/top/tracks?time_range=short_term&limit=5 failed: 503 no healthy upstream",
+      "stale": true
     },
     "pinterest": {
       "ok": true
