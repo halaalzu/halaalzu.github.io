@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T21:34:20.745Z",
+  "updatedAt": "2026-10-21T04:41:13.875Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -180,18 +180,6 @@
         "previewSource": "itunes"
       },
       {
-        "title": "Ashan Habeeby",
-        "artist": "TUL8TE, Vodafone",
-        "album": "Ashan Habeeby",
-        "art": "https://i.scdn.co/image/ab67616d0000b273b5c24f540298f2652f70465c",
-        "duration": "2:56",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5b/84/ba5b84b9-31bf-921a-48c9-1f258d97119e/mzaf_13913561262738973371.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/47KL0buSc2RfvEARcAwj3r",
-        "rank": 3,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
         "title": "stupid song",
         "artist": "Olivia Rodrigo",
         "album": "you seem pretty sad for a girl so in love",
@@ -199,6 +187,18 @@
         "duration": "3:30",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ab/d6/78/abd678a1-bf4e-7ee9-d0b2-ba8afee10914/mzaf_3280183609788906841.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/49j6SvuvWfbEKZKzsHCdLJ",
+        "rank": 3,
+        "range": "month",
+        "previewSource": "itunes"
+      },
+      {
+        "title": "Ashan Habeeby",
+        "artist": "TUL8TE, Vodafone",
+        "album": "Ashan Habeeby",
+        "art": "https://i.scdn.co/image/ab67616d0000b273b5c24f540298f2652f70465c",
+        "duration": "2:56",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5b/84/ba5b84b9-31bf-921a-48c9-1f258d97119e/mzaf_13913561262738973371.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/47KL0buSc2RfvEARcAwj3r",
         "rank": 4,
         "range": "month",
         "previewSource": "itunes"
