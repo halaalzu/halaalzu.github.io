@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-22T11:46:19.285Z",
+  "updatedAt": "2026-10-22T17:08:01.878Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -165,7 +165,6 @@
         "link": "https://open.spotify.com/track/7bHp6LhAGExiF15hU8vuWY",
         "rank": 1,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -178,7 +177,6 @@
         "link": "https://open.spotify.com/track/4kX7xkopoXZCfE1D6fNwl2",
         "rank": 2,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -191,7 +189,6 @@
         "link": "https://open.spotify.com/track/49j6SvuvWfbEKZKzsHCdLJ",
         "rank": 3,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -204,7 +201,6 @@
         "link": "https://open.spotify.com/track/47KL0buSc2RfvEARcAwj3r",
         "rank": 4,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -217,7 +213,6 @@
         "link": "https://open.spotify.com/track/2e3YJ6Hm8tR5L5Zy8HzOtv",
         "rank": 5,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       }
     ],
