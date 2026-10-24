@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-24T10:53:42.376Z",
+  "updatedAt": "2026-10-24T15:53:44.338Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -156,18 +156,6 @@
   "spotify": {
     "tracks": [
       {
-        "title": "Enta Habeeby",
-        "artist": "TUL8TE",
-        "album": "Sadeek El Bernameg",
-        "art": "https://i.scdn.co/image/ab67616d0000b273a18f4a190692590da7fdc898",
-        "duration": "4:42",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5b/84/ba5b84b9-31bf-921a-48c9-1f258d97119e/mzaf_13913561262738973371.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/7bHp6LhAGExiF15hU8vuWY",
-        "rank": 1,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
         "title": "honeybee",
         "artist": "Olivia Rodrigo",
         "album": "you seem pretty sad for a girl so in love",
@@ -175,8 +163,22 @@
         "duration": "3:43",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/07/7f/68/077f68ac-3720-0963-8185-347458b4a3c8/mzaf_826887783104606101.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/4kX7xkopoXZCfE1D6fNwl2",
+        "rank": 1,
+        "range": "month",
+        "isPlaying": false,
+        "previewSource": "itunes"
+      },
+      {
+        "title": "Enta Habeeby",
+        "artist": "TUL8TE",
+        "album": "Sadeek El Bernameg",
+        "art": "https://i.scdn.co/image/ab67616d0000b273a18f4a190692590da7fdc898",
+        "duration": "4:42",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5b/84/ba5b84b9-31bf-921a-48c9-1f258d97119e/mzaf_13913561262738973371.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/7bHp6LhAGExiF15hU8vuWY",
         "rank": 2,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -189,6 +191,7 @@
         "link": "https://open.spotify.com/track/49j6SvuvWfbEKZKzsHCdLJ",
         "rank": 3,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -201,6 +204,7 @@
         "link": "https://open.spotify.com/track/2e3YJ6Hm8tR5L5Zy8HzOtv",
         "rank": 4,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -213,6 +217,7 @@
         "link": "https://open.spotify.com/track/0Bcrb7ZOOxkVgcZEtPWxXy",
         "rank": 5,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       }
     ],
