@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-24T20:44:27.020Z",
+  "updatedAt": "2026-10-25T04:36:04.587Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -180,18 +180,6 @@
         "previewSource": "itunes"
       },
       {
-        "title": "Enta Habeeby",
-        "artist": "TUL8TE",
-        "album": "Sadeek El Bernameg",
-        "art": "https://i.scdn.co/image/ab67616d0000b273a18f4a190692590da7fdc898",
-        "duration": "4:42",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5b/84/ba5b84b9-31bf-921a-48c9-1f258d97119e/mzaf_13913561262738973371.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/7bHp6LhAGExiF15hU8vuWY",
-        "rank": 3,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
         "title": "what’s wrong with me",
         "artist": "Olivia Rodrigo, Robert Smith",
         "album": "you seem pretty sad for a girl so in love",
@@ -199,6 +187,18 @@
         "duration": "3:45",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/be/4f/89/be4f89bd-1f9c-8140-e115-0eb8ba2b02f7/mzaf_1032158632651134816.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/2e3YJ6Hm8tR5L5Zy8HzOtv",
+        "rank": 3,
+        "range": "month",
+        "previewSource": "itunes"
+      },
+      {
+        "title": "Enta Habeeby",
+        "artist": "TUL8TE",
+        "album": "Sadeek El Bernameg",
+        "art": "https://i.scdn.co/image/ab67616d0000b273a18f4a190692590da7fdc898",
+        "duration": "4:42",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5b/84/ba5b84b9-31bf-921a-48c9-1f258d97119e/mzaf_13913561262738973371.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/7bHp6LhAGExiF15hU8vuWY",
         "rank": 4,
         "range": "month",
         "previewSource": "itunes"
