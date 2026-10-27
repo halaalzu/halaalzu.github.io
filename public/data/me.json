@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-27T12:05:40.375Z",
+  "updatedAt": "2026-10-27T17:58:05.383Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -168,6 +168,18 @@
         "previewSource": "itunes"
       },
       {
+        "title": "cigarette smoke",
+        "artist": "Olivia Rodrigo",
+        "album": "you seem pretty sad for a girl so in love",
+        "art": "https://i.scdn.co/image/ab67616d0000b2735cf234eeb7a2edf44bf64a46",
+        "duration": "5:41",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/d2/fc/dc/d2fcdc71-8ea3-9808-a5a2-b99cdfdf6f89/mzaf_17523756498011800347.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/0e4u0sFRGxHL4U2iFBrUvZ",
+        "rank": 2,
+        "range": "month",
+        "previewSource": "itunes"
+      },
+      {
         "title": "stupid song",
         "artist": "Olivia Rodrigo",
         "album": "you seem pretty sad for a girl so in love",
@@ -175,7 +187,7 @@
         "duration": "3:30",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ab/d6/78/abd678a1-bf4e-7ee9-d0b2-ba8afee10914/mzaf_3280183609788906841.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/49j6SvuvWfbEKZKzsHCdLJ",
-        "rank": 2,
+        "rank": 3,
         "range": "month",
         "previewSource": "itunes"
       },
@@ -187,18 +199,6 @@
         "duration": "3:45",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/be/4f/89/be4f89bd-1f9c-8140-e115-0eb8ba2b02f7/mzaf_1032158632651134816.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/2e3YJ6Hm8tR5L5Zy8HzOtv",
-        "rank": 3,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
-        "title": "maggots for brains",
-        "artist": "Olivia Rodrigo",
-        "album": "you seem pretty sad for a girl so in love",
-        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
-        "duration": "4:00",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b8/15/39/b81539c7-0d62-58f3-895c-b943ffbdce44/mzaf_3600869676720745744.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/6jfiwkcwt8iYCdkbLukxeI",
         "rank": 4,
         "range": "month",
         "previewSource": "itunes"
