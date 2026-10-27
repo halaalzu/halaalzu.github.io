@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-27T17:58:05.383Z",
+  "updatedAt": "2026-10-27T22:10:03.829Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -256,7 +256,9 @@
   },
   "sources": {
     "goodreads": {
-      "ok": true
+      "ok": false,
+      "error": "404 Not Found for https://www.goodreads.com/review/list_rss/103623629?shelf=currently-reading&sort=date_added&order=d",
+      "stale": true
     },
     "goodreadsQuotes": {
       "ok": true
