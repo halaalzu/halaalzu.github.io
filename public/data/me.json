@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-28T22:31:20.600Z",
+  "updatedAt": "2026-10-29T05:42:49.659Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -192,18 +192,6 @@
         "previewSource": "itunes"
       },
       {
-        "title": "honeybee",
-        "artist": "Olivia Rodrigo",
-        "album": "you seem pretty sad for a girl so in love",
-        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
-        "duration": "3:43",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/07/7f/68/077f68ac-3720-0963-8185-347458b4a3c8/mzaf_826887783104606101.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/4kX7xkopoXZCfE1D6fNwl2",
-        "rank": 4,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
         "title": "less",
         "artist": "Olivia Rodrigo",
         "album": "you seem pretty sad for a girl so in love",
@@ -211,6 +199,18 @@
         "duration": "3:14",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7f/2b/be/7f2bbe3e-e976-2390-95ca-232c27ac88a1/mzaf_10099161583861018235.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/16xRAbH0vI3iKvDEhWQ4ZO",
+        "rank": 4,
+        "range": "month",
+        "previewSource": "itunes"
+      },
+      {
+        "title": "Astronomy",
+        "artist": "Conan Gray",
+        "album": "Superache",
+        "art": "https://i.scdn.co/image/ab67616d0000b27360a89b781c62ffe2136e4396",
+        "duration": "4:04",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e5/de/2f/e5de2f5a-f248-414e-a691-b322ce7e1e4b/mzaf_12513947529456660423.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/2JN3ugW1cEahbYw0I5mw5U",
         "rank": 5,
         "range": "month",
         "previewSource": "itunes"
