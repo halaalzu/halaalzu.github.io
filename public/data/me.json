@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-31T12:19:51.223Z",
+  "updatedAt": "2026-10-31T21:30:00.552Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -165,18 +165,7 @@
         "link": "https://open.spotify.com/track/0e4u0sFRGxHL4U2iFBrUvZ",
         "rank": 1,
         "range": "month",
-        "previewSource": "itunes"
-      },
-      {
-        "title": "stupid song",
-        "artist": "Olivia Rodrigo",
-        "album": "you seem pretty sad for a girl so in love",
-        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
-        "duration": "3:30",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ab/d6/78/abd678a1-bf4e-7ee9-d0b2-ba8afee10914/mzaf_3280183609788906841.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/49j6SvuvWfbEKZKzsHCdLJ",
-        "rank": 2,
-        "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -187,8 +176,22 @@
         "duration": "3:45",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/be/4f/89/be4f89bd-1f9c-8140-e115-0eb8ba2b02f7/mzaf_1032158632651134816.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/2e3YJ6Hm8tR5L5Zy8HzOtv",
+        "rank": 2,
+        "range": "month",
+        "isPlaying": false,
+        "previewSource": "itunes"
+      },
+      {
+        "title": "stupid song",
+        "artist": "Olivia Rodrigo",
+        "album": "you seem pretty sad for a girl so in love",
+        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
+        "duration": "3:30",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ab/d6/78/abd678a1-bf4e-7ee9-d0b2-ba8afee10914/mzaf_3280183609788906841.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/49j6SvuvWfbEKZKzsHCdLJ",
         "rank": 3,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -201,6 +204,7 @@
         "link": "https://open.spotify.com/track/16xRAbH0vI3iKvDEhWQ4ZO",
         "rank": 4,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -213,6 +217,7 @@
         "link": "https://open.spotify.com/track/2JN3ugW1cEahbYw0I5mw5U",
         "rank": 5,
         "range": "month",
+        "isPlaying": false,
         "previewSource": "itunes"
       }
     ],
