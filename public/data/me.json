@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-02T05:56:52.613Z",
+  "updatedAt": "2026-11-02T15:42:29.152Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -180,18 +180,6 @@
         "previewSource": "itunes"
       },
       {
-        "title": "less",
-        "artist": "Olivia Rodrigo",
-        "album": "you seem pretty sad for a girl so in love",
-        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
-        "duration": "3:14",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7f/2b/be/7f2bbe3e-e976-2390-95ca-232c27ac88a1/mzaf_10099161583861018235.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/16xRAbH0vI3iKvDEhWQ4ZO",
-        "rank": 3,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
         "title": "Moths",
         "artist": "Conan Gray",
         "album": "Wishbone Deluxe",
@@ -199,6 +187,18 @@
         "duration": "3:04",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f6/a9/7c/f6a97c0b-4782-ce81-a227-3a41a3e418b8/mzaf_10808813956804809828.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/2prXQS0ZdOcbndtHQYfiLQ",
+        "rank": 3,
+        "range": "month",
+        "previewSource": "itunes"
+      },
+      {
+        "title": "less",
+        "artist": "Olivia Rodrigo",
+        "album": "you seem pretty sad for a girl so in love",
+        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
+        "duration": "3:14",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7f/2b/be/7f2bbe3e-e976-2390-95ca-232c27ac88a1/mzaf_10099161583861018235.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/16xRAbH0vI3iKvDEhWQ4ZO",
         "rank": 4,
         "range": "month",
         "previewSource": "itunes"
