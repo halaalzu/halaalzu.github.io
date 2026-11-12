@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-12T00:37:21.625Z",
+  "updatedAt": "2026-11-12T15:06:48.889Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -192,18 +192,6 @@
         "previewSource": "itunes"
       },
       {
-        "title": "what’s wrong with me",
-        "artist": "Olivia Rodrigo, Robert Smith",
-        "album": "you seem pretty sad for a girl so in love",
-        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
-        "duration": "3:45",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/be/4f/89/be4f89bd-1f9c-8140-e115-0eb8ba2b02f7/mzaf_1032158632651134816.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/2e3YJ6Hm8tR5L5Zy8HzOtv",
-        "rank": 4,
-        "range": "month",
-        "previewSource": "itunes"
-      },
-      {
         "title": "Sidelines",
         "artist": "Phoebe Bridgers",
         "album": "Sidelines",
@@ -211,6 +199,18 @@
         "duration": "4:24",
         "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/35/0b/60/350b6071-170c-103c-078a-339bd20bd1a0/mzaf_11328646741866366353.plus.aac.p.m4a",
         "link": "https://open.spotify.com/track/4SKvKJaqkRl1bUZWEqTYzl",
+        "rank": 4,
+        "range": "month",
+        "previewSource": "itunes"
+      },
+      {
+        "title": "Family Line",
+        "artist": "Conan Gray",
+        "album": "Superache",
+        "art": "https://i.scdn.co/image/ab67616d0000b27360a89b781c62ffe2136e4396",
+        "duration": "3:36",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/82/90/5f/82905fea-1132-15da-1531-c27e5f0201cd/mzaf_11123397341310498666.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/0iNZGC211wst3VjtobNnC5",
         "rank": 5,
         "range": "month",
         "previewSource": "itunes"
