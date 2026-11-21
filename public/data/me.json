@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T20:08:30.690Z",
+  "updatedAt": "2026-11-21T06:59:45.204Z",
   "book": {
     "title": "If Beale Street Could Talk",
     "author": "James Baldwin",
@@ -165,7 +165,6 @@
         "link": "https://open.spotify.com/track/2prXQS0ZdOcbndtHQYfiLQ",
         "rank": 1,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -178,7 +177,6 @@
         "link": "https://open.spotify.com/track/0e4u0sFRGxHL4U2iFBrUvZ",
         "rank": 2,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -191,7 +189,6 @@
         "link": "https://open.spotify.com/track/4SKvKJaqkRl1bUZWEqTYzl",
         "rank": 3,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
@@ -204,20 +201,18 @@
         "link": "https://open.spotify.com/track/0Bcrb7ZOOxkVgcZEtPWxXy",
         "rank": 4,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       },
       {
-        "title": "less",
-        "artist": "Olivia Rodrigo",
-        "album": "you seem pretty sad for a girl so in love",
-        "art": "https://i.scdn.co/image/ab67616d0000b2736949b83f85d782b21ce70583",
-        "duration": "3:14",
-        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7f/2b/be/7f2bbe3e-e976-2390-95ca-232c27ac88a1/mzaf_10099161583861018235.plus.aac.p.m4a",
-        "link": "https://open.spotify.com/track/16xRAbH0vI3iKvDEhWQ4ZO",
+        "title": "Law 3ala Albi - Live",
+        "artist": "Fadel Chaker",
+        "album": "3al Oud (Live)",
+        "art": "https://i.scdn.co/image/ab67616d0000b273ec7735efcf69572d0d5ffede",
+        "duration": "4:34",
+        "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9e/85/a0/9e85a0cc-544b-b5ad-8aca-c55bfca51eeb/mzaf_3922153445320133252.plus.aac.p.m4a",
+        "link": "https://open.spotify.com/track/6NapYe1i2Bgg8lT990oPGJ",
         "rank": 5,
         "range": "month",
-        "isPlaying": false,
         "previewSource": "itunes"
       }
     ],
@@ -227,33 +222,33 @@
   "pinterest": {
     "pins": [
       {
-        "image": "https://i.pinimg.com/564x/9d/08/bd/9d08bdec31dd322d7c8d7819aa07fe25.jpg",
-        "link": "https://www.pinterest.com/pin/762023199497281225/",
+        "image": "https://i.pinimg.com/564x/a3/03/9b/a3039b213da21a360bf223b6876ffad9.jpg",
+        "link": "https://www.pinterest.com/pin/762023199497451046/",
         "title": null
       },
       {
-        "image": "https://i.pinimg.com/564x/1f/61/56/1f6156a797b1f0700541ac7476da3dee.jpg",
-        "link": "https://www.pinterest.com/pin/762023199497246867/",
+        "image": "https://i.pinimg.com/564x/da/5a/45/da5a45b0f6f66e46121f077607385993.jpg",
+        "link": "https://www.pinterest.com/pin/762023199497451045/",
+        "title": "Chess ♟️ #Chess #Chessboard #Aesthetic"
+      },
+      {
+        "image": "https://i.pinimg.com/564x/b5/1d/ef/b51def8239fb2cf4ef6fce519165fbbb.jpg",
+        "link": "https://www.pinterest.com/pin/762023199497451043/",
         "title": null
       },
       {
-        "image": "https://i.pinimg.com/564x/17/6c/e7/176ce722625577a2e19bb19017ccbffb.jpg",
-        "link": "https://www.pinterest.com/pin/762023199496622810/",
+        "image": "https://i.pinimg.com/564x/71/e7/41/71e741bdf540e535f6f3827e35c95df6.jpg",
+        "link": "https://www.pinterest.com/pin/762023199497451042/",
         "title": null
       },
       {
-        "image": "https://i.pinimg.com/564x/bb/ca/f5/bbcaf5a4011fdfa24cc3d741c6a90f4d.jpg",
-        "link": "https://www.pinterest.com/pin/762023199496552180/",
+        "image": "https://i.pinimg.com/564x/60/27/4f/60274f1a6ffb5443db43cfc13ba3f8eb.jpg",
+        "link": "https://www.pinterest.com/pin/762023199497451040/",
         "title": null
       },
       {
-        "image": "https://i.pinimg.com/564x/c2/16/54/c21654a205ec7b5dd730e0847bae9241.jpg",
-        "link": "https://www.pinterest.com/pin/762023199496552177/",
-        "title": "#سوريا _ Syria"
-      },
-      {
-        "image": "https://i.pinimg.com/564x/c7/ad/65/c7ad65ed33699be66636a7e957936eb1.jpg",
-        "link": "https://www.pinterest.com/pin/762023199496552079/",
+        "image": "https://i.pinimg.com/564x/e3/8a/2b/e38a2b7f99102733eb2b2ddf371b8625.jpg",
+        "link": "https://www.pinterest.com/pin/762023199497450249/",
         "title": null
       }
     ],
